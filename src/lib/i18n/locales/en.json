@@ -1,0 +1,185 @@
+{
+	"site": {
+		"name": "Squishy",
+		"nameAccent": "File",
+		"emoji": "🫧",
+		"tagline": "Free file compression tools that run entirely in your browser."
+	},
+	"nav": {
+		"categories": [
+			{
+				"label": "Video",
+				"href": "/"
+			},
+			{
+				"label": "Image",
+				"href": "#"
+			},
+			{
+				"label": "Audio",
+				"href": "#"
+			},
+			{
+				"label": "PDF",
+				"href": "#"
+			}
+		],
+		"howItWorks": "How it works",
+		"faq": "FAQ"
+	},
+	"footer": {
+		"links": [
+			{
+				"label": "Video",
+				"href": "/"
+			},
+			{
+				"label": "Image",
+				"href": "#"
+			},
+			{
+				"label": "Audio",
+				"href": "#"
+			},
+			{
+				"label": "PDF",
+				"href": "#"
+			},
+			{
+				"label": "How it works",
+				"href": "#how-it-works"
+			},
+			{
+				"label": "FAQ",
+				"href": "#faq"
+			},
+			{
+				"label": "Privacy",
+				"href": "#"
+			},
+			{
+				"label": "Contact",
+				"href": "#"
+			}
+		],
+		"copyright": "© {year} {siteName}. All rights reserved."
+	},
+	"ads": {
+		"placeholder": "Ad · 300×250"
+	},
+	"share": {
+		"label": "Found this useful? Share it",
+		"facebook": "Share on Facebook",
+		"twitter": "Share on X",
+		"telegram": "Share on Telegram",
+		"copyLink": "Copy link",
+		"copied": "Copied!"
+	},
+	"tool": {
+		"dropzone": {
+			"titlePrefix": "Drag & drop a video, or",
+			"browse": "browse",
+			"subtitle": "MP4, MOV, MKV, AVI supported",
+			"loadSample": "or try a sample video"
+		},
+		"fileInfo": {
+			"remove": "Remove file"
+		},
+		"quality": {
+			"label": "Compression level",
+			"light": "Light",
+			"max": "Max squish",
+			"levels": [
+				"Light — keep it sharp",
+				"Balanced — max 1080p",
+				"Max squish — max 720p"
+			],
+			"disabledByTarget": "Disabled — a target size is set below, so it controls compression instead."
+		},
+		"targetSize": {
+			"label": "Target size (optional)",
+			"placeholder": "e.g. 50",
+			"unit": "MB",
+			"hint": "If set, this overrides the compression level above."
+		},
+		"button": {
+			"idle": "Squish it 🫐",
+			"cancel": "Cancel"
+		},
+		"progress": {
+			"label": "Squishing...",
+			"probing": "Reading your video...",
+			"loadingEngine": "Downloading the compressor for this format (one time only — it's cached after this)...",
+			"pass": "Fine-tuning to hit your target size (pass {n})...",
+			"done": "Done!"
+		},
+		"result": {
+			"statLabel": "smaller than the original",
+			"download": "Download compressed video (MP4)",
+			"summary": "{from} → {to} · {width}×{height}",
+			"targetMet": "Under your {target} MB target.",
+			"targetMissed": "Couldn't get under {target} MB — this is as small as it goes without destroying the video.",
+			"compressNew": "Compress another video"
+		},
+		"privacyNote": "Keep this tab open and active while it processes — for the fastest speed.",
+		"warnings": {
+			"target_above_source": "Your video is already smaller than that target, so there's nothing to squish.",
+			"quality_will_be_poor": "That target is very tight for a video this long — expect a blurry result.",
+			"resolution_reduced": "Resolution lowered to {width}×{height} so the picture stays clean at this size.",
+			"framerate_reduced": "Frame rate lowered to {fps} fps to keep more detail in each frame.",
+			"audio_removed": "Audio removed — there wasn't enough room in the target size for a sound track."
+		},
+		"errors": {
+			"generic": "Something went wrong while compressing. Try a different file or reload the page.",
+			"noVideo": "That file doesn't seem to contain a video track."
+		},
+		"targetPreview": "Your video is {size} — that target is larger, so nothing will be compressed."
+	},
+	"pages": {
+		"home": {
+			"meta": {
+				"title": "SquishyFile — Free Video Compressor, Right in Your Browser",
+				"description": "Free online video compressor for MP4, MOV, MKV, AVI and WebM — no uploads, no file-size limit, no watermark, no sign up. Runs entirely in your browser."
+			},
+			"hero": {
+				"title": "Squish your videos, keep the quality",
+				"subtitle": "100% free video compression with no file-size limit and no watermark on export. Everything runs right in your browser — no uploads, no waiting on a server.",
+				"tags": [
+					"Free forever",
+					"No file limit",
+					"No watermark"
+				]
+			}
+		},
+		"compressToSize": {
+			"meta": {
+				"title": "Compress Video to 10MB, 25MB or Any Size — SquishyFile",
+				"description": "Shrink your video to an exact size — 10MB, 25MB or any target — for email, Discord, WhatsApp and Instagram limits. Free and private, right in your browser."
+			},
+			"hero": {
+				"title": "Compress your video to an exact file size",
+				"subtitle": "Type in a target size in MB and SquishyFile does the math — perfect for email attachments, Discord uploads, or any platform with a strict size limit. 100% free, right in your browser.",
+				"tags": [
+					"Free forever",
+					"Any size target",
+					"No watermark"
+				]
+			}
+		},
+		"compressOnIphone": {
+			"meta": {
+				"title": "Compress Video on iPhone in Safari — No App Needed",
+				"description": "Compress video on your iPhone right in Safari — no app to install. Pick a video from Photos and shrink it down for free; nothing ever leaves your phone."
+			},
+			"hero": {
+				"title": "Compress video on iPhone, right in Safari",
+				"subtitle": "No app to install — just open this page in Safari, pick a video from your Photos library, and squish it down to size. Everything happens on your iPhone, nothing is uploaded.",
+				"tags": [
+					"Works in Safari",
+					"No app needed",
+					"No watermark"
+				]
+			}
+		}
+	}
+}

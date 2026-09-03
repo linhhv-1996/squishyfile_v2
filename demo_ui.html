@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SquishyFile — Free video compression, right in your browser</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F5F9F6;
+    --card: #FFFFFF;
+    --coral: #FF6F5E;
+    --coral-dark: #E85A49;
+    --teal: #1FAFA0;
+    --teal-light: #E5F5F1;
+    --ink: #1F2A24;
+    --muted: #66766D;
+    --line: #E1EAE4;
+    --radius-lg: 22px;
+    --radius-md: 14px;
+    --radius-sm: 10px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Plus Jakarta Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.55;
+  }
+  .inner{ max-width:860px; margin:0 auto; padding:0 20px; }
+  a{ color:inherit; }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+
+  /* ---------- Header (static, not fixed) ---------- */
+  .site-header{ border-bottom:1px solid var(--line); }
+  .site-header .inner{ display:flex; align-items:center; justify-content:space-between; padding:16px 20px; }
+  .logo{ display:flex; align-items:center; gap:8px; font-family:'Baloo 2', sans-serif; font-weight:800; font-size:19px; text-decoration:none; color:var(--ink); }
+  .logo .mark{ width:26px; height:26px; border-radius:50%; background:var(--coral); display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; }
+  .logo span{ color:var(--coral-dark); }
+  nav.main-nav{ display:flex; align-items:center; gap:20px; }
+  nav.main-nav a{ text-decoration:none; font-size:14px; font-weight:600; color:var(--muted); }
+  nav.main-nav a:hover{ color:var(--ink); }
+  .nav-tools{ display:flex; gap:16px; }
+  .nav-tools a.active{ color:var(--coral-dark); }
+  @media (max-width:640px){ .nav-tools{ display:none; } }
+
+  /* ---------- Hero: left-aligned text + reserved 300x250 ad slot, ~250px tall ---------- */
+  .hero .inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+    min-height:250px;
+    padding-top:14px;
+    padding-bottom:14px;
+    text-align:left;
+  }
+  .hero-text{ flex:1; min-width:0; }
+  .hero .hero-title{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:clamp(30px, 4.4vw, 40px);
+    line-height:1.15;
+    margin:0 0 14px;
+    letter-spacing:-0.3px;
+  }
+  .hero p.sub{ max-width:460px; margin:0 0 20px; color:var(--muted); font-size:16px; }
+  .tags{ display:flex; gap:10px; flex-wrap:wrap; }
+  .tag{ font-size:13px; font-weight:700; padding:7px 14px; border-radius:999px; border:1.5px solid var(--coral); color:var(--coral-dark); background:#fff; }
+
+  .ad-slot{
+    flex-shrink:0;
+    width:300px; height:250px;
+    border:1.5px dashed #C7D4CD;
+    border-radius:var(--radius-sm);
+    display:flex; align-items:center; justify-content:center;
+    color:#A3B1AA;
+    font-size:12px;
+    font-weight:600;
+  }
+  @media (max-width:760px){ .ad-slot{ display:none; } }
+  @media (max-width:760px){ .hero .inner{ min-height:auto; padding:28px 20px; } }
+
+  /* ---------- Tool card ---------- */
+  .tool-card{
+    max-width:820px; margin:0 auto;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius-lg);
+    padding:24px;
+    box-shadow: 0 20px 40px -28px rgba(31,42,36,0.25);
+  }
+  @media (max-width:900px){ .tool-card{ margin:0 20px; } }
+
+  /* dropzone — compact horizontal bar, not a giant empty box */
+  .dropzone{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    border:1.5px dashed #C9E4DC;
+    border-radius:var(--radius-md);
+    padding:16px 18px;
+    cursor:pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+    background:var(--teal-light);
+  }
+  .dropzone:hover{ border-color:var(--teal); }
+  .dropzone.is-drag{ border-color:var(--coral); background:#FFF1EF; }
+  .dropzone .icon{ flex-shrink:0; width:38px; height:38px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; }
+  .dropzone .icon svg{ width:18px; height:18px; stroke:var(--teal); }
+  .dropzone.is-drag .icon svg{ stroke:var(--coral); }
+  .dz-text{ min-width:0; }
+  .dz-title{ font-weight:700; font-size:14.5px; margin:0 0 2px; }
+  .dz-sub{ color:var(--muted); font-size:12.5px; margin:0; }
+  .dz-title button{ background:none; border:none; padding:0; margin:0; color:var(--coral-dark); font-weight:700; text-decoration:underline; cursor:pointer; font-size:14.5px; font-family:inherit; }
+  input[type="file"]{ display:none; }
+
+  .file-info{ display:none; align-items:center; gap:12px; margin-top:14px; padding:12px 14px; background:var(--teal-light); border-radius:var(--radius-sm); font-size:14px; }
+  .file-info.show{ display:flex; }
+  .file-info .fname{ font-weight:600; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .file-info .fsize{ color:var(--muted); }
+  .file-info .remove{ background:none; border:none; color:var(--muted); cursor:pointer; font-size:18px; line-height:1; padding:2px; }
+
+  .controls{ display:none; margin-top:16px; flex-direction:column; gap:18px; }
+  .controls.show{ display:flex; }
+  .field label{ display:block; font-weight:600; font-size:13px; margin-bottom:8px; }
+  .field .hint{ font-size:11.5px; color:var(--muted); margin-top:6px; }
+  .quality-row{ display:flex; justify-content:space-between; font-size:12px; color:var(--muted); margin-top:6px; }
+  input[type="range"]{ -webkit-appearance:none; width:100%; height:6px; border-radius:6px; background:linear-gradient(90deg, var(--teal), var(--coral)); outline:none; }
+  input[type="range"]::-webkit-slider-thumb{ -webkit-appearance:none; width:20px; height:20px; border-radius:50%; background:#fff; border:3px solid var(--coral); cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,0.15); }
+  .size-input{ position:relative; }
+  .size-input input{ width:100%; padding:10px 44px 10px 12px; border-radius:var(--radius-sm); border:1.5px solid var(--line); font-family:inherit; font-size:14px; background:#fff; color:var(--ink); }
+  .size-input span{ position:absolute; right:12px; top:50%; transform:translateY(-50%); font-size:13px; color:var(--muted); }
+
+  .squish-btn{ display:block; width:100%; margin-top:18px; padding:15px; border:none; border-radius:999px; background:var(--coral); color:#fff; font-family:'Baloo 2', sans-serif; font-weight:700; font-size:17px; cursor:pointer; transition:transform 0.12s ease, background 0.15s ease; }
+  .squish-btn:disabled{ background:#D9DEDA; cursor:not-allowed; }
+  .squish-btn:not(:disabled):hover{ background:var(--coral-dark); }
+  .squish-btn:not(:disabled):active{ transform:scale(0.97); }
+
+  .progress-wrap{ display:none; margin-top:16px; }
+  .progress-wrap.show{ display:block; }
+  .progress-track{ height:10px; border-radius:999px; background:var(--teal-light); overflow:hidden; }
+  .progress-fill{ height:100%; width:0%; border-radius:999px; background:linear-gradient(90deg, var(--teal), var(--coral)); transition:width 0.25s ease; }
+  .progress-label{ font-size:13px; color:var(--muted); margin-top:8px; }
+
+  .result{ display:none; margin-top:16px; padding:18px; background:var(--teal-light); border-radius:var(--radius-md); text-align:center; }
+  .result.show{ display:block; }
+  .result .stat{ font-family:'Baloo 2', sans-serif; font-weight:700; font-size:24px; color:var(--coral-dark); }
+  .result .stat-label{ font-size:13px; color:var(--muted); margin-top:2px; }
+  .result .download-btn{ display:inline-block; margin-top:14px; padding:11px 26px; background:var(--ink); color:#fff; border-radius:999px; text-decoration:none; font-weight:600; font-size:14px; }
+
+  .privacy-note{ display:flex; align-items:center; gap:8px; margin-top:14px; font-size:12.5px; color:var(--muted); }
+  .privacy-note .dot{ width:6px; height:6px; border-radius:50%; background:var(--teal); flex-shrink:0; }
+
+  /* ---------- Share cluster ---------- */
+  .share{ display:flex; align-items:center; justify-content:center; gap:8px; margin:22px auto 0; flex-wrap:wrap; max-width:860px; padding:0 20px; }
+  .share .label{ font-size:13px; color:var(--muted); margin-right:4px; }
+  .share a, .share button{ width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:#fff; border:1.5px solid var(--line); color:var(--ink); text-decoration:none; font-size:14px; cursor:pointer; }
+  .share a:hover, .share button:hover{ border-color:var(--coral); }
+
+  /* ---------- SEO content: plain, readable, no decoration ---------- */
+  .seo{ padding-top:56px; padding-bottom:56px; }
+  .seo h1{ font-family:'Baloo 2', sans-serif; font-weight:800; font-size:28px; margin:0 0 20px; letter-spacing:-0.3px; }
+  .seo section{ margin-bottom:44px; }
+  .seo h2{ font-family:'Baloo 2', sans-serif; font-weight:700; font-size:22px; margin:0 0 12px; }
+  .seo p{ font-size:15px; margin:0 0 14px; color:#3C4A43; }
+
+  .steps{ margin-top:8px; }
+  .step{ padding:14px 0; border-bottom:1px solid var(--line); }
+  .step:last-child{ border-bottom:none; }
+  .step h3{ margin:0 0 4px; font-size:15.5px; font-weight:700; }
+  .step h3 .n{ color:var(--coral-dark); font-family:'Baloo 2', sans-serif; margin-right:6px; }
+  .step p{ margin:0; font-size:14px; color:var(--muted); }
+
+  .faq-grid{ column-count:2; column-gap:16px; margin-top:16px; }
+  @media (max-width:640px){ .faq-grid{ column-count:1; } }
+  .faq-card{ background:#fff; border:1px solid var(--line); border-radius:var(--radius-md); padding:18px; margin-bottom:16px; break-inside:avoid; }
+  .faq-card h3{ margin:0 0 6px; font-size:15px; font-weight:700; }
+  .faq-card p{ margin:0; font-size:13.5px; color:var(--muted); }
+
+  /* ---------- Footer: simple, basic, centered ---------- */
+  .site-footer{ border-top:1px solid var(--line); padding:28px 0; text-align:center; }
+  .footer-logo{ display:inline-flex; align-items:center; gap:7px; font-family:'Baloo 2', sans-serif; font-weight:800; font-size:16px; }
+  .footer-logo .mark{ width:22px; height:22px; border-radius:50%; background:var(--coral); display:flex; align-items:center; justify-content:center; font-size:11px; }
+  .footer-logo span{ color:var(--coral-dark); }
+  .footer-tagline{ font-size:13px; color:var(--muted); margin:8px 0 14px; }
+  .footer-links{ display:flex; justify-content:center; flex-wrap:wrap; gap:16px; margin-bottom:14px; }
+  .footer-links a{ font-size:13px; color:var(--muted); text-decoration:none; }
+  .footer-links a:hover{ color:var(--ink); }
+  .footer-copy{ font-size:12px; color:#8A968E; }
+</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="inner">
+      <a href="#" class="logo"><span class="mark">🫧</span>Squishy<span>File</span></a>
+      <nav class="main-nav">
+        <div class="nav-tools">
+          <a href="#" class="active">Video</a>
+          <a href="#">Image</a>
+          <a href="#">Audio</a>
+          <a href="#">PDF</a>
+        </div>
+        <a href="#how-it-works">How it works</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="inner">
+      <div class="hero-text">
+        <p class="hero-title">Squish your videos down to size</p>
+        <p class="sub">100% free video compression with no file-size limit and no watermark on export. Everything runs right in your browser — no uploads, no waiting on a server.</p>
+        <div class="tags">
+          <span class="tag">Free forever</span>
+          <span class="tag">No file limit</span>
+          <span class="tag">No watermark</span>
+        </div>
+      </div>
+      <div class="ad-slot">Ad · 300×250</div>
+    </div>
+  </section>
+
+  <div class="tool-card">
+    <div class="dropzone" id="dropzone">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M12 4l-4 4M12 4l4 4"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+      </span>
+      <div class="dz-text">
+        <p class="dz-title">Drag & drop a video, or <button type="button" id="browseBtn">browse</button></p>
+        <p class="dz-sub">MP4, MOV, MKV, AVI supported</p>
+      </div>
+      <input type="file" id="fileInput" accept="video/*">
+    </div>
+
+    <div class="file-info" id="fileInfo">
+      <span class="fname" id="fname"></span>
+      <span class="fsize" id="fsize"></span>
+      <button class="remove" id="removeFile" title="Remove file">✕</button>
+    </div>
+
+    <div class="controls" id="controls">
+      <div class="field">
+        <label for="quality">Compression level</label>
+        <input type="range" id="quality" min="1" max="3" value="2" step="1">
+        <div class="quality-row"><span>Light</span><span>Max squish</span></div>
+      </div>
+      <div class="field">
+        <label for="targetSize">Target size (optional)</label>
+        <div class="size-input">
+          <input type="number" id="targetSize" placeholder="e.g. 50" min="1">
+          <span>MB</span>
+        </div>
+        <p class="hint">If set, this overrides the compression level above.</p>
+      </div>
+    </div>
+
+    <button class="squish-btn" id="squishBtn" disabled>Squish it 🫐</button>
+
+    <div class="progress-wrap" id="progressWrap">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <p class="progress-label" id="progressLabel">Squishing...</p>
+    </div>
+
+    <div class="result" id="result">
+      <div class="stat" id="resultPercent">—</div>
+      <div class="stat-label">smaller than the original</div>
+      <a href="#" class="download-btn" id="downloadBtn">Download compressed video (MP4)</a>
+    </div>
+
+    <div class="privacy-note"><span class="dot"></span>Your video is processed entirely on your device — nothing is uploaded to any server.</div>
+  </div>
+
+  <div class="share">
+    <span class="label">Found this useful? Share it</span>
+    <a href="#" title="Share on Facebook">📘</a>
+    <a href="#" title="Share on X">𝕏</a>
+    <a href="#" title="Share on Telegram">✈️</a>
+    <button type="button" id="copyLink" title="Copy link">🔗</button>
+  </div>
+
+  <div class="inner seo">
+
+    <h1>Free Video Compressor — No Uploads, No Limits</h1>
+
+    <section>
+      <h2>Why compress video with SquishyFile?</h2>
+      <p>Most online video compressors make you upload your file to a server, wait in a queue, then download the result — slow, and a little unsettling if the footage is private. SquishyFile does everything right in your browser using WebAssembly: your video never leaves your device, and it keeps working even if your connection is spotty.</p>
+      <p>It's completely free, with no file-size cap and no watermark slapped on your export. Shrinking a 2GB family video down to a few hundred MB to send over chat, or prepping a clip so your website loads faster — SquishyFile handles both, as many times as you need.</p>
+    </section>
+
+    <section id="how-it-works">
+      <h2>Compress a video in 3 steps</h2>
+      <div class="steps">
+        <div class="step">
+          <h3><span class="n">1.</span>Choose your video</h3>
+          <p>Drag a file into the box above, or click to browse. MP4, MOV, MKV, AVI and most common formats are supported.</p>
+        </div>
+        <div class="step">
+          <h3><span class="n">2.</span>Set compression level or target size</h3>
+          <p>Slide toward "Max squish" for the smallest file, or type an exact target size in MB if you need to hit a specific limit.</p>
+        </div>
+        <div class="step">
+          <h3><span class="n">3.</span>Hit Squish and download</h3>
+          <p>The whole process runs on your device. When it's done, download the compressed MP4 directly — no server round-trip involved.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <h2>Frequently asked questions</h2>
+      <div class="faq-grid">
+        <div class="faq-card">
+          <h3>What video formats can I upload?</h3>
+          <p>MP4, MOV, MKV, AVI, WebM and most other common formats. The compressed output is always exported as MP4 for the widest compatibility.</p>
+        </div>
+        <div class="faq-card">
+          <h3>Is there a limit on file size or how many videos I can compress?</h3>
+          <p>No limits either way. Compress as many videos as you want, at any size — it's free, with no watermark added to your files.</p>
+        </div>
+        <div class="faq-card">
+          <h3>What does "target size" do?</h3>
+          <p>Enter the file size you need — say, under 50MB for an email attachment — and SquishyFile calculates the compression needed to hit it.</p>
+        </div>
+        <div class="faq-card">
+          <h3>Is my video stored on your server?</h3>
+          <p>No. Compression happens entirely in your browser — not a single byte of your video is ever sent anywhere.</p>
+        </div>
+        <div class="faq-card">
+          <h3>Does it work on mobile?</h3>
+          <p>Yes. SquishyFile runs in mobile browsers too, though larger videos may take longer to process depending on your device.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="site-footer">
+    <div class="inner">
+      <a href="#" class="footer-logo"><span class="mark">🫧</span>Squishy<span>File</span></a>
+      <p class="footer-tagline">Free file compression tools that run entirely in your browser.</p>
+      <div class="footer-links">
+        <a href="#">Video</a>
+        <a href="#">Image</a>
+        <a href="#">Audio</a>
+        <a href="#">PDF</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#faq">FAQ</a>
+        <a href="#">Privacy</a>
+        <a href="#">Contact</a>
+      </div>
+      <p class="footer-copy">© 2026 SquishyFile. All rights reserved.</p>
+    </div>
+  </footer>
+
+<script>
+  const dropzone = document.getElementById('dropzone');
+  const fileInput = document.getElementById('fileInput');
+  const browseBtn = document.getElementById('browseBtn');
+  const fileInfo = document.getElementById('fileInfo');
+  const fname = document.getElementById('fname');
+  const fsize = document.getElementById('fsize');
+  const removeFile = document.getElementById('removeFile');
+  const controls = document.getElementById('controls');
+  const squishBtn = document.getElementById('squishBtn');
+  const progressWrap = document.getElementById('progressWrap');
+  const progressFill = document.getElementById('progressFill');
+  const progressLabel = document.getElementById('progressLabel');
+  const result = document.getElementById('result');
+  const resultPercent = document.getElementById('resultPercent');
+  const copyLink = document.getElementById('copyLink');
+
+  function formatSize(bytes){
+    if(bytes < 1024*1024) return (bytes/1024).toFixed(0) + ' KB';
+    return (bytes/(1024*1024)).toFixed(1) + ' MB';
+  }
+
+  function handleFile(file){
+    if(!file) return;
+    fname.textContent = file.name;
+    fsize.textContent = formatSize(file.size);
+    fileInfo.classList.add('show');
+    controls.classList.add('show');
+    squishBtn.disabled = false;
+    result.classList.remove('show');
+    progressWrap.classList.remove('show');
+  }
+
+  browseBtn.addEventListener('click', () => fileInput.click());
+  dropzone.addEventListener('click', (e) => { if(e.target !== browseBtn) fileInput.click(); });
+  fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
+
+  ['dragenter','dragover'].forEach(evt => {
+    dropzone.addEventListener(evt, (e) => { e.preventDefault(); dropzone.classList.add('is-drag'); });
+  });
+  ['dragleave','drop'].forEach(evt => {
+    dropzone.addEventListener(evt, (e) => { e.preventDefault(); dropzone.classList.remove('is-drag'); });
+  });
+  dropzone.addEventListener('drop', (e) => {
+    const file = e.dataTransfer.files[0];
+    handleFile(file);
+  });
+
+  removeFile.addEventListener('click', () => {
+    fileInput.value = '';
+    fileInfo.classList.remove('show');
+    controls.classList.remove('show');
+    squishBtn.disabled = true;
+    result.classList.remove('show');
+  });
+
+  // NOTE: mock UI flow — swap this for a real WASM compression call (e.g. ffmpeg.wasm) when wiring up the backend.
+  // Target size, when set, should take priority over the quality slider in the real implementation.
+  squishBtn.addEventListener('click', () => {
+    squishBtn.disabled = true;
+    squishBtn.textContent = 'Squishing...';
+    progressWrap.classList.add('show');
+    result.classList.remove('show');
+    let pct = 0;
+    const timer = setInterval(() => {
+      pct += Math.random()*18 + 8;
+      if(pct >= 100){
+        pct = 100;
+        clearInterval(timer);
+        progressLabel.textContent = 'Done!';
+        const savedPct = [40,55,70][document.getElementById('quality').value - 1] || 55;
+        resultPercent.textContent = '-' + savedPct + '%';
+        result.classList.add('show');
+        squishBtn.disabled = false;
+        squishBtn.textContent = 'Squish it 🫐';
+      }
+      progressFill.style.width = pct + '%';
+    }, 220);
+  });
+
+  copyLink.addEventListener('click', () => {
+    navigator.clipboard?.writeText(window.location.href).catch(()=>{});
+    copyLink.textContent = '✅';
+    setTimeout(() => { copyLink.textContent = '🔗'; }, 1500);
+  });
+</script>
+</body>
+</html>
