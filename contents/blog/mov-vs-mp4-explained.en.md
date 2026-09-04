@@ -49,8 +49,8 @@ excerpt: A video that plays fine on your iPhone but won't open on a Windows PC i
 </tbody>
 </table>
 </div>
-<br>
 
+<div class="space"></div>
 <p>Notice how many of these trace back to the codec inside the file rather than the .mov wrapper itself — that HEVC row is a good example. HEVC (also called H.265) compresses more efficiently than the older H.264, so it's become the default on newer iPhones, but plenty of devices and web browsers still handle it worse than H.264 or don't decode it in hardware at all, which shows up as stutter, battery drain, or a flat refusal to play. A MOV file might fail for its container, its codec, or both at once, which is part of why the same file can behave three different ways on three different devices.</p>
 
 </section>

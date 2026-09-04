@@ -54,7 +54,7 @@ excerpt: Picking 320kbps by default feels like the safe choice, but it's often j
 </table>
 </div>
 
-<br>
+<div class="space"></div>
 <p>None of these are hard rules — they're a starting point based on where the extra bitrate actually goes to work. A 320kbps podcast isn't wrong, it's just spending bits on detail a listener won't register, the same way exporting a text document as an enormous, high-resolution image would technically preserve every pixel of the letters without adding anything a reader can actually perceive.</p>
 
 </section>

@@ -48,8 +48,8 @@ excerpt: A video bouncing from Gmail or refusing to send on WhatsApp usually isn
 </tbody>
 </table>
 </div>
-<br>
 
+<div class="space"></div>
 <p>The trade-off: a video sent as a document doesn't autoplay in the conversation, shows up as a file icon with a filename instead of a thumbnail, and some people find that mildly less convenient than a normal video bubble they can tap straight away. For anything you actually care about the quality of — and for longer clips that would come out looking rough after WhatsApp's own compression squeezes them down — it's usually worth the small extra tap to open it.</p>
 
 </section>

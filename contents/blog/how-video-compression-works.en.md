@@ -64,7 +64,7 @@ excerpt: "Compression level" is doing three different jobs at once behind one sl
 </table>
 </div>
 
-<br>
+<div class="space"></div>
 <p>In practice, the biggest wins come from using more than one of these together rather than pushing a single one to its limit. Taking a 4K screen recording all the way down to a tiny file using CRF alone means an extremely aggressive setting that visibly degrades even simple content; downscaling to 1080p first and then applying a moderate CRF gets to a similar file size with noticeably less visible damage, because the resolution change did some of the size reduction for free, without costing any perceptual quality at all — nobody was going to see those extra pixels anyway.</p>
 
 </section>
