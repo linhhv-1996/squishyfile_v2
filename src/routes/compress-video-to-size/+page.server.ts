@@ -2,7 +2,6 @@ import type { PageServerLoad } from './$types';
 import { loadSeoContent } from '$lib/server/content';
 
 export const load: PageServerLoad = () => {
-	return {
-		seoHtml: loadSeoContent('compress-video-to-size')
-	};
+	const { html, faqItems } = loadSeoContent('compress-video-to-size');
+	return { seoHtml: html, faqItems };
 };

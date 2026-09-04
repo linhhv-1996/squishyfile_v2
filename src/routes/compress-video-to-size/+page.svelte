@@ -9,7 +9,7 @@
 	const copy = t.pages.compressToSize;
 </script>
 
-<Seo title={copy.meta.title} description={copy.meta.description} />
+<Seo title={copy.meta.title} description={copy.meta.description} faqItems={data.faqItems} app />
 
 <section class="hero">
 	<div class="inner">
