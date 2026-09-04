@@ -1,333 +1,338 @@
 {
-	"site": {
-		"name": "Squishy",
-		"nameAccent": "File",
-		"emoji": "🫧",
-		"tagline": "Free browser-based file tools — starting with video compression, more to come."
-	},
-	"nav": {
-		"categories": [
-			{
-				"label": "Video",
-				"href": "/"
-			},
-			{
-				"label": "Video to MP3",
-				"href": "/video-to-mp3"
-			},
-			{
-				"label": "MP4 to MP3",
-				"href": "/mp4-to-mp3"
-			}
-		],
-		"blog": "Blog",
-		"howItWorks": "How it works",
-		"faq": "FAQ"
-	},
-	"footer": {
-		"links": [
-			{
-				"label": "About",
-				"href": "/about"
-			},
-			{
-				"label": "Blog",
-				"href": "/blog"
-			},
-			{
-				"label": "How it works",
-				"href": "/#how-it-works"
-			},
-			{
-				"label": "FAQ",
-				"href": "/#faq"
-			},
-			{
-				"label": "Privacy",
-				"href": "/privacy"
-			},
-			{
-				"label": "Terms",
-				"href": "/terms"
-			},
-			{
-				"label": "Contact",
-				"href": "/contact"
-			}
-		],
-		"toolsHeading": "All tools",
-		"toolLinks": [
-			{
-				"label": "Video Compressor",
-				"href": "/"
-			},
-			{
-				"label": "Compress Video to Size",
-				"href": "/compress-video-to-size"
-			},
-			{
-				"label": "Compress Video on iPhone",
-				"href": "/compress-video-on-iphone"
-			},
-			{
-				"label": "Video to MP3",
-				"href": "/video-to-mp3"
-			},
-			{
-				"label": "MP4 to MP3",
-				"href": "/mp4-to-mp3"
-			},
-			{
-				"label": "MOV to MP3",
-				"href": "/mov-to-mp3"
-			}
-		],
-		"copyright": "© {year} {siteName}. All rights reserved."
-	},
-	"ads": {
-		"placeholder": "Ad · 300×250",
-		"nordVpn": {
-			"label": "Sponsor",
-			"headline": "Browse & stream privately",
-			"subtitle": "Encrypt your connection with NordVPN.",
-			"cta": "Try NordVPN"
-		}
-	},
-	"share": {
-		"label": "Found this useful? Share it",
-		"facebook": "Share on Facebook",
-		"twitter": "Share on X",
-		"telegram": "Share on Telegram",
-		"copyLink": "Copy link",
-		"copied": "Copied!"
-	},
-	"tool": {
-		"dropzone": {
-			"titlePrefix": "Drag & drop a video, or",
-			"browse": "browse",
-			"subtitle": "MP4, MOV, MKV, AVI supported",
-			"loadSample": "or try a sample video"
-		},
-		"fileInfo": {
-			"remove": "Remove file"
-		},
-		"quality": {
-			"label": "Compression level",
-			"light": "Light",
-			"max": "Max squish",
-			"levels": [
-				"Light — keep it sharp",
-				"Balanced — sweet spot for sharing",
-				"Max squish — max 720p"
-			],
-			"disabledByTarget": "Disabled — a target size is set below, so it controls compression instead."
-		},
-		"targetSize": {
-			"label": "Target size (optional)",
-			"placeholder": "e.g. 50",
-			"unit": "MB",
-			"hint": "If set, this overrides the compression level above."
-		},
-		"button": {
-			"idle": "Squish it 🫐",
-			"cancel": "Cancel"
-		},
-		"progress": {
-			"label": "Squishing...",
-			"probing": "Reading your video...",
-			"loadingEngine": "Downloading compressor (one-time)...",
-			"pass": "Fine-tuning to hit your target size (pass {n})...",
-			"done": "Done!"
-		},
-		"result": {
-			"statLabel": "smaller than the original",
-			"download": "Download compressed video (MP4)",
-			"summary": "{from} → {to} · {width}×{height}",
-			"targetMet": "Under your {target} MB target.",
-			"targetMissed": "Couldn't get under {target} MB — this is as small as it goes without destroying the video.",
-			"compressNew": "Compress another video"
-		},
-		"privacyNote": "Keep this tab open and active while it processes — for the fastest speed.",
-		"warnings": {
-			"target_above_source": "Your video is already smaller than that target, so there's nothing to squish.",
-			"quality_will_be_poor": "That target is very tight for a video this long — expect a blurry result.",
-			"resolution_reduced": "Resolution lowered to {width}×{height} so the picture stays clean at this size.",
-			"framerate_reduced": "Frame rate lowered to {fps} fps to keep more detail in each frame.",
-			"audio_removed": "Audio removed — there wasn't enough room in the target size for a sound track."
-		},
-		"errors": {
-			"generic": "Something went wrong while compressing. Try a different file or reload the page.",
-			"noVideo": "That file doesn't seem to contain a video track."
-		},
-		"targetPreview": "Your video is {size} — that target is larger, so nothing will be compressed."
-	},
-	"toolMp3": {
-		"dropzone": {
-			"titlePrefix": "Drag & drop a video, or",
-			"browse": "browse",
-			"subtitle": "MP4, MOV, MKV, AVI, WebM supported",
-			"loadSample": "or try a sample video"
-		},
-		"fileInfo": {
-			"remove": "Remove file"
-		},
-		"quality": {
-			"label": "MP3 quality",
-			"hint": "Higher kbps means better audio quality and a larger file.",
-			"options": {
-				"128": "Standard — 128 kbps",
-				"192": "High — 192 kbps",
-				"320": "Best — 320 kbps"
-			}
-		},
-		"button": {
-			"idle": "Convert to MP3 🎧",
-			"cancel": "Cancel"
-		},
-		"progress": {
-			"label": "Converting...",
-			"probing": "Reading your video...",
-			"loadingEngine": "Downloading converter (one-time)...",
-			"done": "Done!"
-		},
-		"result": {
-			"statLabel": "{quality} kbps MP3",
-			"download": "Download MP3",
-			"summary": "{duration} · extracted from a {from} video",
-			"convertNew": "Convert another video"
-		},
-		"privacyNote": "Keep this tab open and active while it processes — for the fastest speed.",
-		"errors": {
-			"generic": "Something went wrong while converting. Try a different file or reload the page.",
-			"noAudio": "This video doesn't seem to have an audio track to extract."
-		}
-	},
-	"pages": {
-		"home": {
-			"meta": {
-				"title": "SquishyFile — Free Video Compressor, No Watermark or Limit",
-				"description": "Free online video compressor for MP4, MOV, MKV, AVI and WebM — no uploads, no file-size limit, no watermark, no sign up required."
-			},
-			"hero": {
-				"title": "Squish your videos, keep the quality",
-				"subtitle": "100% free video compression with no file-size limit and no watermark on export. Works with MP4, MOV, MKV, AVI and WebM — output is always clean H.264 MP4.",
-				"tags": [
-					"Free forever",
-					"No file limit",
-					"No watermark"
-				]
-			}
-		},
-		"compressToSize": {
-			"meta": {
-				"title": "Compress Video to 10MB, 25MB or Any Size — SquishyFile",
-				"description": "Shrink your video to an exact size — 10MB, 25MB or any target — for email, Discord, WhatsApp and Instagram limits. 100% free, no watermark, no sign up."
-			},
-			"hero": {
-				"title": "Compress your video to an exact file size",
-				"subtitle": "Type in a target size in MB and SquishyFile does the math — perfect for email attachments, Discord uploads, or any platform with a strict size limit. Works with MP4, MOV, MKV, AVI and WebM, and always exports as MP4.",
-				"tags": [
-					"Free forever",
-					"Any size target",
-					"No watermark"
-				]
-			}
-		},
-		"compressOnIphone": {
-			"meta": {
-				"title": "Compress Video on iPhone in Safari — No App Needed",
-				"description": "Compress video on your iPhone right in Safari — no app to install. Pick a video from Photos and shrink it down for free; nothing ever leaves your phone."
-			},
-			"hero": {
-				"title": "Compress video on iPhone, right in Safari",
-				"subtitle": "No app to install — just open this page in Safari, pick a video from your Photos library, and squish it down to size. Everything happens on your iPhone, nothing is uploaded.",
-				"tags": [
-					"Works in Safari",
-					"No app needed",
-					"No watermark"
-				]
-			}
-		},
-		"about": {
-			"meta": {
-				"title": "About SquishyFile — Free Browser-Based Compression Tools",
-				"description": "SquishyFile is a free, browser-based toolset built by J.Julian out of a passion for technology and a belief that useful tools should be free and accessible to everyone."
-			}
-		},
-		"contact": {
-			"meta": {
-				"title": "Contact SquishyFile",
-				"description": "Get in touch with the SquishyFile team — questions, feedback, or bug reports are welcome at contact@squishyfile.com."
-			}
-		},
-		"privacy": {
-			"meta": {
-				"title": "Privacy Policy — SquishyFile",
-				"description": "Read SquishyFile's privacy policy: what data we collect, how Google Analytics and advertising cookies are used, and how your files stay on your device."
-			}
-		},
-		"terms": {
-			"meta": {
-				"title": "Terms of Service — SquishyFile",
-				"description": "The terms and conditions for using SquishyFile's free, browser-based tools."
-			}
-		},
-		"blog": {
-			"meta": {
-				"title": "Blog — SquishyFile",
-				"description": "Tips and explainers on video compression, file size limits, and how SquishyFile's browser-based tools work under the hood."
-			},
-			"hero": {
-				"title": "The SquishyFile Blog",
-				"subtitle": "Explainers on video compression, file size limits, and how SquishyFile works under the hood."
-			},
-			"readMore": "Read more",
-			"backToBlog": "Back to all posts"
-		},
-		"videoToMp3": {
-			"meta": {
-				"title": "Video to MP3 Converter — Free, No Limit, No Watermark",
-				"description": "Convert any video to MP3 free — extract audio from MP4, MOV, MKV, AVI and WebM. No file-size limit, no watermark, no sign up required."
-			},
-			"hero": {
-				"title": "Convert video to MP3, free and private",
-				"subtitle": "Drop in a video and get a clean MP3 back at 128, 192 or 320 kbps — works with MP4, MOV, MKV, AVI and WebM, no matter where the file came from.",
-				"tags": [
-					"Free forever",
-					"No upload",
-					"No watermark"
-				]
-			}
-		},
-		"mp4ToMp3": {
-			"meta": {
-				"title": "MP4 to MP3 Converter — Free, No Limit, No Watermark",
-				"description": "Convert MP4 to MP3 free — extract the audio track from any MP4 video. No file-size limit, no watermark, no sign up needed."
-			},
-			"hero": {
-				"title": "Convert MP4 to MP3 in seconds",
-				"subtitle": "Turn a screen recording, downloaded clip or phone video into a standalone MP3 — pick 128, 192 or 320 kbps and it's ready to download in seconds.",
-				"tags": [
-					"Free forever",
-					"No upload",
-					"Up to 320 kbps"
-				]
-			}
-		},
-		"movToMp3": {
-			"meta": {
-				"title": "MOV to MP3 Converter — Free, No Limit, No Watermark",
-				"description": "Convert MOV to MP3 free — extract audio from iPhone and QuickTime videos. No file-size limit, no watermark, no sign up needed."
-			},
-			"hero": {
-				"title": "Convert MOV to MP3, no app needed",
-				"subtitle": "Perfect for iPhone recordings and QuickTime exports — pick 128, 192 or 320 kbps and get the audio out without opening a single app.",
-				"tags": [
-					"Free forever",
-					"No upload",
-					"Works with iPhone MOV"
-				]
-			}
-		}
-	}
+  "site": {
+    "name": "Squishy",
+    "nameAccent": "File",
+    "emoji": "🫧",
+    "tagline": "Free browser-based file tools — starting with video compression, more to come."
+  },
+  "nav": {
+    "categories": [
+      {
+        "label": "Video",
+        "href": "/"
+      },
+      {
+        "label": "Video to MP3",
+        "href": "/video-to-mp3"
+      },
+      {
+        "label": "MP4 to MP3",
+        "href": "/mp4-to-mp3"
+      }
+    ],
+    "blog": "Blog",
+    "howItWorks": "How it works",
+    "faq": "FAQ"
+  },
+  "footer": {
+    "links": [
+      {
+        "label": "About",
+        "href": "/about"
+      },
+      {
+        "label": "Blog",
+        "href": "/blog"
+      },
+      {
+        "label": "How it works",
+        "href": "/#how-it-works"
+      },
+      {
+        "label": "FAQ",
+        "href": "/#faq"
+      },
+      {
+        "label": "Privacy",
+        "href": "/privacy"
+      },
+      {
+        "label": "Terms",
+        "href": "/terms"
+      },
+      {
+        "label": "Contact",
+        "href": "/contact"
+      }
+    ],
+    "toolsHeading": "All tools",
+    "toolLinks": [
+      {
+        "label": "Video Compressor",
+        "href": "/"
+      },
+      {
+        "label": "Compress Video to Size",
+        "href": "/compress-video-to-size"
+      },
+      {
+        "label": "Compress Video on iPhone",
+        "href": "/compress-video-on-iphone"
+      },
+      {
+        "label": "Video to MP3",
+        "href": "/video-to-mp3"
+      },
+      {
+        "label": "MP4 to MP3",
+        "href": "/mp4-to-mp3"
+      },
+      {
+        "label": "MOV to MP3",
+        "href": "/mov-to-mp3"
+      }
+    ],
+    "copyright": "© {year} {siteName}. All rights reserved."
+  },
+  "ads": {
+    "placeholder": "Ad · 300×250",
+    "nordVpn": {
+      "label": "Sponsor",
+      "headline": "Browse & stream privately",
+      "subtitle": "Encrypt your connection with NordVPN.",
+      "cta": "Try NordVPN"
+    }
+  },
+  "share": {
+    "label": "Found this useful? Share it",
+    "facebook": "Share on Facebook",
+    "twitter": "Share on X",
+    "telegram": "Share on Telegram",
+    "copyLink": "Copy link",
+    "copied": "Copied!"
+  },
+  "tool": {
+    "dropzone": {
+      "titlePrefix": "Drag & drop a video, or",
+      "browse": "browse",
+      "subtitle": "MP4, MOV, MKV, AVI supported",
+      "loadSample": "or try a sample video"
+    },
+    "fileInfo": {
+      "remove": "Remove file"
+    },
+    "quality": {
+      "label": "Compression level",
+      "light": "Light",
+      "max": "Max squish",
+      "levels": [
+        "Light — keep it sharp",
+        "Balanced — sweet spot for sharing",
+        "Max squish — max 720p"
+      ],
+      "disabledByTarget": "Disabled — a target size is set below, so it controls compression instead."
+    },
+    "targetSize": {
+      "label": "Target size (optional)",
+      "placeholder": "e.g. 50",
+      "unit": "MB",
+      "hint": "If set, this overrides the compression level above."
+    },
+    "button": {
+      "idle": "Squish it",
+      "cancel": "Cancel"
+    },
+    "progress": {
+      "label": "Squishing...",
+      "probing": "Reading your video...",
+      "loadingEngine": "Downloading compressor (one-time)...",
+      "pass": "Fine-tuning to hit your target size (pass {n})...",
+      "done": "Done!"
+    },
+    "result": {
+      "statLabel": "smaller than the original",
+      "download": "Download compressed video (MP4)",
+      "summary": "{from} → {to} · {width}×{height}",
+      "targetMet": "Under your {target} MB target.",
+      "targetMissed": "Couldn't get under {target} MB — this is as small as it goes without destroying the video.",
+      "compressNew": "Compress another video"
+    },
+    "privacyNote": "Keep this tab open and active while it processes — for the fastest speed.",
+    "warnings": {
+      "target_above_source": "Your video is already smaller than that target, so there's nothing to squish.",
+      "quality_will_be_poor": "That target is very tight for a video this long — expect a blurry result.",
+      "resolution_reduced": "Resolution lowered to {width}×{height} so the picture stays clean at this size.",
+      "framerate_reduced": "Frame rate lowered to {fps} fps to keep more detail in each frame.",
+      "audio_removed": "Audio removed — there wasn't enough room in the target size for a sound track."
+    },
+    "errors": {
+      "generic": "Something went wrong while compressing. Try a different file or reload the page.",
+      "noVideo": "That file doesn't seem to contain a video track."
+    },
+    "targetPreview": "Your video is {size} — that target is larger, so nothing will be compressed."
+  },
+  "toolMp3": {
+    "dropzone": {
+      "titlePrefix": "Drag & drop a video, or",
+      "browse": "browse",
+      "subtitle": "MP4, MOV, MKV, AVI, WebM supported",
+      "loadSample": "or try a sample video"
+    },
+    "fileInfo": {
+      "remove": "Remove file"
+    },
+    "quality": {
+      "label": "MP3 quality",
+      "hint": "Higher kbps means better audio quality and a larger file.",
+      "options": {
+        "128": "Standard — 128 kbps",
+        "192": "High — 192 kbps",
+        "320": "Best — 320 kbps"
+      }
+    },
+    "button": {
+      "idle": "Convert to MP3 🎧",
+      "cancel": "Cancel"
+    },
+    "progress": {
+      "label": "Converting...",
+      "probing": "Reading your video...",
+      "loadingEngine": "Downloading converter (one-time)...",
+      "done": "Done!"
+    },
+    "result": {
+      "statLabel": "{quality} kbps MP3",
+      "download": "Download MP3",
+      "summary": "{duration} · extracted from a {from} video",
+      "convertNew": "Convert another video"
+    },
+    "privacyNote": "Keep this tab open and active while it processes — for the fastest speed.",
+    "errors": {
+      "generic": "Something went wrong while converting. Try a different file or reload the page.",
+      "noAudio": "This video doesn't seem to have an audio track to extract."
+    }
+  },
+  "pages": {
+    "home": {
+      "meta": {
+        "title": "SquishyFile — Free Video Compressor, No Watermark or Limit",
+        "description": "Free online video compressor for MP4, MOV, MKV, AVI and WebM — no uploads, no file-size limit, no watermark, no sign up required."
+      },
+      "hero": {
+        "title": "Squish your videos, keep the quality",
+        "subtitle": "100% free video compression with no file-size limit and no watermark on export. Works with MP4, MOV, MKV, AVI and WebM — output is always clean H.264 MP4.",
+        "tags": [
+          "Free forever",
+          "No file limit",
+          "No watermark"
+        ]
+      }
+    },
+    "compressToSize": {
+      "meta": {
+        "title": "Compress Video to 10MB, 25MB or Any Size — SquishyFile",
+        "description": "Shrink your video to an exact size — 10MB, 25MB or any target — for email, Discord, WhatsApp and Instagram limits. 100% free, no watermark, no sign up."
+      },
+      "hero": {
+        "title": "Compress your video to an exact file size",
+        "subtitle": "Type in a target size in MB and SquishyFile does the math — perfect for email attachments, Discord uploads, or any platform with a strict size limit. Works with MP4, MOV, MKV, AVI and WebM, and always exports as MP4.",
+        "tags": [
+          "Free forever",
+          "Any size target",
+          "No watermark"
+        ]
+      }
+    },
+    "compressOnIphone": {
+      "meta": {
+        "title": "Compress Video on iPhone in Safari — No App Needed",
+        "description": "Compress video on your iPhone right in Safari — no app to install. Pick a video from Photos and shrink it down for free; nothing ever leaves your phone."
+      },
+      "hero": {
+        "title": "Compress video on iPhone, right in Safari",
+        "subtitle": "No app to install — just open this page in Safari, pick a video from your Photos library, and squish it down to size. Everything happens on your iPhone, nothing is uploaded.",
+        "tags": [
+          "Works in Safari",
+          "No app needed",
+          "No watermark"
+        ]
+      }
+    },
+    "about": {
+      "meta": {
+        "title": "About SquishyFile — Free Browser-Based Compression Tools",
+        "description": "SquishyFile is a free, browser-based toolset built by J.Julian out of a passion for technology and a belief that useful tools should be free and accessible to everyone."
+      }
+    },
+    "contact": {
+      "meta": {
+        "title": "Contact SquishyFile",
+        "description": "Get in touch with the SquishyFile team — questions, feedback, or bug reports are welcome at contact@squishyfile.com."
+      }
+    },
+    "privacy": {
+      "meta": {
+        "title": "Privacy Policy — SquishyFile",
+        "description": "Read SquishyFile's privacy policy: what data we collect, how Google Analytics and advertising cookies are used, and how your files stay on your device."
+      }
+    },
+    "terms": {
+      "meta": {
+        "title": "Terms of Service — SquishyFile",
+        "description": "The terms and conditions for using SquishyFile's free, browser-based tools."
+      }
+    },
+    "blog": {
+      "meta": {
+        "title": "Blog — SquishyFile",
+        "description": "Tips and explainers on compressing and converting your files, and how SquishyFile's browser-based tools work under the hood."
+      },
+      "hero": {
+        "title": "The SquishyFile Blog",
+        "subtitle": "Explainers on compressing and converting your files, and how SquishyFile works under the hood."
+      },
+      "readMore": "Read more",
+      "backToBlog": "Back to all posts"
+    },
+    "videoToMp3": {
+      "meta": {
+        "title": "Video to MP3 Converter — Free, No Limit, No Watermark",
+        "description": "Convert any video to MP3 free — extract audio from MP4, MOV, MKV, AVI and WebM. No file-size limit, no watermark, no sign up required."
+      },
+      "hero": {
+        "title": "Convert video to MP3, free and private",
+        "subtitle": "Drop in a video and get a clean MP3 back at 128, 192 or 320 kbps — works with MP4, MOV, MKV, AVI and WebM, no matter where the file came from.",
+        "tags": [
+          "Free forever",
+          "No upload",
+          "No watermark"
+        ]
+      }
+    },
+    "mp4ToMp3": {
+      "meta": {
+        "title": "MP4 to MP3 Converter — Free, No Limit, No Watermark",
+        "description": "Convert MP4 to MP3 free — extract the audio track from any MP4 video. No file-size limit, no watermark, no sign up needed."
+      },
+      "hero": {
+        "title": "Convert MP4 to MP3 in seconds",
+        "subtitle": "Turn a screen recording, downloaded clip or phone video into a standalone MP3 — pick 128, 192 or 320 kbps and it's ready to download in seconds.",
+        "tags": [
+          "Free forever",
+          "No upload",
+          "Up to 320 kbps"
+        ]
+      }
+    },
+    "movToMp3": {
+      "meta": {
+        "title": "MOV to MP3 Converter — Free, No Limit, No Watermark",
+        "description": "Convert MOV to MP3 free — extract audio from iPhone and QuickTime videos. No file-size limit, no watermark, no sign up needed."
+      },
+      "hero": {
+        "title": "Convert MOV to MP3, no app needed",
+        "subtitle": "Perfect for iPhone recordings and QuickTime exports — pick 128, 192 or 320 kbps and get the audio out without opening a single app.",
+        "tags": [
+          "Free forever",
+          "No upload",
+          "Works with iPhone MOV"
+        ]
+      }
+    }
+  },
+  "support": {
+    "text": "Found this tool useful? ",
+    "linkLabel": "Buy me a coffee",
+    "href": "https://ko-fi.com/jjjulian"
+  }
 }

@@ -8,10 +8,21 @@
 	import { browser } from '$app/environment';
 	import { getStrings } from '$lib/i18n';
 	import ShareRow from '$lib/components/share/ShareRow.svelte';
+	import SupportLink from '$lib/components/support/SupportLink.svelte';
 	import { MP3_QUALITIES, type Mp3Quality } from '$lib/video2mp3/plan';
 	import type { WorkerOutMessage } from './video2mp3.worker';
 
-	let { shareTitle = '' }: { shareTitle?: string } = $props();
+	let {
+		shareTitle = '',
+		samplePath = '/7-Coding-Laws-of-Senior-Developer.mp4',
+		sampleFileName = '7-Coding-Laws-of-Senior-Developer.mp4',
+		sampleMimeType = 'video/mp4'
+	}: {
+		shareTitle?: string;
+		samplePath?: string;
+		sampleFileName?: string;
+		sampleMimeType?: string;
+	} = $props();
 
 	const t = getStrings();
 
@@ -193,10 +204,13 @@
 			// This tool's sample needs an actual audio track -- the
 			// compression tool's sample clip (13069876_1280_720_30fps.mp4) is
 			// silent, so this uses a dedicated tone-and-testcard clip instead.
-			const response = await fetch('/7-Coding-Laws-of-Senior-Developer.mp4');
+			// Which file loads is per-route: samplePath/sampleFileName/sampleMimeType
+			// props default to the MP4 clip but mov-to-mp3 overrides them to the
+			// matching .mov file so the sample actually matches the page's format.
+			const response = await fetch(samplePath);
 			if (!response.ok) throw new Error('sample fetch failed');
 			const blob = await response.blob();
-			handleFile(new File([blob], '7-Coding-Laws-of-Senior-Developer.mp4', { type: 'video/mp4' }));
+			handleFile(new File([blob], sampleFileName, { type: sampleMimeType }));
 		} catch {
 			status = 'error';
 			errorMessage = t.toolMp3.errors.generic;
@@ -336,6 +350,8 @@
 					{t.toolMp3.result.convertNew}
 				</button>
 			</div>
+
+			<SupportLink />
 		{/if}
 	</div>
 

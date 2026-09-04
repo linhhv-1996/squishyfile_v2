@@ -26,7 +26,12 @@
 	</div>
 </section>
 
-<ConvertVideoToMp3 shareTitle={copy.meta.title} />
+<ConvertVideoToMp3
+	shareTitle={copy.meta.title}
+	samplePath="/7-Coding-Laws-of-Senior-Developer.mov"
+	sampleFileName="7-Coding-Laws-of-Senior-Developer.mov"
+	sampleMimeType="video/quicktime"
+/>
 
 <div class="inner seo">
 	{@html data.seoHtml}

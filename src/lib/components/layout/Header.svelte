@@ -43,7 +43,7 @@
 <header class="site-header">
 	<div class="inner">
 		<a href="/" class="logo">
-			<!-- <span class="mark">{t.site.emoji}</span> -->
+			<img src="/logo.webp" alt="" class="logo-img" width="96" height="96" />
 			<span class="name">{t.site.name}<span class="accent">{t.site.nameAccent}</span></span>
 		</a>
 
