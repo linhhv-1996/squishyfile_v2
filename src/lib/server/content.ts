@@ -8,12 +8,25 @@
 //   contents/seo/<slug>.<locale>.md   — long-form SEO body content below a tool
 //   contents/pages/<slug>.<locale>.md — static site pages (About, Contact,
 //                                        Privacy, Terms, etc.)
-import { readFileSync } from 'node:fs';
-import path from 'node:path';
+//
+// Content is bundled at build time via import.meta.glob (eager, raw
+// string) rather than read from disk at request time: Cloudflare Workers
+// have no real filesystem, so node:fs reads that work in local dev would
+// throw/return nothing once deployed there.
 import { marked } from 'marked';
 import { defaultLocale, type Locale } from '$lib/i18n';
 
-const CONTENT_ROOT = path.resolve(process.cwd(), 'contents');
+const SEO_FILES = import.meta.glob('/contents/seo/*.md', {
+	query: '?raw',
+	import: 'default',
+	eager: true
+}) as Record<string, string>;
+
+const PAGE_FILES = import.meta.glob('/contents/pages/*.md', {
+	query: '?raw',
+	import: 'default',
+	eager: true
+}) as Record<string, string>;
 
 export type FaqItem = { question: string; answer: string };
 
@@ -68,8 +81,12 @@ export function extractFaqItems(html: string): FaqItem[] {
 }
 
 function loadContent(dir: 'seo' | 'pages', slug: string, locale: Locale = defaultLocale): string {
-	const filePath = path.join(CONTENT_ROOT, dir, `${slug}.${locale}.md`);
-	const raw = readFileSync(filePath, 'utf-8');
+	const files = dir === 'seo' ? SEO_FILES : PAGE_FILES;
+	const key = `/contents/${dir}/${slug}.${locale}.md`;
+	const raw = files[key];
+	if (raw === undefined) {
+		throw new Error(`ENOENT: content not found: ${key}`);
+	}
 	return marked.parse(raw, { async: false }) as string;
 }
 

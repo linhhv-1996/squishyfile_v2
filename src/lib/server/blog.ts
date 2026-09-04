@@ -3,15 +3,25 @@
 // title/description/date/excerpt, one file per post per locale:
 //   contents/blog/<slug>.<locale>.md
 //
+// Content is bundled at build time via import.meta.glob (eager, raw
+// string) rather than read from disk at request time: Cloudflare Workers
+// have no real filesystem, so node:fs reads that work in local dev would
+// throw/return nothing once deployed there.
+//
 // No frontmatter library is used (the site has no other dependency on
 // one) — parseFrontmatter below is a minimal `key: value` block parser,
 // good enough for the flat string fields blog posts need.
-import { readFileSync, readdirSync } from 'node:fs';
-import path from 'node:path';
 import { marked } from 'marked';
 import { defaultLocale, type Locale } from '$lib/i18n';
 
-const BLOG_ROOT = path.resolve(process.cwd(), 'contents', 'blog');
+// Path key format: /contents/blog/<slug>.<locale>.md
+const BLOG_FILES = import.meta.glob('/contents/blog/*.md', {
+	query: '?raw',
+	import: 'default',
+	eager: true
+}) as Record<string, string>;
+
+const BLOG_DIR_PREFIX = '/contents/blog/';
 
 export type BlogMeta = {
 	slug: string;
@@ -43,16 +53,26 @@ function parseFrontmatter(raw: string): { meta: Record<string, string>; body: st
 
 function listSlugs(locale: Locale): string[] {
 	const suffix = `.${locale}.md`;
-	return readdirSync(BLOG_ROOT)
-		.filter((file) => file.endsWith(suffix))
-		.map((file) => file.slice(0, -suffix.length));
+	return Object.keys(BLOG_FILES)
+		.filter((filePath) => filePath.endsWith(suffix))
+		.map((filePath) => filePath.slice(BLOG_DIR_PREFIX.length, -suffix.length));
+}
+
+/** Throws (ENOENT-style) if the slug/locale combo wasn't bundled. */
+function readBlogFile(slug: string, locale: Locale): string {
+	const key = `${BLOG_DIR_PREFIX}${slug}.${locale}.md`;
+	const raw = BLOG_FILES[key];
+	if (raw === undefined) {
+		throw new Error(`ENOENT: blog post not found: ${key}`);
+	}
+	return raw;
 }
 
 /** All posts for a locale, newest first. */
 export function listBlogPosts(locale: Locale = defaultLocale): BlogMeta[] {
 	return listSlugs(locale)
 		.map((slug) => {
-			const raw = readFileSync(path.join(BLOG_ROOT, `${slug}.${locale}.md`), 'utf-8');
+			const raw = readBlogFile(slug, locale);
 			const { meta } = parseFrontmatter(raw);
 			return {
 				slug,
@@ -65,9 +85,9 @@ export function listBlogPosts(locale: Locale = defaultLocale): BlogMeta[] {
 		.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
 }
 
-/** Throws (ENOENT) if the slug doesn't exist — callers should catch and 404. */
+/** Throws if the slug doesn't exist — callers should catch and 404. */
 export function loadBlogPost(slug: string, locale: Locale = defaultLocale): BlogPost {
-	const raw = readFileSync(path.join(BLOG_ROOT, `${slug}.${locale}.md`), 'utf-8');
+	const raw = readBlogFile(slug, locale);
 	const { meta, body } = parseFrontmatter(raw);
 	return {
 		slug,
