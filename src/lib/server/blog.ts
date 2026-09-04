@@ -13,6 +13,7 @@
 // good enough for the flat string fields blog posts need.
 import { marked } from 'marked';
 import { defaultLocale, type Locale } from '$lib/i18n';
+import { generateBlogBanner } from './blogBanner';
 
 // Path key format: /contents/blog/<slug>.<locale>.md
 const BLOG_FILES = import.meta.glob('/contents/blog/*.md', {
@@ -31,7 +32,7 @@ export type BlogMeta = {
 	excerpt: string;
 };
 
-export type BlogPost = BlogMeta & { html: string };
+export type BlogPost = BlogMeta & { html: string; bannerUri: string };
 
 function parseFrontmatter(raw: string): { meta: Record<string, string>; body: string } {
 	const match = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
@@ -89,12 +90,14 @@ export function listBlogPosts(locale: Locale = defaultLocale): BlogMeta[] {
 export function loadBlogPost(slug: string, locale: Locale = defaultLocale): BlogPost {
 	const raw = readBlogFile(slug, locale);
 	const { meta, body } = parseFrontmatter(raw);
+	const title = meta.title ?? slug;
 	return {
 		slug,
-		title: meta.title ?? slug,
+		title,
 		description: meta.description ?? '',
 		date: meta.date ?? '',
 		excerpt: meta.excerpt ?? meta.description ?? '',
-		html: marked.parse(body, { async: false }) as string
+		html: marked.parse(body, { async: false }) as string,
+		bannerUri: generateBlogBanner(slug, title)
 	};
 }

@@ -10,6 +10,15 @@
 <Seo title={data.post.title} description={data.post.description} type="article" />
 
 <div class="inner seo blog-post">
+	<img
+		class="blog-banner"
+		src={data.post.bannerUri}
+		alt={data.post.title}
+		width="1200"
+		height="630"
+		loading="eager"
+		fetchpriority="high"
+	/>
 	{@html data.post.html}
 	<p class="blog-back"><a href="/blog">← {copy.backToBlog}</a></p>
 </div>

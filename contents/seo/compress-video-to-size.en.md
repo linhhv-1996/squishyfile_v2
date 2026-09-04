@@ -71,6 +71,7 @@
 <div class="faq-card"><h3>SquishyFile's target size field</h3><p>Does the same bitrate math for you automatically — type the size you need, and it works out the rest in your browser, no install and no manual timing required.</p></div>
 </div>
 
+<div class="space"></div>
 <p>One catch worth knowing if you ever do the math by hand: a target bitrate calculated from file size alone has to leave room for audio, typically 128–192kbps, or the video will come out smaller than expected once audio is added back in. SquishyFile accounts for this automatically, which is one less thing to get wrong.</p>
 
 </section>
