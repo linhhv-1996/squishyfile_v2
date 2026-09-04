@@ -15,6 +15,16 @@
 			<span class="name">{t.site.name}<span class="accent">{t.site.nameAccent}</span></span>
 		</a>
 		<p class="footer-tagline">{t.site.tagline}</p>
+
+		<div class="footer-tools">
+			<span class="footer-tools-label">{t.footer.toolsHeading}</span>
+			<div class="footer-links">
+				{#each t.footer.toolLinks as link (link.label)}
+					<a href={link.href}>{link.label}</a>
+				{/each}
+			</div>
+		</div>
+
 		<div class="footer-links">
 			{#each t.footer.links as link (link.label)}
 				<a href={link.href}>{link.label}</a>

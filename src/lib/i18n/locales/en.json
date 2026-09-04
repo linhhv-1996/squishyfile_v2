@@ -10,6 +10,14 @@
 			{
 				"label": "Video",
 				"href": "/"
+			},
+			{
+				"label": "Video to MP3",
+				"href": "/video-to-mp3"
+			},
+			{
+				"label": "MP4 to MP3",
+				"href": "/mp4-to-mp3"
 			}
 		],
 		"blog": "Blog",
@@ -18,10 +26,6 @@
 	},
 	"footer": {
 		"links": [
-			{
-				"label": "Video",
-				"href": "/"
-			},
 			{
 				"label": "About",
 				"href": "/about"
@@ -49,6 +53,33 @@
 			{
 				"label": "Contact",
 				"href": "/contact"
+			}
+		],
+		"toolsHeading": "All tools",
+		"toolLinks": [
+			{
+				"label": "Video Compressor",
+				"href": "/"
+			},
+			{
+				"label": "Compress Video to Size",
+				"href": "/compress-video-to-size"
+			},
+			{
+				"label": "Compress Video on iPhone",
+				"href": "/compress-video-on-iphone"
+			},
+			{
+				"label": "Video to MP3",
+				"href": "/video-to-mp3"
+			},
+			{
+				"label": "MP4 to MP3",
+				"href": "/mp4-to-mp3"
+			},
+			{
+				"label": "MOV to MP3",
+				"href": "/mov-to-mp3"
 			}
 		],
 		"copyright": "© {year} {siteName}. All rights reserved."
@@ -129,6 +160,47 @@
 			"noVideo": "That file doesn't seem to contain a video track."
 		},
 		"targetPreview": "Your video is {size} — that target is larger, so nothing will be compressed."
+	},
+	"toolMp3": {
+		"dropzone": {
+			"titlePrefix": "Drag & drop a video, or",
+			"browse": "browse",
+			"subtitle": "MP4, MOV, MKV, AVI, WebM supported",
+			"loadSample": "or try a sample video"
+		},
+		"fileInfo": {
+			"remove": "Remove file"
+		},
+		"quality": {
+			"label": "MP3 quality",
+			"hint": "Higher kbps means better audio quality and a larger file.",
+			"options": {
+				"128": "Standard — 128 kbps",
+				"192": "High — 192 kbps",
+				"320": "Best — 320 kbps"
+			}
+		},
+		"button": {
+			"idle": "Convert to MP3 🎧",
+			"cancel": "Cancel"
+		},
+		"progress": {
+			"label": "Converting...",
+			"probing": "Reading your video...",
+			"loadingEngine": "Downloading converter (one-time)...",
+			"done": "Done!"
+		},
+		"result": {
+			"statLabel": "{quality} kbps MP3",
+			"download": "Download MP3",
+			"summary": "{duration} · extracted from a {from} video",
+			"convertNew": "Convert another video"
+		},
+		"privacyNote": "Keep this tab open and active while it processes — for the fastest speed.",
+		"errors": {
+			"generic": "Something went wrong while converting. Try a different file or reload the page.",
+			"noAudio": "This video doesn't seem to have an audio track to extract."
+		}
 	},
 	"pages": {
 		"home": {
@@ -211,6 +283,51 @@
 			},
 			"readMore": "Read more",
 			"backToBlog": "Back to all posts"
+		},
+		"videoToMp3": {
+			"meta": {
+				"title": "Video to MP3 Converter — Free, No Limit, No Watermark",
+				"description": "Convert any video to MP3 free — extract audio from MP4, MOV, MKV, AVI and WebM. No file-size limit, no watermark, no sign up required."
+			},
+			"hero": {
+				"title": "Convert video to MP3, free and private",
+				"subtitle": "Drop in a video and get a clean MP3 back at 128, 192 or 320 kbps — works with MP4, MOV, MKV, AVI and WebM, no matter where the file came from.",
+				"tags": [
+					"Free forever",
+					"No upload",
+					"No watermark"
+				]
+			}
+		},
+		"mp4ToMp3": {
+			"meta": {
+				"title": "MP4 to MP3 Converter — Free, No Limit, No Watermark",
+				"description": "Convert MP4 to MP3 free — extract the audio track from any MP4 video. No file-size limit, no watermark, no sign up needed."
+			},
+			"hero": {
+				"title": "Convert MP4 to MP3 in seconds",
+				"subtitle": "Turn a screen recording, downloaded clip or phone video into a standalone MP3 — pick 128, 192 or 320 kbps and it's ready to download in seconds.",
+				"tags": [
+					"Free forever",
+					"No upload",
+					"Up to 320 kbps"
+				]
+			}
+		},
+		"movToMp3": {
+			"meta": {
+				"title": "MOV to MP3 Converter — Free, No Limit, No Watermark",
+				"description": "Convert MOV to MP3 free — extract audio from iPhone and QuickTime videos. No file-size limit, no watermark, no sign up needed."
+			},
+			"hero": {
+				"title": "Convert MOV to MP3, no app needed",
+				"subtitle": "Perfect for iPhone recordings and QuickTime exports — pick 128, 192 or 320 kbps and get the audio out without opening a single app.",
+				"tags": [
+					"Free forever",
+					"No upload",
+					"Works with iPhone MOV"
+				]
+			}
 		}
 	}
 }

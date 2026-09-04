@@ -1,4 +1,4 @@
-# Compress Video to a Specific File Size — 10MB, 25MB, 50MB & More
+# Shrink a Video to Fit Any Upload Limit
 
 <p class="byline">Last updated September 3, 2026 · SquishyFile Team</p>
 
@@ -89,6 +89,7 @@
 <div class="faq-card"><h3>Video still won't send after compressing?</h3><p>A size limit isn't the only reason a video fails to send — see our <a href="/blog/video-wont-send-email-whatsapp">guide to fixing videos that won't send on email or WhatsApp</a> for the other common causes.</p></div>
 <div class="faq-card"><h3>Need the compression level slider instead?</h3><p>Head back to the <a href="/">main video compressor</a> if you'd rather control quality directly instead of targeting a file size.</p></div>
 <div class="faq-card"><h3>Compressing straight from an iPhone?</h3><p>The target size field here works the same on iPhone Safari as anywhere else, but if you want the phone-specific workflow — picking a video from Photos, saving the result back — see our <a href="/compress-video-on-iphone">compress video on iPhone</a> guide.</p></div>
+<div class="faq-card"><h3>Only need the audio to hit a size limit?</h3><p>An MP3 is a fraction of the size of even a heavily compressed video — if the picture doesn't matter, our <a href="/video-to-mp3">video to MP3 converter</a> gets you under almost any limit in one step.</p></div>
 </div>
 
 </section>

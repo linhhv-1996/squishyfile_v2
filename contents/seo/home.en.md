@@ -1,4 +1,4 @@
-# Free Video Compressor — Compress MP4, MOV & More Online
+# Shrink Any Video Without Losing Quality
 
 <p class="byline">Last updated September 3, 2026 · SquishyFile Team</p>
 
@@ -103,6 +103,7 @@
 <div class="faq-card"><h3>Will compressing my video reduce its quality?</h3><p>A little, like any compression, but the "Light" setting is built to keep the difference hard to notice. Use the slider to trade size for quality however suits the video. Compressing the same file repeatedly does compound the loss &mdash; see <a href="/blog/how-many-times-can-you-compress-a-video">how many times you can re-compress a video</a> before it becomes visible.</p></div>
 <div class="faq-card"><h3>Does it work on mobile?</h3><p>Yes, including on iPhone — see our dedicated <a href="/compress-video-on-iphone">iPhone guide</a> for tips specific to Safari.</p></div>
 <div class="faq-card"><h3>Can I use this instead of an app like Clideo?</h3><p>Yes — SquishyFile does the same core job, compressing a video in your browser, without an account, a watermark, or a limit on how many files you can process.</p></div>
+<div class="faq-card"><h3>Just want the audio, not the whole video?</h3><p>If the video itself doesn't matter, converting to MP3 shrinks it a lot further than compressing ever could — see our <a href="/video-to-mp3">video to MP3 converter</a>.</p></div>
 </div>
 
 </section>

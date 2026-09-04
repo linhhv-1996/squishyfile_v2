@@ -39,7 +39,7 @@ a{ color:inherit; }
 @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
 
 /* ---------- Header (static, not fixed) ---------- */
-.site-header{ border-bottom:1px solid var(--line); }
+.site-header{ border-bottom:1px solid var(--line); position:relative; }
 .site-header .inner{ display:flex; align-items:center; justify-content:space-between; padding:16px 20px; }
 .logo{ display:flex; align-items:center; gap:8px; font-family:'Baloo 2', sans-serif; font-weight:800; font-size:19px; text-decoration:none; color:var(--ink); }
 .logo .mark{ width:26px; height:26px; border-radius:50%; background:var(--coral); display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; }
@@ -50,7 +50,58 @@ nav.main-nav a:hover{ color:var(--ink); }
 .nav-tools{ display:flex; gap:16px; }
 .nav-tools a.active{ color:var(--coral-dark); }
 nav.main-nav > a.active{ color:var(--coral-dark); }
-@media (max-width:640px){ .nav-tools{ display:none; } }
+
+/* Mobile: header shows only the logo + a single quick link (MP4 to MP3) +
+   a hamburger button. Tapping the hamburger opens the full nav (all tool
+   links, Blog, How it works, FAQ) as a fullscreen overlay menu. */
+.mobile-controls{ display:none; align-items:center; gap:14px; }
+.mobile-link{ text-decoration:none; font-size:14px; font-weight:600; color:var(--muted); }
+.mobile-link.active{ color:var(--coral-dark); }
+.menu-toggle{
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+	align-items:center;
+	gap:5px;
+	width:32px;
+	height:32px;
+	padding:0;
+	border:none;
+	background:none;
+	cursor:pointer;
+	position:relative;
+	z-index:31;
+}
+.menu-toggle .bar{
+	display:block;
+	width:22px;
+	height:2px;
+	background:var(--ink);
+	border-radius:2px;
+	transition:transform 0.2s ease, opacity 0.2s ease;
+}
+.menu-toggle.open .bar:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.menu-toggle.open .bar:nth-child(2){ opacity:0; }
+.menu-toggle.open .bar:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+@media (max-width:640px){
+	.nav-tools{ display:none; }
+	.mobile-controls{ display:flex; }
+	nav.main-nav{
+		display:none;
+		position:fixed;
+		inset:0;
+		flex-direction:column;
+		align-items:center;
+		justify-content:center;
+		gap:8px;
+		background:var(--bg);
+		z-index:30;
+	}
+	nav.main-nav.open{ display:flex; }
+	nav.main-nav .nav-tools{ display:flex; flex-direction:column; align-items:center; gap:8px; }
+	nav.main-nav a{ padding:14px 0; font-size:22px; }
+}
 
 /* ---------- Hero: left-aligned text + reserved 300x250 ad slot, ~250px tall ---------- */
 .hero .inner{
@@ -187,6 +238,14 @@ input[type="range"]::-webkit-slider-thumb{ -webkit-appearance:none; width:20px; 
 .privacy-note{ display:flex; align-items:center; gap:8px; margin-top:14px; font-size:12.5px; color:var(--muted); }
 .privacy-note .dot{ width:6px; height:6px; border-radius:50%; background:var(--teal); flex-shrink:0; }
 
+/* ---------- MP3 quality choice pills (video2mp3 tool) ---------- */
+.quality-choices{ display:flex; gap:8px; flex-wrap:wrap; }
+.quality-choice{ flex:1 1 0; min-width:100px; padding:10px 8px; border-radius:var(--radius-sm); border:1.5px solid var(--line); background:#fff; color:var(--ink); font-family:inherit; font-size:12.5px; font-weight:600; cursor:pointer; text-align:center; transition:border-color 0.15s ease, background 0.15s ease, color 0.15s ease; }
+.quality-choice:hover{ border-color:var(--teal); }
+.quality-choice.is-active{ border-color:var(--coral); background:#FFF1EF; color:var(--coral-dark); }
+.quality-choice:disabled{ opacity:0.55; cursor:not-allowed; }
+.result audio{ width:100%; margin-top:14px; }
+
 /* ---------- Share cluster ---------- */
 .share{ display:flex; align-items:center; justify-content:center; gap:8px; margin:22px auto 0; flex-wrap:wrap; max-width:860px; padding:0 20px; }
 .share .label{ font-size:13px; color:var(--muted); margin-right:4px; }
@@ -227,7 +286,7 @@ input[type="range"]::-webkit-slider-thumb{ -webkit-appearance:none; width:20px; 
 .faq-card p{ margin:0; font-size:13.5px; color:var(--muted); }
 
 /* ---------- Footer: simple, basic, centered ---------- */
-.site-footer{ border-top:1px solid var(--line); padding:28px 0; text-align:center; }
+.site-footer{ border-top:1px solid var(--line); padding:16px 0; text-align:center; }
 .footer-logo{ display:inline-flex; align-items:center; gap:7px; font-family:'Baloo 2', sans-serif; font-weight:800; font-size:16px; }
 .footer-logo .mark{ width:22px; height:22px; border-radius:50%; background:var(--coral); display:flex; align-items:center; justify-content:center; font-size:11px; }
 .footer-logo .accent{ color:var(--coral-dark); }
@@ -235,6 +294,8 @@ input[type="range"]::-webkit-slider-thumb{ -webkit-appearance:none; width:20px; 
 .footer-links{ display:flex; justify-content:center; flex-wrap:wrap; gap:16px; margin-bottom:14px; }
 .footer-links a{ font-size:13px; color:var(--muted); text-decoration:none; }
 .footer-links a:hover{ color:var(--ink); }
+.footer-tools{ margin-bottom:14px; }
+.footer-tools-label{ display:block; font-size:11px; font-weight:700; color:#8A968E; margin-bottom:8px; }
 .footer-copy{ font-size:12px; color:#8A968E; }
 
 /* ---------- Blog ---------- */

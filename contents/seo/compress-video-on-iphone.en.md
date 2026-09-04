@@ -1,4 +1,4 @@
-# Compress Video on iPhone — Shrink Videos Right in Safari
+# Get Big iPhone Videos Down to a Shareable Size
 
 <p class="byline">Last updated September 3, 2026 · SquishyFile Team</p>
 
@@ -92,6 +92,7 @@
 <div class="faq-card"><h3>Is this different from the Shortcuts "Compress Video" action?</h3><p>Same idea, less setup — Shortcuts requires building or finding an automation first, while SquishyFile is ready to use the moment you open the page.</p></div>
 <div class="faq-card"><h3>Does compressing remove the location or date info on my video?</h3><p>No. SquishyFile changes the video and audio data to shrink the file — it doesn't strip the metadata (like capture date) your Photos app uses to sort your library.</p></div>
 <div class="faq-card"><h3>Need to hit an exact file size instead?</h3><p>Use the target size field in the tool above, or see our <a href="/compress-video-to-size">compress video to a specific size</a> page for platform-by-platform limits.</p></div>
+<div class="faq-card"><h3>Just want the audio, not the video?</h3><p>Use our <a href="/mov-to-mp3">MOV to MP3 converter</a> instead — it pulls the sound out of an iPhone video and skips compressing the picture entirely.</p></div>
 </div>
 
 </section>
