@@ -27,6 +27,14 @@ const CORE_BASE = `https://unpkg.com/@ffmpeg/core@${CORE_VERSION}/dist/esm`;
 const CACHE_NAME = `squishyfile-ffmpeg-core-${CORE_VERSION}`;
 
 /**
+ * Fallback size (bytes) used to compute wasm download progress when the
+ * CDN response has no usable Content-Length header. Approximate -- only
+ * needs to be in the right ballpark so the bar advances at a believable
+ * rate; the real fraction takes over whenever Content-Length is present.
+ */
+const FFMPEG_WASM_ESTIMATED_BYTES = 32 * 1024 * 1024;
+
+/**
  * Containers Mediabunny cannot demux -- the same boundary the compression
  * tool uses, duplicated here intentionally (see file header).
  */
@@ -82,8 +90,6 @@ async function loadCoreAsset(
 	const response = hit ?? (await fetch(url));
 	if (!response.ok) throw new Error(`Could not download ${url} (${response.status})`);
 
-	if (!hit && cache) await cache.put(url, response.clone()).catch(() => {});
-
 	const total = Number(response.headers.get('content-length')) || 0;
 	const reader = response.body?.getReader();
 
@@ -101,6 +107,24 @@ async function loadCoreAsset(
 			onProgress(received, total);
 		}
 		blob = new Blob(chunks as BlobPart[], { type: mimeType });
+	}
+
+	// Cache from the blob we just finished assembling -- NOT via
+	// response.clone() taken before the read loop above. clone() tees the
+	// network stream, and cache.put() awaits until it has fully drained its
+	// side of the tee to store it; when that await sits *before* the
+	// progress-tracked loop (as this used to), the loop's reader hasn't
+	// pulled a single byte yet, so the whole download piles up in the tee's
+	// internal buffer while cache.put races ahead unseen. By the time
+	// cache.put resolves, the file is already fully downloaded, and the loop
+	// then drains that buffer in one near-instant burst -- onProgress fires
+	// with the download already finished, which reads as "stuck at 0%, then
+	// jumps to 100%" no matter what `total` is. Building the cache entry
+	// from the in-memory blob afterwards means there's only ever one reader
+	// of the real network stream: this loop, so progress reflects bytes as
+	// they actually arrive.
+	if (!hit && cache) {
+		await cache.put(url, new Response(blob, { headers: { 'Content-Type': mimeType } })).catch(() => {});
 	}
 
 	return { url: URL.createObjectURL(blob), fromCache: hit !== undefined };
@@ -128,7 +152,15 @@ async function getFfmpeg(
 			`${CORE_BASE}/ffmpeg-core.wasm`,
 			'application/wasm',
 			(received, total) => {
-				if (total > 0) onLoadProgress?.(received / total, cached);
+				// unpkg doesn't reliably send Content-Length for this response (it
+				// varies by edge/cache state), which used to leave `total` at 0 and
+				// this callback a no-op for the entire download -- the bar sat at
+				// 0% for the whole ~32 MB fetch, then jumped straight to 100% once
+				// loading finished. Fall back to a hardcoded size estimate so the
+				// bar still advances; cap below 100% so an estimate that's off
+				// can't claim "done" before the real completion signal below does.
+				const effectiveTotal = total > 0 ? total : FFMPEG_WASM_ESTIMATED_BYTES;
+				onLoadProgress?.(Math.min(0.99, received / effectiveTotal), cached);
 			}
 		);
 		cached = cached && wasm.fromCache;

@@ -51,6 +51,19 @@
 		quality: Mp3Quality;
 	} | null>(null);
 
+	// Custom player state. The native <audio controls> UI renders completely
+	// differently per browser (Chrome/Safari draw their own chrome via
+	// ::-webkit-media-controls-*, which can be restyled; Firefox exposes no
+	// styling hooks for it at all and always shows its own bar) with no way
+	// to make them match, so playback is driven from here instead and the
+	// visible bar is plain HTML/CSS -- same look everywhere. `audioEl` stays
+	// a plain (non-rendered) <audio> tag purely as the playback engine.
+	let audioEl = $state<HTMLAudioElement>();
+	let isPlaying = $state(false);
+	let currentTime = $state(0);
+	let audioDuration = $state(0);
+	const seekPercent = $derived(audioDuration > 0 ? (currentTime / audioDuration) * 100 : 0);
+
 	let worker: Worker | undefined;
 
 	// Created on first use, not on page load -- the worker bundles Mediabunny
@@ -105,6 +118,10 @@
 	}
 
 	function revokeResult() {
+		audioEl?.pause();
+		isPlaying = false;
+		currentTime = 0;
+		audioDuration = 0;
 		if (result) URL.revokeObjectURL(result.url);
 		result = null;
 	}
@@ -124,6 +141,30 @@
 		const m = Math.floor(s / 60);
 		const rem = s % 60;
 		return `${m}:${String(rem).padStart(2, '0')}`;
+	}
+
+	function togglePlay() {
+		if (!audioEl) return;
+		if (audioEl.paused) audioEl.play();
+		else audioEl.pause();
+	}
+
+	function onAudioLoadedMetadata() {
+		if (audioEl) audioDuration = audioEl.duration || 0;
+	}
+
+	function onAudioTimeUpdate() {
+		if (audioEl) currentTime = audioEl.currentTime;
+	}
+
+	function onAudioEnded() {
+		isPlaying = false;
+	}
+
+	function onSeekInput(event: Event) {
+		const value = Number((event.currentTarget as HTMLInputElement).value);
+		currentTime = value;
+		if (audioEl) audioEl.currentTime = value;
 	}
 
 	function fill(template: string, values: Record<string, string | number>) {
@@ -349,7 +390,52 @@
 				})}
 			</p>
 
-			<audio controls src={result.url}></audio>
+			<div class="audio-player">
+				<button
+					type="button"
+					class="audio-play-btn"
+					onclick={togglePlay}
+					aria-label={isPlaying ? t.toolMp3.result.pause : t.toolMp3.result.play}
+				>
+					{#if isPlaying}
+						<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+							<rect x="6" y="5" width="4" height="14" rx="1" />
+							<rect x="14" y="5" width="4" height="14" rx="1" />
+						</svg>
+					{:else}
+						<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+							<path d="M7 5.5v13a1 1 0 0 0 1.53.85l10.4-6.5a1 1 0 0 0 0-1.7l-10.4-6.5A1 1 0 0 0 7 5.5Z" />
+						</svg>
+					{/if}
+				</button>
+
+				<span class="audio-time">{formatDuration(currentTime)}</span>
+
+				<input
+					type="range"
+					class="audio-seek"
+					min="0"
+					max={audioDuration || 0}
+					step="0.01"
+					value={currentTime}
+					oninput={onSeekInput}
+					style="background: linear-gradient(90deg, var(--coral) {seekPercent}%, var(--line) {seekPercent}%)"
+					aria-label={t.toolMp3.result.seek}
+				/>
+
+				<span class="audio-time is-total">{formatDuration(audioDuration)}</span>
+
+				<audio
+					bind:this={audioEl}
+					src={result.url}
+					preload="metadata"
+					onloadedmetadata={onAudioLoadedMetadata}
+					ontimeupdate={onAudioTimeUpdate}
+					onended={onAudioEnded}
+					onplay={() => (isPlaying = true)}
+					onpause={() => (isPlaying = false)}
+				></audio>
+			</div>
 
 			<div class="result-actions">
 				<a href={result.url} download={result.fileName} class="download-btn">

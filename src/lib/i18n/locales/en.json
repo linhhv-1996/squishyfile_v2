@@ -194,7 +194,10 @@
       "statLabel": "{quality} kbps MP3",
       "download": "Download MP3",
       "summary": "{duration} · extracted from a {from} video",
-      "convertNew": "Convert another video"
+      "convertNew": "Convert another video",
+      "play": "Play",
+      "pause": "Pause",
+      "seek": "Seek"
     },
     "privacyNote": "Keep this tab open and active while it processes — for the fastest speed.",
     "errors": {
