@@ -6,15 +6,7 @@
 		<meta name="text-scale" content="scale" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<!--
-			Fonts load async instead of via a blocking <link rel="stylesheet">:
-			the media="print" + onload swap trick ("loadCSS" pattern) fetches the
-			stylesheet without holding up first render, then flips it to
-			media="all" once loaded. display=swap in the URL means text renders
-			immediately in the fallback font and swaps in once the webfont is
-			ready, so there's no invisible-text flash either. <noscript> covers
-			the case where JS is off.
-		-->
+		
 		<link
 			rel="preload"
 			as="style"
@@ -35,6 +27,17 @@
 		<link rel="icon" href="/favicon.png" type="image/png" />
 		<link rel="shortcut icon" href="/favicon.png" type="image/png" />
 		<link rel="apple-touch-icon" href="/favicon.png" />
+
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-BK3HWZ4TZN"></script>
+		<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-BK3HWZ4TZN');
+		</script>
+
 		%sveltekit.head%
 	</head>
 	<!--
