@@ -1,7 +1,7 @@
 ---
 title: Best Video Settings for Instagram, TikTok, YouTube and Discord
 description: Fitting under a platform's upload limit isn't the same as looking good on it. Here's what resolution, aspect ratio and bitrate actually matter for each one.
-date: 2026-09-04
+date: 2026-09-01
 excerpt: A video that technically uploads and a video that actually looks sharp once it's live are two different targets — here's how to hit the second one.
 ---
 

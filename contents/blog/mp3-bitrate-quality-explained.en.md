@@ -1,7 +1,7 @@
 ---
 title: "MP3 Quality Explained: 128, 192 or 320kbps — Which Should You Actually Use?"
 description: The three bitrate options on every MP3 converter aren't a simple "higher is always better" scale. Here's what each number actually changes, and when a higher one is wasted.
-date: 2026-09-04
+date: 2026-09-03
 excerpt: Picking 320kbps by default feels like the safe choice, but it's often just a bigger file with nothing extra to show for it — here's when it actually matters.
 ---
 
