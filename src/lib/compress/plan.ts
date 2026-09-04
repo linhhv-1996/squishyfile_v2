@@ -110,9 +110,25 @@ const LEVELS: Record<
 > = {
 	// Light — keep the resolution, shave the fat off over-bitrated camera files.
 	1: { maxShortEdge: Infinity, bpp: 0.115, sourceFactor: 0.65, quantizer: 26, fpsCap: Infinity },
-	// Balanced — cap at 1080p, the sweet spot for sharing.
-	2: { maxShortEdge: 1080, bpp: 0.08, sourceFactor: 0.38, quantizer: 31, fpsCap: 60 },
-	// Max squish — cap at 720p30 and accept visible softness.
+	// Balanced — the sweet spot for sharing. bpp/quantizer tuned to land at
+	// "good" per this file's own reference table (0.10), not just above the
+	// "acceptable" floor (0.075) — the old 0.08/QP31 sat right next to the
+	// floor, which read as visible blockiness/judder on motion in real
+	// full-HD footage (reported 2026-09-04).
+	//
+	// No hard maxShortEdge cap (fixed 2026-09-04, part 9): a fixed 1080p cap
+	// forced every 4K/8K source down to 1080p even when the bitrate could
+	// happily sustain more — a 4K source with plenty of bits stayed 4K just
+	// smaller, a merely-decent 4K source dropped to 1440p, only a thin one
+	// fell all the way to 1080p or below. Resolution is decided the same way
+	// as Light: by whichever ladder rung the bpp floor (`cfg.bpp * 0.6`
+	// below) can sustain. Max squish is the one level that still forces a
+	// hard cap, on purpose — "max squish" means "small file first".
+	2: { maxShortEdge: Infinity, bpp: 0.1, sourceFactor: 0.48, quantizer: 27, fpsCap: 60 },
+	// Max squish — cap at 720p30 and accept visible softness. This is the
+	// only level where downscaling is a deliberate hard rule rather than a
+	// consequence of the bitrate budget — "max squish" is explicitly asking
+	// to trade resolution for size.
 	3: { maxShortEdge: 720, bpp: 0.055, sourceFactor: 0.22, quantizer: 36, fpsCap: 30 }
 };
 
@@ -309,14 +325,38 @@ export function planForLevel(src: SourceInfo, level: CompressionLevel): Compress
 
 	// ...but an already-efficient source shouldn't be re-inflated, and a
 	// bloated one should still shrink by a predictable fraction.
+	//
+	// The "is this source bloated?" question has to be asked about the
+	// source's OWN bpp, at its own resolution/frame rate — not by comparing
+	// `src.videoBitrate * sourceFactor` against `idealBitrate` at the (often
+	// downscaled) target resolution. That comparison looks similar but isn't:
+	// for Balanced (bpp 0.08, sourceFactor 0.38), it fires for anything under
+	// ~26 Mbps at 1080p60, which is nearly all real-world footage, including
+	// perfectly well-encoded video — dragging it down to 38% of its own
+	// bitrate and, via the bpp floor below, into an unwanted downscale. A
+	// source is only "bloated" relative to a level when its own bpp already
+	// clears that level's target — anything thinner never had the bits to
+	// re-inflate in the first place, and that's exactly the case the
+	// sourceFactor shrink (and the eventual downscale) exists for.
 	let cappedBySource = false;
 	let videoBitrate = idealBitrate;
 	if (src.videoBitrate) {
-		const fromSource = src.videoBitrate * cfg.sourceFactor;
-		if (fromSource < videoBitrate) {
-			videoBitrate = fromSource;
+		const srcBpp = src.videoBitrate / (src.width * src.height * normalizedFrameRate(src));
+		if (srcBpp < cfg.bpp) {
+			// Source is thinner than this level's quality target — it can't
+			// sustain that bpp at any resolution. Shrink by the level's
+			// predictable fraction; pickResolution below will downscale
+			// further if that's still not enough.
+			videoBitrate = src.videoBitrate * cfg.sourceFactor;
+			cappedBySource = true;
+		} else if (src.videoBitrate < idealBitrate) {
+			// Source already carries at least this level's target quality,
+			// but doesn't have more bits than the target itself calls for.
+			// Don't slash it — just don't exceed it either.
+			videoBitrate = src.videoBitrate;
 			cappedBySource = true;
 		}
+		// else: source has plenty to spare — use the level's own ideal bpp.
 	}
 	videoBitrate = Math.max(MIN_VIDEO_BITRATE, videoBitrate);
 

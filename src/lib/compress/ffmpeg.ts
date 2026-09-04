@@ -17,7 +17,14 @@
 import type { CompressionPlan } from './plan';
 
 const CORE_VERSION = '0.12.10';
-const CORE_BASE = `https://unpkg.com/@ffmpeg/core@${CORE_VERSION}/dist/umd`;
+// @ffmpeg/ffmpeg's internal worker (spawned by ffmpeg.load()) is hardcoded to
+// `type: 'module'`, which has no `importScripts`. It tries importScripts()
+// first, catches the failure, and falls back to `await import(coreURL)` — but
+// that only works against a build with an ESM `export default`. The UMD core
+// build has no such export, so the dynamic import silently resolves
+// `.default` to undefined and the library throws "failed to import
+// ffmpeg-core.js". The ESM build is the one that actually works here.
+const CORE_BASE = `https://unpkg.com/@ffmpeg/core@${CORE_VERSION}/dist/esm`;
 
 /** Versioned so a core upgrade doesn't serve a stale wasm binary forever. */
 const CACHE_NAME = `squishyfile-ffmpeg-core-${CORE_VERSION}`;
@@ -117,6 +124,15 @@ async function getFfmpeg(
 		const { FFmpeg } = await import('@ffmpeg/ffmpeg');
 		const ffmpeg = new FFmpeg();
 
+		// Fire immediately, before any byte has actually moved: the CDN response
+		// doesn't always send a Content-Length header, in which case the
+		// receive-loop's onProgress below never fires (no `total` to divide by)
+		// and this call would otherwise be the ONLY signal the caller ever gets
+		// that we've moved past "probing" into "downloading the engine" — for a
+		// ~32 MB fetch that can be many seconds of the UI wrongly still saying
+		// "Reading your video...".
+		onLoadProgress?.(0, false);
+
 		// Sequential, not parallel: the JS glue is ~100 kB against ~32 MB of
 		// wasm, so interleaving their progress would just make the bar jump.
 		const core = await loadCoreAsset(`${CORE_BASE}/ffmpeg-core.js`, 'text/javascript', () => {});
@@ -155,7 +171,15 @@ function buildArgs(plan: CompressionPlan, inName: string, outName: string): stri
 	args.push('-preset', 'veryfast');
 	args.push('-pix_fmt', 'yuv420p');
 	args.push('-vf', `scale=${plan.width}:${plan.height}:flags=bicubic`);
-	args.push('-r', String(Math.round(plan.frameRate * 1000) / 1000));
+	// Only force an output frame rate when we deliberately changed it (see the
+	// matching comment in mediabunny.ts). `-r` re-times every frame onto a
+	// rigid grid, which duplicates/drops frames whenever the source isn't
+	// perfectly constant-frame-rate — real judder, not just softness. When
+	// we're not intentionally capping fps, leave it out so ffmpeg copies the
+	// source's own timestamps through as-is.
+	if (plan.warnings.includes('framerate_reduced')) {
+		args.push('-r', String(Math.round(plan.frameRate * 1000) / 1000));
+	}
 	args.push('-g', String(Math.max(1, Math.round(plan.frameRate * plan.keyFrameInterval))));
 
 	if (plan.mode === 'target' || plan.quantizer === null) {
@@ -207,7 +231,14 @@ export async function compressWithFfmpeg(
 	};
 	ffmpeg.on('progress', handleProgress);
 
-	const onAbort = () => ffmpeg.terminate();
+	// terminate() kills the internal worker and can't be undone — clear the
+	// module-level singleton too, or the next compress would reuse this same
+	// dead FFmpeg instance and fail immediately with "ffmpeg is not loaded,
+	// call `await ffmpeg.load()` first" (exactly what cancel-then-retry hit).
+	const onAbort = () => {
+		ffmpeg.terminate();
+		if (instance === ffmpeg) instance = null;
+	};
 	signal?.addEventListener('abort', onAbort, { once: true });
 
 	try {
@@ -237,8 +268,11 @@ export async function compressWithFfmpeg(
  * Probe with ffmpeg by parsing its stderr banner. Cruder than Mediabunny's
  * metadata read, but it's the only option for containers Mediabunny won't open.
  */
-export async function probeWithFfmpeg(file: File) {
-	const ffmpeg = await getFfmpeg();
+export async function probeWithFfmpeg(
+	file: File,
+	onLoadProgress?: (fraction: number) => void
+) {
+	const ffmpeg = await getFfmpeg(onLoadProgress);
 	const inName = `probe.${file.name.split('.').pop()?.toLowerCase() || 'bin'}`;
 
 	let log = '';

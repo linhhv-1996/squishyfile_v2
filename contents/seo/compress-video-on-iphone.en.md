@@ -74,6 +74,8 @@
 
 <p>It's also worth a quick pass through <strong>Photos &gt; Albums &gt; Utilities &gt; Duplicates</strong> every so often — iOS finds videos saved more than once (a common side effect of AirDropping or re-saving from Messages) and lets you merge them, which frees up space without compressing anything at all.</p>
 
+<p>If storage still feels tight after that, it's worth checking <strong>Settings &gt; [your name] &gt; iCloud &gt; Photos</strong> — "Optimize iPhone Storage" keeps space-saving versions on your device and the full originals in iCloud, while "Download and Keep Originals" keeps every full-size file on your phone permanently. A lot of "my phone is full" moments trace back to this setting rather than to any individual video.</p>
+
 </section>
 
 <section id="faq">
@@ -83,7 +85,7 @@
 <div class="faq-grid">
 <div class="faq-card"><h3>Do I need to install an app?</h3><p>No. SquishyFile runs entirely in Safari (or any mobile browser) — there's nothing to install from the App Store.</p></div>
 <div class="faq-card"><h3>Is my video uploaded anywhere?</h3><p>No. Compression happens entirely on your iPhone, in the browser — your video is never sent to a server.</p></div>
-<div class="faq-card"><h3>Will it work with videos recorded in HEVC or ProRes?</h3><p>Yes. SquishyFile reads the common formats iPhones record in and exports a compressed MP4 for easy sharing.</p></div>
+<div class="faq-card"><h3>Will it work with videos recorded in HEVC or ProRes?</h3><p>Yes. SquishyFile reads the common formats iPhones record in and exports a compressed MP4 for easy sharing — see our <a href="/blog/mov-vs-mp4-explained">MOV vs. MP4 guide</a> if you're also unsure why iPhone footage sometimes won't open elsewhere.</p></div>
 <div class="faq-card"><h3>Will compressing a long video drain my battery?</h3><p>Processing video takes some device power, like any video editing app — for very long clips or 4K footage, it helps to keep your phone plugged in.</p></div>
 <div class="faq-card"><h3>Can I send the compressed video straight from here?</h3><p>Download it first, then share it from your Photos app or Files to Messages, WhatsApp, email or anywhere else you'd normally share a video.</p></div>
 <div class="faq-card"><h3>Does this replace the size options in the Mail app?</h3><p>It's a lot more flexible: Mail's Small/Medium/Large options only apply to email attachments, while SquishyFile lets you set an exact target size and share the result anywhere.</p></div>

@@ -49,6 +49,7 @@ nav.main-nav a{ text-decoration:none; font-size:14px; font-weight:600; color:var
 nav.main-nav a:hover{ color:var(--ink); }
 .nav-tools{ display:flex; gap:16px; }
 .nav-tools a.active{ color:var(--coral-dark); }
+nav.main-nav > a.active{ color:var(--coral-dark); }
 @media (max-width:640px){ .nav-tools{ display:none; } }
 
 /* ---------- Hero: left-aligned text + reserved 300x250 ad slot, ~250px tall ---------- */
@@ -72,8 +73,8 @@ nav.main-nav a:hover{ color:var(--ink); }
   letter-spacing:-0.3px;
 }
 .hero p.sub{ max-width:460px; margin:0 0 20px; color:var(--muted); font-size:16px; }
-.tags{ display:flex; gap:10px; flex-wrap:wrap; }
-.tag{ font-size:13px; font-weight:700; padding:7px 14px; border-radius:999px; border:1.5px solid var(--coral); color:var(--coral-dark); background:#fff; }
+.tags{ display:flex; gap:8px; flex-wrap:wrap; }
+.tag{ font-size:11px; font-weight:700; padding:4px 10px; border-radius:999px; border:1px solid var(--coral); color:var(--coral-dark); background:#fff; }
 
 .ad-slot{
   flex-shrink:0;
@@ -87,7 +88,9 @@ nav.main-nav a:hover{ color:var(--ink); }
 }
 @media (max-width:760px){ .ad-slot{ display:none; } }
 @media (max-width:760px){ .hero-text{ max-width:none; } }
-@media (max-width:760px){ .hero .inner{ min-height:auto; padding:28px 20px; } }
+@media (max-width:760px){ .hero .inner{ min-height:auto; padding:20px 20px 8px; } }
+@media (max-width:760px){ .tags{ display:none; } }
+@media (max-width:760px){ .hero p.sub{ margin-bottom:0; } }
 
 /* ---------- Tool card ---------- */
 .tool-card{
@@ -97,9 +100,10 @@ nav.main-nav a:hover{ color:var(--ink); }
   border-radius:var(--radius-lg);
   padding:24px;
   box-shadow: 0 20px 40px -28px rgba(31,42,36,0.25);
-  margin-top: 20px;
+  margin-top: 10px;
 }
 @media (max-width:900px){ .tool-card{ margin:0 20px; } }
+@media (max-width:760px){ .tool-card{ margin-top: 16px; padding:18px; } }
 
 /* dropzone — compact horizontal bar, not a giant empty box */
 .dropzone{
@@ -142,7 +146,7 @@ input[type="range"]::-webkit-slider-thumb{ -webkit-appearance:none; width:20px; 
 .size-input span{ position:absolute; right:12px; top:50%; transform:translateY(-50%); font-size:13px; color:var(--muted); }
 
 .squish-btn{ display:block; width:100%; margin-top:18px; padding:15px; border:none; border-radius:999px; background:var(--coral); color:#fff; font-family:'Baloo 2', sans-serif; font-weight:700; font-size:17px; cursor:pointer; transition:transform 0.12s ease, background 0.15s ease; }
-.squish-btn:disabled{ background:#D9DEDA; cursor:not-allowed; }
+.squish-btn:disabled{ background:var(--coral); opacity:0.42; cursor:not-allowed; }
 .squish-btn:not(:disabled):hover{ background:var(--coral-dark); }
 .squish-btn:not(:disabled):active{ transform:scale(0.97); }
 
@@ -151,6 +155,10 @@ input[type="range"]::-webkit-slider-thumb{ -webkit-appearance:none; width:20px; 
 .squish-btn.is-processing:hover{ background:#CBD2CD; }
 .squish-btn-fill{ position:absolute; inset:0; width:0%; background:linear-gradient(90deg, var(--teal), var(--coral)); opacity:0.45; transition:width 0.25s ease; z-index:0; }
 .squish-btn-label{ position:relative; z-index:1; display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
+/* min-width:0 lets a flex child shrink below its content size at all — without it
+   a long progress string (e.g. the loading-engine label) just overflows the pill
+   button on narrow/mobile widths instead of truncating. */
+.squish-btn-text{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0; flex:1 1 auto; }
 .squish-btn-pct{ font-variant-numeric:tabular-nums; font-weight:700; flex-shrink:0; font-size:14px; }
 
 .dz-sample{ background:none; border:none; padding:0; margin-left:6px; color:var(--teal); font-weight:700; text-decoration:underline; cursor:pointer; font-size:12.5px; font-family:inherit; }
@@ -166,7 +174,7 @@ input[type="range"]::-webkit-slider-thumb{ -webkit-appearance:none; width:20px; 
 .file-info .remove:disabled{ opacity:0.4; cursor:not-allowed; }
 .controls input:disabled{ opacity:0.55; cursor:not-allowed; }
 .result .result-summary{ font-size:13px; color:var(--muted); margin:10px 0 0; }
-.result .result-note{ font-size:12.5px; color:var(--muted); margin:8px auto 0; max-width:340px; line-height:1.45; }
+.result .result-note{ font-size:12.5px; color:var(--muted); margin:8px auto 0; max-width:100%; line-height:1.45; }
 .result .result-note.is-warn{ color:var(--coral-dark); font-weight:600; }
 .tool-error{ margin-top:14px; font-size:13px; color:var(--coral-dark); text-align:center; }
 .squish-btn.is-cancel{ background:#D9DEDA; color:var(--ink); }
@@ -228,3 +236,18 @@ input[type="range"]::-webkit-slider-thumb{ -webkit-appearance:none; width:20px; 
 .footer-links a{ font-size:13px; color:var(--muted); text-decoration:none; }
 .footer-links a:hover{ color:var(--ink); }
 .footer-copy{ font-size:12px; color:#8A968E; }
+
+/* ---------- Blog ---------- */
+.blog-hero{ padding:36px 0 8px; }
+.blog-hero h1{ font-family:'Baloo 2', sans-serif; font-weight:800; font-size:30px; margin:0 0 8px; letter-spacing:-0.3px; }
+.blog-hero .sub{ font-size:15px; color:var(--muted); margin:0; max-width:560px; }
+.blog-list{ display:grid; grid-template-columns:repeat(2, 1fr); gap:20px; padding-top:24px; padding-bottom:48px; }
+@media (max-width:640px){ .blog-list{ grid-template-columns:1fr; } }
+.blog-card{ display:flex; flex-direction:column; background:var(--card); border:1px solid var(--line); border-radius:var(--radius-md); padding:20px; text-decoration:none; color:inherit; transition:border-color .15s, transform .15s; }
+.blog-card:hover{ border-color:var(--teal); transform:translateY(-2px); }
+.blog-card-date{ font-size:12.5px; color:var(--muted); margin-bottom:6px; }
+.blog-card h2{ font-family:'Baloo 2', sans-serif; font-weight:700; font-size:18px; margin:0 0 8px; color:var(--ink); }
+.blog-card p{ font-size:14px; color:var(--muted); margin:0 0 12px; flex-grow:1; }
+.blog-card-readmore{ font-size:13.5px; font-weight:600; color:var(--teal); }
+.blog-post .blog-back{ margin-top:28px; }
+.blog-post .blog-back a{ font-size:14px; font-weight:600; }

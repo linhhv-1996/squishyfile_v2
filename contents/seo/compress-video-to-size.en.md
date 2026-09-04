@@ -8,7 +8,7 @@
 
 <p>Picking a "quality" slider and hoping for the best doesn't help much when the thing you actually need is a video under 25MB for an email attachment or under 20MB for a Discord upload. SquishyFile's target size field flips the problem around: enter the size you need in MB, and it works out the compression required to get there — no guesswork, no re-exporting five times to land under a limit by chance.</p>
 
-<p>It's especially useful for large recordings — screen captures, phone videos, or any other <strong>compress large video file</strong> situation — where "quality" settings are hard to judge but a hard size limit isn't. Whether you're trying to <strong>compress video to 10MB</strong> for a strict form upload or need something closer to 50MB or 100MB for a looser limit, the target size field gets you there in one pass, without you needing to know anything about bitrates or encoders.</p>
+<p>It's especially useful for large recordings — screen captures, phone videos, or any long clip that's ballooned past a platform's limit — where "quality" settings are hard to judge but a hard size limit isn't. Whether you're trying to <strong>compress video to 10MB</strong> for a strict form upload or need something closer to 50MB or 100MB for a looser limit, the target size field gets you there in one pass, without you needing to know anything about bitrates or encoders.</p>
 
 <p>The same logic applies below 10MB too — for a <strong>compress video under 25MB</strong> request from a form or a strict community upload, entering the number directly is far more reliable than guessing at a quality percentage and hoping it happens to land small enough.</p>
 
@@ -81,12 +81,14 @@
 
 <div class="faq-grid">
 <div class="faq-card"><h3>Does target size override the quality slider?</h3><p>Yes. If you enter a target size, SquishyFile uses that instead of the compression level slider to decide how much to compress.</p></div>
-<div class="faq-card"><h3>What if my target size is too small for decent quality?</h3><p>Very aggressive targets — trying to compress video under 25MB for a long, high-motion clip, for example — can visibly reduce quality. If the result looks too compressed, try a slightly higher target size.</p></div>
+<div class="faq-card"><h3>What if my target size is too small for decent quality?</h3><p>Very aggressive targets — trying to compress video under 25MB for a long, high-motion clip, for example — can visibly reduce quality: SquishyFile keeps audio intelligible first, so an extreme target shows up as blurring, blockiness or a lower frame rate before the sound suffers. If the result looks too compressed, try a slightly higher target size.</p></div>
 <div class="faq-card"><h3>Can I compress multiple videos to the same size?</h3><p>Yes — compress and download one, then drop in the next. Each one uses the same target size until you change it.</p></div>
 <div class="faq-card"><h3>Is this as accurate as a professional tool?</h3><p>SquishyFile aims to land close to your target size on the first pass. For everyday uploads — email, chat apps, social platforms — it's more than accurate enough.</p></div>
 <div class="faq-card"><h3>Is my video uploaded to compress it to size?</h3><p>No. Just like the rest of SquishyFile, size-targeted compression runs entirely in your browser.</p></div>
 <div class="faq-card"><h3>Why did my file end up slightly over or under my target?</h3><p>Compression isn't perfectly exact, since scene complexity affects how much a given bitrate actually weighs. SquishyFile aims a little under your target to leave a safety margin — if it's still off, try compressing again at a slightly lower size.</p></div>
+<div class="faq-card"><h3>Video still won't send after compressing?</h3><p>A size limit isn't the only reason a video fails to send — see our <a href="/blog/video-wont-send-email-whatsapp">guide to fixing videos that won't send on email or WhatsApp</a> for the other common causes.</p></div>
 <div class="faq-card"><h3>Need the compression level slider instead?</h3><p>Head back to the <a href="/">main video compressor</a> if you'd rather control quality directly instead of targeting a file size.</p></div>
+<div class="faq-card"><h3>Compressing straight from an iPhone?</h3><p>The target size field here works the same on iPhone Safari as anywhere else, but if you want the phone-specific workflow — picking a video from Photos, saving the result back — see our <a href="/compress-video-on-iphone">compress video on iPhone</a> guide.</p></div>
 </div>
 
 </section>

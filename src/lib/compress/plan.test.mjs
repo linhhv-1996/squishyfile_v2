@@ -115,7 +115,24 @@ for (const lvl of [1, 2, 3]) {
 	prevBitrate = p.videoBitrate;
 	prevPixels = p.width * p.height;
 }
-check('level 2 caps at 1080p', Math.min(...Object.values(planForLevel(levelSrc, 2)).filter(Number.isFinite) ? [planForLevel(levelSrc, 2).width, planForLevel(levelSrc, 2).height] : []) === 1080);
+// Balanced (level 2) no longer force-caps at 1080p (fixed 2026-09-04, part
+// 9) — resolution should follow the bitrate budget, not a fixed ladder rung.
+{
+	// Ample bitrate (80 Mbps at 4K60, bpp ~0.16) comfortably clears Balanced's
+	// own quality target (bpp 0.1) at full 4K, so it should stay 4K, just at
+	// a lower bitrate — not get force-downscaled to 1080p for no reason.
+	const p = planForLevel(levelSrc, 2);
+	check('level 2 keeps 4K when the bitrate can sustain it', p.height === 2160, `(got ${p.width}x${p.height})`);
+}
+{
+	// A merely-decent 4K source (bpp ~0.06, below Balanced's 0.1 target but
+	// well above the floor) should land on a middle rung like 1440p (2K) —
+	// not get shoved straight down to 1080p, and not stay at a bpp too thin
+	// for 4K either.
+	const decent4k = { ...levelSrc, videoBitrate: 30e6 };
+	const p = planForLevel(decent4k, 2);
+	check('level 2 drops a merely-decent 4K source to an intermediate rung, not straight to 1080p', p.height === 1440, `(got ${p.width}x${p.height})`);
+}
 check('level 3 caps at 720p', Math.min(planForLevel(levelSrc, 3).width, planForLevel(levelSrc, 3).height) === 720);
 check('level 3 caps fps at 30', planForLevel(levelSrc, 3).frameRate === 30);
 

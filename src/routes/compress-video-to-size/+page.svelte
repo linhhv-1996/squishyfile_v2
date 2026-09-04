@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { getStrings } from '$lib/i18n';
-	import Ads300x250 from '$lib/components/ads/Ads300x250.svelte';
+	import Seo from '$lib/components/seo/Seo.svelte';
+	import NordVpnAd from '$lib/components/ads/NordVpnAd.svelte';
 	import CompressVideo from '$lib/components/tool/CompressVideo.svelte';
 
 	let { data } = $props();
@@ -8,10 +9,7 @@
 	const copy = t.pages.compressToSize;
 </script>
 
-<svelte:head>
-	<title>{copy.meta.title}</title>
-	<meta name="description" content={copy.meta.description} />
-</svelte:head>
+<Seo title={copy.meta.title} description={copy.meta.description} />
 
 <section class="hero">
 	<div class="inner">
@@ -24,7 +22,7 @@
 				{/each}
 			</div>
 		</div>
-		<!-- <Ads300x250 /> -->
+		<NordVpnAd />
 	</div>
 </section>
 

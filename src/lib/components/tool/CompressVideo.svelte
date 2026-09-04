@@ -52,6 +52,17 @@
 		worker = new Worker(new URL('./compress.worker.ts', import.meta.url), {
 			type: 'module'
 		});
+		worker.onerror = (event: ErrorEvent) => {
+			// A crash the worker's own message handler never got to catch (e.g. a
+			// module import that threw at load time) would otherwise disappear
+			// silently and just leave the UI stuck.
+			console.error('[CompressVideo] worker crashed:', event.message, event);
+			status = 'error';
+			errorMessage = t.tool.errors.generic;
+		};
+		worker.onmessageerror = (event: MessageEvent) => {
+			console.error('[CompressVideo] worker message could not be deserialized:', event);
+		};
 		worker.onmessage = (event: MessageEvent<WorkerOutMessage>) => {
 			const data = event.data;
 
@@ -63,6 +74,7 @@
 			}
 
 			if (data.type === 'error') {
+				console.error('[CompressVideo] worker reported an error:', data.message);
 				status = 'error';
 				errorMessage = t.tool.errors.generic;
 				return;

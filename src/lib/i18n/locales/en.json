@@ -3,27 +3,16 @@
 		"name": "Squishy",
 		"nameAccent": "File",
 		"emoji": "🫧",
-		"tagline": "Free file compression tools that run entirely in your browser."
+		"tagline": "Free browser-based file tools — starting with video compression, more to come."
 	},
 	"nav": {
 		"categories": [
 			{
 				"label": "Video",
 				"href": "/"
-			},
-			{
-				"label": "Image",
-				"href": "#"
-			},
-			{
-				"label": "Audio",
-				"href": "#"
-			},
-			{
-				"label": "PDF",
-				"href": "#"
 			}
 		],
+		"blog": "Blog",
 		"howItWorks": "How it works",
 		"faq": "FAQ"
 	},
@@ -34,38 +23,44 @@
 				"href": "/"
 			},
 			{
-				"label": "Image",
-				"href": "#"
+				"label": "About",
+				"href": "/about"
 			},
 			{
-				"label": "Audio",
-				"href": "#"
-			},
-			{
-				"label": "PDF",
-				"href": "#"
+				"label": "Blog",
+				"href": "/blog"
 			},
 			{
 				"label": "How it works",
-				"href": "#how-it-works"
+				"href": "/#how-it-works"
 			},
 			{
 				"label": "FAQ",
-				"href": "#faq"
+				"href": "/#faq"
 			},
 			{
 				"label": "Privacy",
-				"href": "#"
+				"href": "/privacy"
+			},
+			{
+				"label": "Terms",
+				"href": "/terms"
 			},
 			{
 				"label": "Contact",
-				"href": "#"
+				"href": "/contact"
 			}
 		],
 		"copyright": "© {year} {siteName}. All rights reserved."
 	},
 	"ads": {
-		"placeholder": "Ad · 300×250"
+		"placeholder": "Ad · 300×250",
+		"nordVpn": {
+			"label": "Sponsor",
+			"headline": "Browse & stream privately",
+			"subtitle": "Encrypt your connection with NordVPN.",
+			"cta": "Try NordVPN"
+		}
 	},
 	"share": {
 		"label": "Found this useful? Share it",
@@ -91,7 +86,7 @@
 			"max": "Max squish",
 			"levels": [
 				"Light — keep it sharp",
-				"Balanced — max 1080p",
+				"Balanced — sweet spot for sharing",
 				"Max squish — max 720p"
 			],
 			"disabledByTarget": "Disabled — a target size is set below, so it controls compression instead."
@@ -109,7 +104,7 @@
 		"progress": {
 			"label": "Squishing...",
 			"probing": "Reading your video...",
-			"loadingEngine": "Downloading the compressor for this format (one time only — it's cached after this)...",
+			"loadingEngine": "Downloading compressor (one-time)...",
 			"pass": "Fine-tuning to hit your target size (pass {n})...",
 			"done": "Done!"
 		},
@@ -138,12 +133,12 @@
 	"pages": {
 		"home": {
 			"meta": {
-				"title": "SquishyFile — Free Video Compressor, Right in Your Browser",
-				"description": "Free online video compressor for MP4, MOV, MKV, AVI and WebM — no uploads, no file-size limit, no watermark, no sign up. Runs entirely in your browser."
+				"title": "SquishyFile — Free Video Compressor, No Watermark or Limit",
+				"description": "Free online video compressor for MP4, MOV, MKV, AVI and WebM — no uploads, no file-size limit, no watermark, no sign up required."
 			},
 			"hero": {
 				"title": "Squish your videos, keep the quality",
-				"subtitle": "100% free video compression with no file-size limit and no watermark on export. Everything runs right in your browser — no uploads, no waiting on a server.",
+				"subtitle": "100% free video compression with no file-size limit and no watermark on export. Works with MP4, MOV, MKV, AVI and WebM — output is always clean H.264 MP4.",
 				"tags": [
 					"Free forever",
 					"No file limit",
@@ -154,11 +149,11 @@
 		"compressToSize": {
 			"meta": {
 				"title": "Compress Video to 10MB, 25MB or Any Size — SquishyFile",
-				"description": "Shrink your video to an exact size — 10MB, 25MB or any target — for email, Discord, WhatsApp and Instagram limits. Free and private, right in your browser."
+				"description": "Shrink your video to an exact size — 10MB, 25MB or any target — for email, Discord, WhatsApp and Instagram limits. 100% free, no watermark, no sign up."
 			},
 			"hero": {
 				"title": "Compress your video to an exact file size",
-				"subtitle": "Type in a target size in MB and SquishyFile does the math — perfect for email attachments, Discord uploads, or any platform with a strict size limit. 100% free, right in your browser.",
+				"subtitle": "Type in a target size in MB and SquishyFile does the math — perfect for email attachments, Discord uploads, or any platform with a strict size limit. Works with MP4, MOV, MKV, AVI and WebM, and always exports as MP4.",
 				"tags": [
 					"Free forever",
 					"Any size target",
@@ -180,6 +175,42 @@
 					"No watermark"
 				]
 			}
+		},
+		"about": {
+			"meta": {
+				"title": "About SquishyFile — Free Browser-Based Compression Tools",
+				"description": "SquishyFile is a free, browser-based toolset built by J.Julian out of a passion for technology and a belief that useful tools should be free and accessible to everyone."
+			}
+		},
+		"contact": {
+			"meta": {
+				"title": "Contact SquishyFile",
+				"description": "Get in touch with the SquishyFile team — questions, feedback, or bug reports are welcome at contact@squishyfile.com."
+			}
+		},
+		"privacy": {
+			"meta": {
+				"title": "Privacy Policy — SquishyFile",
+				"description": "Read SquishyFile's privacy policy: what data we collect, how Google Analytics and advertising cookies are used, and how your files stay on your device."
+			}
+		},
+		"terms": {
+			"meta": {
+				"title": "Terms of Service — SquishyFile",
+				"description": "The terms and conditions for using SquishyFile's free, browser-based tools."
+			}
+		},
+		"blog": {
+			"meta": {
+				"title": "Blog — SquishyFile",
+				"description": "Tips and explainers on video compression, file size limits, and how SquishyFile's browser-based tools work under the hood."
+			},
+			"hero": {
+				"title": "The SquishyFile Blog",
+				"subtitle": "Explainers on video compression, file size limits, and how SquishyFile works under the hood."
+			},
+			"readMore": "Read more",
+			"backToBlog": "Back to all posts"
 		}
 	}
 }

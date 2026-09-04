@@ -73,6 +73,13 @@ export type WorkerOutMessage =
 const MB = 1024 * 1024;
 
 let abortController: AbortController | null = null;
+// Kept separately from `abortController` because the cancel handler below
+// nulls that one out synchronously, while the in-flight compress() promise
+// (and its eventual rejection) is still using the AbortSignal it captured at
+// start. Reading `currentSignal.aborted` in the catch is how we tell "this
+// failed because we cancelled it" from "this genuinely broke" — see the
+// signalWasAborted() comment for why the error *type* alone isn't enough.
+let currentSignal: AbortSignal | null = null;
 
 function post(message: WorkerOutMessage) {
 	self.postMessage(message);
@@ -86,11 +93,12 @@ function outputName(original: string): string {
 type Engine = 'mediabunny' | 'ffmpeg';
 
 async function resolveEngineAndSource(
-	file: File
+	file: File,
+	onLoadProgress: (fraction: number) => void
 ): Promise<{ engine: Engine; source: SourceInfo }> {
 	// Known-unsupported containers: skip the Mediabunny attempt entirely.
 	if (needsFfmpeg(file.name)) {
-		return { engine: 'ffmpeg', source: await probeWithFfmpeg(file) };
+		return { engine: 'ffmpeg', source: await probeWithFfmpeg(file, onLoadProgress) };
 	}
 
 	try {
@@ -102,7 +110,7 @@ async function resolveEngineAndSource(
 		return { engine: 'ffmpeg', source };
 	} catch (error) {
 		if (error instanceof UnsupportedByMediabunnyError) {
-			return { engine: 'ffmpeg', source: await probeWithFfmpeg(file) };
+			return { engine: 'ffmpeg', source: await probeWithFfmpeg(file, onLoadProgress) };
 		}
 		throw error;
 	}
@@ -147,9 +155,17 @@ async function compress(request: CompressRequest) {
 	abortController?.abort();
 	abortController = new AbortController();
 	const { signal } = abortController;
+	currentSignal = signal;
 
 	post({ type: 'progress', progress: 0, stage: 'probing', pass: 1 });
-	const { engine, source } = await resolveEngineAndSource(file);
+	const { engine, source } = await resolveEngineAndSource(file, (fraction) =>
+		post({
+			type: 'progress',
+			progress: Math.round(fraction * 100),
+			stage: 'loading-engine',
+			pass: 1
+		})
+	);
 
 	const desiredBytes = targetSizeMB ? targetSizeMB * MB : null;
 
@@ -226,7 +242,12 @@ self.onmessage = (event: MessageEvent<CompressRequest | CancelRequest>) => {
 	if (data.type !== 'compress') return;
 
 	compress(data).catch((error: unknown) => {
-		if (signalWasAborted(error)) return;
+		if (signalWasAborted(error) || currentSignal?.aborted) return;
+		// Nothing else in this pipeline calls console.error — without this the
+		// failure is completely invisible in DevTools, only a generic string
+		// reaches the UI. Log the real error (worker errors show up under the
+		// worker's own context in the Console tab, filter it in if collapsed).
+		console.error('[compress.worker] compression failed:', error);
 		post({
 			type: 'error',
 			message: error instanceof Error ? error.message : 'Compression failed'
@@ -236,7 +257,18 @@ self.onmessage = (event: MessageEvent<CompressRequest | CancelRequest>) => {
 
 function signalWasAborted(error: unknown): boolean {
 	if (error instanceof ConversionCanceledError) return true;
-	return error instanceof DOMException && error.name === 'AbortError';
+	if (error instanceof DOMException && error.name === 'AbortError') return true;
+	// ffmpeg.terminate() (called on cancel — see the onAbort handler in
+	// ffmpeg.ts) rejects every pending ffmpeg call with a plain
+	// `new Error("called FFmpeg.terminate()")`, not one of the two types
+	// above. Without this, cancelling an ffmpeg-engine compression showed the
+	// generic "Something went wrong" error even though nothing actually went
+	// wrong — the user just clicked Cancel. `currentSignal?.aborted` at the
+	// call site catches this and anything else shaped like it; this check is
+	// kept too as a same-tick fallback in case `currentSignal` was already
+	// reassigned by a new compress() call by the time the old one's catch runs.
+	if (error instanceof Error && error.message === 'called FFmpeg.terminate()') return true;
+	return false;
 }
 
 export {};

@@ -22,6 +22,7 @@
 					</a>
 				{/each}
 			</div>
+			<a href="/blog" class:active={page.url.pathname.startsWith('/blog')}>{t.nav.blog}</a>
 			<a href="#how-it-works">{t.nav.howItWorks}</a>
 			<a href="#faq">{t.nav.faq}</a>
 		</nav>

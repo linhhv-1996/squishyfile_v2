@@ -59,7 +59,7 @@
 
 <section>
 
-## A free, browser-based alternative to Handbrake
+## A free alternative to Handbrake — no install needed
 
 <p>Handbrake is powerful, but it's a desktop application: you download it, install it, and then work through a settings panel full of presets, containers and encoder options before your first export finishes. SquishyFile is built for the opposite kind of moment — you have one video, you need it smaller, and you'd rather not learn a new piece of software to do it. Open the page, drop in a file, and you're compressing within seconds.</p>
 
@@ -100,7 +100,7 @@
 <div class="faq-card"><h3>Do I need to sign up or install anything?</h3><p>No. There's no account, no browser extension and no software to install — just open the page and drop in a video.</p></div>
 <div class="faq-card"><h3>Is my video stored on your server?</h3><p>No. Compression happens entirely in your browser — not a single byte of your video is ever uploaded anywhere.</p></div>
 <div class="faq-card"><h3>How is this different from Handbrake?</h3><p>Handbrake is a desktop app you install and configure yourself. SquishyFile runs in the browser with sensible defaults, so there's nothing to download and no settings to learn.</p></div>
-<div class="faq-card"><h3>Will compressing my video reduce its quality?</h3><p>A little, like any compression, but the "Light" setting is built to keep the difference hard to notice. Use the slider to trade size for quality however suits the video.</p></div>
+<div class="faq-card"><h3>Will compressing my video reduce its quality?</h3><p>A little, like any compression, but the "Light" setting is built to keep the difference hard to notice. Use the slider to trade size for quality however suits the video. Compressing the same file repeatedly does compound the loss &mdash; see <a href="/blog/how-many-times-can-you-compress-a-video">how many times you can re-compress a video</a> before it becomes visible.</p></div>
 <div class="faq-card"><h3>Does it work on mobile?</h3><p>Yes, including on iPhone — see our dedicated <a href="/compress-video-on-iphone">iPhone guide</a> for tips specific to Safari.</p></div>
 <div class="faq-card"><h3>Can I use this instead of an app like Clideo?</h3><p>Yes — SquishyFile does the same core job, compressing a video in your browser, without an account, a watermark, or a limit on how many files you can process.</p></div>
 </div>

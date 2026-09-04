@@ -52,15 +52,28 @@ export async function probe(file: File): Promise<SourceInfo> {
 	]);
 
 	let frameRate = 30;
-	let videoBitrate: number | null = null;
 	try {
 		const stats = await videoTrack.computePacketStats(120);
 		if (stats.averagePacketRate > 0) frameRate = stats.averagePacketRate;
-		if (stats.averageBitrate > 0) videoBitrate = stats.averageBitrate;
 	} catch {
-		// Stats are an optimisation, not a requirement — the planner copes
-		// with nulls by falling back to its bpp model alone.
+		// Frame rate estimate is an optimisation, not a requirement — the
+		// planner copes with the 30fps default.
 	}
+
+	// Whole-file average, not a packet-stats prefix sample: computePacketStats
+	// only scans the first ~120 packets (a few seconds) from the *start* of
+	// the file. That's fine for frame rate (constant throughout), but badly
+	// unrepresentative for bitrate whenever the opening seconds are simpler
+	// than the rest of the video (a static shot, a dark scene, a title card
+	// ...) — it silently starves `planForLevel`'s `cappedBySource` branch and
+	// the actual encode bitrate ceiling, producing a much smaller/softer
+	// output than the chosen level intends.
+	//
+	// totalBytes/durationSec is exact and already known for free. It folds in
+	// audio + container overhead, so it slightly *overestimates* the video
+	// bitrate — the safe direction, since it under-triggers `cappedBySource`
+	// rather than over-triggering it.
+	const videoBitrate = durationSec > 0 ? (file.size * 8) / durationSec : null;
 
 	return {
 		durationSec,
@@ -128,7 +141,19 @@ export async function compressWithMediabunny(
 			width: plan.width,
 			height: plan.height,
 			fit: 'contain',
-			frameRate: plan.frameRate,
+			// Only pin an output frame rate when we deliberately changed it
+			// (fpsCap or a target-mode budget squeeze — see 'framerate_reduced'
+			// in plan.ts). Passing `frameRate` here isn't a no-op even when it
+			// equals the source's own rate: Mediabunny quantizes every sample
+			// onto a rigid `1/frameRate` timestamp grid and drops/duplicates
+			// whichever sample lands in an already-filled bucket. Real-world
+			// footage is rarely perfectly constant-frame-rate (auto-exposure,
+			// capture jitter, or `probe()`'s frame-rate estimate — sampled
+			// from only the first ~120 packets — being slightly off), so
+			// forcing that grid when we don't need to introduces exactly the
+			// judder this was reported for. Omitting it lets Mediabunny pass
+			// each sample's real timestamp straight through untouched.
+			...(plan.warnings.includes('framerate_reduced') ? { frameRate: plan.frameRate } : {}),
 			codec: 'avc',
 			quality: buildQuality(plan),
 			keyFrameInterval: plan.keyFrameInterval,
