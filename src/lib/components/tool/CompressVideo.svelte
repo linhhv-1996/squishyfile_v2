@@ -26,6 +26,7 @@
 	let pass = $state(1);
 	let errorMessage = $state('');
 	let fileInputEl = $state<HTMLInputElement>();
+	let isSampleLoading = $state(false);
 	let resultEl = $state<HTMLDivElement>();
 
 	let result = $state<{
@@ -161,7 +162,7 @@
 	// While a job is running the input file is locked: swapping or clearing it
 	// mid-encode would leave the worker producing a result for a file the user
 	// can no longer see. Cancel first, then change the file.
-	const isBusy = $derived(status === 'processing');
+	const isBusy = $derived(status === 'processing' || isSampleLoading);
 
 	function onDropzoneClick(event: MouseEvent) {
 		if (isBusy) return;
@@ -194,6 +195,7 @@
 
 	async function loadSample() {
 		if (isBusy) return;
+		isSampleLoading = true;
 		try {
 			const response = await fetch('/13069876_1280_720_30fps.mp4');
 			if (!response.ok) throw new Error('sample fetch failed');
@@ -202,6 +204,8 @@
 		} catch {
 			status = 'error';
 			errorMessage = t.tool.errors.generic;
+		} finally {
+			isSampleLoading = false;
 		}
 	}
 
@@ -273,6 +277,11 @@
 		ondragover={onDragOver}
 		ondragleave={onDragLeave}
 	>
+		{#if isSampleLoading}
+			<div class="dz-overlay">
+				<span class="dz-spinner" aria-hidden="true"></span>
+			</div>
+		{/if}
 		<span class="icon">
 			<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 				<path d="M12 16V4M12 4l-4 4M12 4l4 4" />

@@ -159,6 +159,7 @@ nav.main-nav > a.active{ color:var(--coral-dark); }
 
 /* dropzone — compact horizontal bar, not a giant empty box */
 .dropzone{
+  position:relative;
   display:flex;
   align-items:center;
   gap:14px;
@@ -169,6 +170,25 @@ nav.main-nav > a.active{ color:var(--coral-dark); }
   transition: border-color 0.15s ease, background 0.15s ease;
   background:var(--teal-light);
 }
+.dz-overlay{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,0.72);
+  border-radius:var(--radius-md);
+  z-index:2;
+}
+.dz-spinner{
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  border:3px solid var(--teal-light);
+  border-top-color:var(--coral);
+  animation:dz-spin 0.7s linear infinite;
+}
+@keyframes dz-spin{ to{ transform:rotate(360deg); } }
 .dropzone:hover{ border-color:var(--teal); }
 .dropzone.is-drag{ border-color:var(--coral); background:#FFF1EF; }
 .dropzone .icon{ flex-shrink:0; width:38px; height:38px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; }
