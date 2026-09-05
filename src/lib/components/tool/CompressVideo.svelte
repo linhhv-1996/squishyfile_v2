@@ -224,6 +224,7 @@
 	function startCompression() {
 		const activeWorker = getWorker();
 		if (!file || !activeWorker) return;
+		if (isSizeMode && !hasTargetSize(targetSize)) return;
 		reset();
 		status = 'processing';
 		stage = 'probing';
@@ -259,6 +260,11 @@
 	}
 
 	const targetSizeActive = $derived(hasTargetSize(targetSize));
+
+	// On the "compress to size" page, target size isn't an optional refinement
+	// — it's the only control (compression level is hidden there), so the
+	// squish button must stay disabled until one is actually filled in.
+	const canStart = $derived(file !== null && (!isSizeMode || hasTargetSize(targetSize)));
 
 	const targetIsPointless = $derived(
 		file !== null && hasTargetSize(targetSize) && targetSize * 1024 * 1024 >= file.size
@@ -417,7 +423,7 @@
 			</span>
 		</button>
 	{:else}
-		<button class="squish-btn" disabled={!file} onclick={startCompression}>
+		<button class="squish-btn" disabled={!canStart} onclick={startCompression}>
 			<span class="squish-btn-idle">
 				{t.tool.button.idle}
 				<svg class="squish-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
