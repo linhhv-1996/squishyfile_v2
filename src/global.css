@@ -312,6 +312,10 @@ input[type="range"]::-moz-focus-outer{ border:0; }
 .seo section{ margin-bottom:28px; }
 .seo h2{ font-family:'Baloo 2', sans-serif; font-weight:700; font-size:22px; margin:0 0 10px; }
 .seo p{ font-size:15px; margin:0 0 10px; color:#3C4A43; }
+.seo ul{ margin:0 0 10px; padding-left:20px; }
+.seo li{ font-size:15px; color:#3C4A43; margin-bottom:6px; }
+.seo li:last-child{ margin-bottom:0; }
+.seo li strong{ color:var(--ink); }
 .seo a{ color:var(--link); text-decoration:underline; }
 .seo a:hover{ color:var(--link-dark); }
 

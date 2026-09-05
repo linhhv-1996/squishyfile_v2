@@ -18,6 +18,10 @@
       {
         "label": "MP4 to MP3",
         "href": "/mp4-to-mp3"
+      },
+      {
+        "label": "Video Upscaler",
+        "href": "/video-upscaler"
       }
     ],
     "blog": "Blog",
@@ -80,6 +84,10 @@
       {
         "label": "MOV to MP3",
         "href": "/mov-to-mp3"
+      },
+      {
+        "label": "Video Upscaler",
+        "href": "/video-upscaler"
       }
     ],
     "copyright": "© {year} {siteName}. All rights reserved."
@@ -237,6 +245,49 @@
       "noAudio": "This video doesn't seem to have an audio track to extract."
     }
   },
+  "toolUpscale": {
+    "dropzone": {
+      "titlePrefix": "Drag & drop a video, or",
+      "browse": "browse",
+      "subtitle": "MP4, MOV, MKV, AVI, WebM supported",
+      "loadSample": "or try a sample video"
+    },
+    "fileInfo": {
+      "remove": "Remove file"
+    },
+    "scale": {
+      "label": "Upscale factor",
+      "hint": "2x is faster and enough for most clips; 4x pushes further but takes longer to process.",
+      "options": {
+        "2": "2x",
+        "4": "4x"
+      }
+    },
+    "button": {
+      "idle": "Upscale it",
+      "cancel": "Cancel"
+    },
+    "progress": {
+      "probing": "Reading your video...",
+      "loadingEngine": "Downloading upscaler (one-time)...",
+      "encodingAi": "Upscaling with AI model...",
+      "encodingFsr": "Upscaling with FSR...",
+      "done": "Done!"
+    },
+    "result": {
+      "statLabel": "upscaled {scale}x",
+      "summary": "{fromWidth}×{fromHeight} → {toWidth}×{toHeight} · {engine}",
+      "engineAi": "AI model",
+      "engineFsr": "FSR",
+      "viewResult": "View before/after",
+      "download": "Download upscaled video",
+      "upscaleNew": "Upscale another video"
+    },
+    "privacyNote": "Keep this tab open and active while it processes — for the fastest speed.",
+    "errors": {
+      "generic": "Something went wrong while upscaling. Try a different file or reload the page."
+    }
+  },
   "pages": {
     "home": {
       "meta": {
@@ -245,7 +296,7 @@
       },
       "hero": {
         "title": "Squish your videos, keep the quality",
-        "subtitle": "100% free video compression with no file-size limit and no watermark on export. Works with MP4, MOV, MKV, AVI and WebM — output is always clean H.264 MP4.",
+        "subtitle": "100% free video compression with no file-size limit and no watermark. Runs entirely in your browser, no uploads needed — supports MP4, MOV, MKV, AVI and WebM, and output is always a clean H.264 MP4.",
         "tags": [
           "Free forever",
           "No file limit",
@@ -260,7 +311,7 @@
       },
       "hero": {
         "title": "Compress your video to an exact file size",
-        "subtitle": "Type in a target size in MB and SquishyFile does the math — perfect for email attachments, Discord uploads, or any platform with a strict size limit. Works with MP4, MOV, MKV, AVI and WebM, and always exports as MP4.",
+        "subtitle": "Type in a target size in MB and SquishyFile does the math — perfect for email, Discord uploads, or any platform with a strict size limit. Works with MP4, MOV, MKV, AVI and WebM, exports as MP4.",
         "tags": [
           "Free forever",
           "Any size target",
@@ -275,7 +326,7 @@
       },
       "hero": {
         "title": "Compress video on iPhone, right in Safari",
-        "subtitle": "No app to install — just open this page in Safari, pick a video from your Photos library, and squish it down to size. Everything happens on your iPhone, nothing is uploaded.",
+        "subtitle": "No app to install — just open this page in Safari, pick a video from your Photos library, and squish it down to size. Everything runs on your iPhone, right in the browser, nothing is uploaded.",
         "tags": [
           "Works in Safari",
           "No app needed",
@@ -326,7 +377,7 @@
       },
       "hero": {
         "title": "Convert video to MP3, free and private",
-        "subtitle": "Drop in a video and get a clean MP3 back at 128, 192 or 320 kbps — works with MP4, MOV, MKV, AVI and WebM, no matter where the file came from.",
+        "subtitle": "Drop in a video and get a clean MP3 back at 128, 192 or 320 kbps — works with MP4, MOV, MKV, AVI and WebM, no matter where the file came from. Runs right in your browser, nothing gets uploaded.",
         "tags": [
           "Free forever",
           "No upload",
@@ -341,7 +392,7 @@
       },
       "hero": {
         "title": "Convert MP4 to MP3 in seconds",
-        "subtitle": "Turn a screen recording, downloaded clip or phone video into a standalone MP3 — pick 128, 192 or 320 kbps and it's ready to download in seconds.",
+        "subtitle": "Turn a screen recording, downloaded clip or phone video into a standalone MP3 — pick 128, 192 or 320 kbps and it's ready to download in seconds. Runs in your browser, nothing is ever uploaded.",
         "tags": [
           "Free forever",
           "No upload",
@@ -356,11 +407,26 @@
       },
       "hero": {
         "title": "Convert MOV to MP3, no app needed",
-        "subtitle": "Perfect for iPhone recordings and QuickTime exports — pick 128, 192 or 320 kbps and get the audio out without opening a single app.",
+        "subtitle": "Perfect for iPhone recordings and QuickTime exports — pick 128, 192 or 320 kbps and get the audio out without opening a single app. Runs entirely in your browser, and nothing is ever uploaded.",
         "tags": [
           "Free forever",
           "No upload",
           "Works with iPhone MOV"
+        ]
+      }
+    },
+    "videoUpscaler": {
+      "meta": {
+        "title": "Video Upscaler — Free 1080p & 4K AI Upscaling, No Watermark",
+        "description": "Free video upscaler that runs entirely in your browser — upscale 480p or 720p video to 1080p or 4K with 2x or 4x scale, no upload, no watermark, no sign up."
+      },
+      "hero": {
+        "title": "Upscale your videos, keep it sharp",
+        "subtitle": "Turn 480p or 720p video into sharp 1080p or 4K, right in your browser — pick 2x or 4x, compare before and after, and download the result. No upload, no watermark, free forever and fully private.",
+        "tags": [
+          "Free forever",
+          "No upload",
+          "No watermark"
         ]
       }
     }

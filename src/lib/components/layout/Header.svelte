@@ -87,8 +87,8 @@
 			>
 				{t.nav.blog}
 			</a>
-			<a href="#how-it-works" onclick={closeMenu}>{t.nav.howItWorks}</a>
-			<a href="#faq" onclick={closeMenu}>{t.nav.faq}</a>
+			<!-- <a href="#how-it-works" onclick={closeMenu}>{t.nav.howItWorks}</a>
+			<a href="#faq" onclick={closeMenu}>{t.nav.faq}</a> -->
 		</nav>
 	</div>
 </header>
