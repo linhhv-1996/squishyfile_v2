@@ -11,13 +11,13 @@
 	import SupportLink from '$lib/components/support/SupportLink.svelte';
 	import BeforeAfterVideoSlider from './BeforeAfterVideoSlider.svelte';
 	import { UPSCALE_SCALES, type UpscaleEngine, type UpscaleScale } from '$lib/upscale/plan';
-	import type { WorkerOutMessage } from './upscale.worker';
+	import type { WorkerOutMessage } from './upscale-fsrcnn.worker';
 
 	let { shareTitle = '' }: { shareTitle?: string } = $props();
 
 	const t = getStrings();
 
-	type Stage = 'probing' | 'loading-engine' | 'encoding';
+	type Stage = 'probing' | 'loading-engine' | 'initializing-engine' | 'encoding';
 
 	let file = $state<File | null>(null);
 	let isDragging = $state(false);
@@ -61,7 +61,7 @@
 		if (!browser) return undefined;
 		if (worker) return worker;
 
-		worker = new Worker(new URL('./upscale.worker.ts', import.meta.url), {
+		worker = new Worker(new URL('./upscale-fsrcnn.worker.ts', import.meta.url), {
 			type: 'module'
 		});
 		worker.onerror = (event: ErrorEvent) => {
@@ -243,6 +243,7 @@
 		if (status === 'done') return t.toolUpscale.progress.done;
 		if (stage === 'probing') return t.toolUpscale.progress.probing;
 		if (stage === 'loading-engine') return t.toolUpscale.progress.loadingEngine;
+		if (stage === 'initializing-engine') return t.toolUpscale.progress.initializingEngine;
 		if (engine === 'ai') return t.toolUpscale.progress.encodingAi;
 		return t.toolUpscale.progress.encodingFsr;
 	});

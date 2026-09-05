@@ -52,14 +52,14 @@ nav.main-nav a:hover{ color:var(--ink); }
 .nav-tools a.active{ color:var(--coral-dark); }
 nav.main-nav > a.active{ color:var(--coral-dark); }
 
-/* Mobile: header shows only the logo + a single quick link (MP4 to MP3) +
-   a hamburger button. Tapping the hamburger opens the full nav (all tool
-   links, Blog, How it works, FAQ) as a fullscreen overlay menu. */
-.mobile-controls{ display:none; align-items:center; gap:14px; }
-.mobile-link{ text-decoration:none; font-size:14px; font-weight:600; color:var(--muted); }
-.mobile-link.active{ color:var(--coral-dark); }
+/* Mobile: header shows the logo + a hamburger button (full nav -- all tool
+   links, Blog, How it works, FAQ -- opens as a fullscreen overlay menu), plus
+   a horizontally-scrolling shortcut strip of every tool below the logo row
+   (see .mobile-tool-chips) so tools stay one tap away without crowding the
+   logo/hamburger. The hamburger is desktop-hidden by default because the
+   inline nav.main-nav already covers that job there. */
 .menu-toggle{
-	display:flex;
+	display:none;
 	flex-direction:column;
 	justify-content:center;
 	align-items:center;
@@ -87,7 +87,7 @@ nav.main-nav > a.active{ color:var(--coral-dark); }
 
 @media (max-width:640px){
 	.nav-tools{ display:none; }
-	.mobile-controls{ display:flex; }
+	.menu-toggle{ display:flex; }
 	nav.main-nav{
 		display:none;
 		position:fixed;
@@ -102,6 +102,36 @@ nav.main-nav > a.active{ color:var(--coral-dark); }
 	nav.main-nav.open{ display:flex; }
 	nav.main-nav .nav-tools{ display:flex; flex-direction:column; align-items:center; gap:8px; }
 	nav.main-nav a{ padding:14px 0; font-size:22px; }
+}
+
+/* Mobile-only shortcut strip below the header row -- every tool one tap
+   away as a pill, scrolls horizontally instead of wrapping so it never
+   breaks the header layout no matter how many tools get added. Hidden on
+   desktop since nav.main-nav already lists every tool inline there. */
+.mobile-tool-chips{
+	display:none;
+	gap:8px;
+	padding:0 20px 12px;
+	overflow-x:auto;
+	-webkit-overflow-scrolling:touch;
+	scrollbar-width:none;
+}
+.mobile-tool-chips::-webkit-scrollbar{ display:none; }
+.mobile-tool-chips a{
+	flex-shrink:0;
+	white-space:nowrap;
+	text-decoration:none;
+	font-size:13px;
+	font-weight:600;
+	color:var(--muted);
+	background:var(--line);
+	border-radius:999px;
+	padding:6px 14px;
+}
+.mobile-tool-chips a.active{ color:#fff; background:var(--coral-dark); }
+
+@media (max-width:640px){
+	.mobile-tool-chips{ display:flex; }
 }
 
 /* ---------- Hero: left-aligned text + reserved 300x250 ad slot, ~250px tall ---------- */

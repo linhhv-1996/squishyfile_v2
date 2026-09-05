@@ -20,12 +20,6 @@
 		return href === page.url.pathname;
 	}
 
-	// On mobile the full nav collapses behind a hamburger; this one link stays
-	// visible in the header bar so the most-searched tool is never more than
-	// one tap away. Pulled from the same i18n list rather than hardcoded so
-	// the label stays in sync if it's ever renamed/localized.
-	let mobileQuickLink = $derived(t.nav.categories.find((c) => c.href === '/mp4-to-mp3'));
-
 	function closeMenu() {
 		menuOpen = false;
 	}
@@ -47,30 +41,18 @@
 			<span class="name">{t.site.name}<span class="accent">{t.site.nameAccent}</span></span>
 		</a>
 
-		<div class="mobile-controls">
-			{#if mobileQuickLink}
-				<a
-					href={mobileQuickLink.href}
-					class="mobile-link"
-					class:active={isActive(mobileQuickLink.href)}
-					onclick={closeMenu}
-				>
-					{mobileQuickLink.label}
-				</a>
-			{/if}
-			<button
-				type="button"
-				class="menu-toggle"
-				class:open={menuOpen}
-				aria-label="Toggle menu"
-				aria-expanded={menuOpen}
-				onclick={() => (menuOpen = !menuOpen)}
-			>
-				<span class="bar"></span>
-				<span class="bar"></span>
-				<span class="bar"></span>
-			</button>
-		</div>
+		<button
+			type="button"
+			class="menu-toggle"
+			class:open={menuOpen}
+			aria-label="Toggle menu"
+			aria-expanded={menuOpen}
+			onclick={() => (menuOpen = !menuOpen)}
+		>
+			<span class="bar"></span>
+			<span class="bar"></span>
+			<span class="bar"></span>
+		</button>
 
 		<nav class="main-nav" class:open={menuOpen}>
 			<div class="nav-tools">
@@ -90,5 +72,18 @@
 			<!-- <a href="#how-it-works" onclick={closeMenu}>{t.nav.howItWorks}</a>
 			<a href="#faq" onclick={closeMenu}>{t.nav.faq}</a> -->
 		</nav>
+	</div>
+
+	<!-- Mobile-only shortcut strip: every tool one tap away without touching
+	     the hamburger, and it scrolls horizontally so adding more tools here
+	     later never squeezes the logo/hamburger row above. Reuses the same
+	     i18n category list + isActive() as the desktop/hamburger nav so a
+	     highlighted tool always agrees across all three navs. -->
+	<div class="mobile-tool-chips">
+		{#each t.nav.categories as category (category.label)}
+			<a href={category.href} class:active={isActive(category.href)} onclick={closeMenu}>
+				{category.label}
+			</a>
+		{/each}
 	</div>
 </header>

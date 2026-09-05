@@ -39,7 +39,7 @@
  * exactly, so that's what this worker does.
  */
 import { env, InferenceSession, Tensor } from 'onnxruntime-web/webgpu';
-import { setupWasmCache } from './ort-wasm-cache';
+import { setupWasmCache, beginOrtDownloadTracking, endOrtDownloadTracking } from './ort-wasm-cache';
 import { FSR_EASU_WGSL, FSR_RCAS_WGSL } from '$lib/upscale/fsr-shaders';
 import { planForSource, type UpscaleEngine, type UpscaleScale } from '$lib/upscale/plan';
 import {
@@ -74,7 +74,13 @@ export type UpscaleProgressMessage = {
 	type: 'progress';
 	/** 0-100 */
 	progress: number;
-	stage: 'probing' | 'loading-engine' | 'encoding';
+	// 'loading-engine' covers the real, byte-measured download (model file,
+	// then the ORT wasm binary on the AI path); 'initializing-engine' covers
+	// the compile/instantiate work that follows once every byte is in and
+	// there is nothing left to measure -- see the comment on loadImdnModel's
+	// `onInitializing` param for why that's a separate stage rather than
+	// just leaving progress sitting at 100 under the same label.
+	stage: 'probing' | 'loading-engine' | 'initializing-engine' | 'encoding';
 	engine: UpscaleEngine | null;
 };
 
@@ -125,10 +131,115 @@ function outputName(original: string, scale: UpscaleScale): string {
 const IMDN_MODEL_PATH = '/ai_models/imdn_rte_x2.onnx';
 const IMDN_NATIVE_SCALE = 2;
 
+/** Versioned so a model-file change doesn't serve a stale cached copy forever. */
+const IMDN_MODEL_CACHE_NAME = 'squishyfile-imdn-model-v1';
+
+/**
+ * Fetch the IMDN model, serving it from the Cache API when we've seen it
+ * before, and reporting byte-level download progress along the way.
+ *
+ * `onProgress` gets a 0-1 fraction computed ONLY from real bytes over the
+ * real Content-Length the server sent -- no guessed/hardcoded file size
+ * standing in for a missing header. A made-up total is worse than no
+ * progress at all: if the guess undershoots the real size, `received` blows
+ * past it and the bar gets stuck under 100% for however long is left after
+ * the fake total was "reached", which looks exactly as broken as it is. So
+ * when Content-Length is absent, this simply doesn't call `onProgress`
+ * during the download (the bar holds at whatever real value it last had)
+ * and reports the real, honest 1 only once the transfer has actually
+ * finished -- never a number we can't back with bytes the network reported.
+ *
+ * The cache-write ordering mirrors loadCoreAsset() in `$lib/compress/ffmpeg.ts`
+ * -- same bug it was written to avoid applies here: building the cache
+ * entry from a response.clone() taken *before* consuming the body would let
+ * cache.put() silently drain the whole file into the tee's internal buffer
+ * while this function's own progress-tracked loop hadn't pulled a single
+ * byte yet, so onProgress would only ever fire once the download was
+ * already finished. Instead we read the network stream ourselves first,
+ * track progress as bytes actually arrive, and only populate the cache from
+ * the in-memory result afterwards -- so there is only ever one reader of
+ * the real stream.
+ */
+async function fetchImdnModel(onProgress: (fraction: number) => void): Promise<ArrayBuffer> {
+	const cache = await caches.open(IMDN_MODEL_CACHE_NAME).catch(() => null);
+	const hit = await cache?.match(IMDN_MODEL_PATH).catch(() => undefined);
+
+	if (hit) {
+		onProgress(1);
+		return hit.arrayBuffer();
+	}
+
+	const response = await fetch(IMDN_MODEL_PATH);
+	if (!response.ok) {
+		throw new Error(`Could not download upscaler model (${response.status})`);
+	}
+
+	// Real byte count from the server, or 0 meaning "unknown" -- never a
+	// stand-in guess. See the function doc above for why.
+	const total = Number(response.headers.get('content-length')) || 0;
+	const reader = response.body?.getReader();
+
+	let buffer: ArrayBuffer;
+	if (!reader) {
+		buffer = await response.arrayBuffer();
+	} else {
+		const chunks: Uint8Array[] = [];
+		let received = 0;
+		for (;;) {
+			const { done, value } = await reader.read();
+			if (done) break;
+			chunks.push(value);
+			received += value.length;
+			if (total > 0) onProgress(received / total);
+		}
+		const blob = new Blob(chunks as BlobPart[]);
+		buffer = await blob.arrayBuffer();
+	}
+	onProgress(1);
+
+	if (cache) {
+		cache
+			.put(IMDN_MODEL_PATH, new Response(buffer.slice(0), { headers: { 'Content-Type': 'application/octet-stream' } }))
+			.catch(() => {
+				// Storage quota errors etc. are non-fatal -- just means no caching this time.
+			});
+	}
+
+	return buffer;
+}
+
 let imdnSession: InferenceSession | null = null;
 let imdnActiveProvider: 'webgpu' | 'wasm' | null = null;
 
-async function loadImdnModel(): Promise<InferenceSession> {
+/**
+ * "Loading the AI engine" is really three things back to back, only two of
+ * which are actual downloads with bytes to count:
+ *
+ *   1. our own ~394 KB model file (fetchImdnModel above)
+ *   2. onnxruntime-web's own wasm binary (several MB, pulled from jsdelivr
+ *      the first time InferenceSession.create() runs -- see
+ *      ort-wasm-cache.ts)
+ *   3. InferenceSession.create() actually instantiating that wasm module
+ *      and (on the WebGPU path) compiling shaders/building the graph --
+ *      real work, but not a download, so there is no further byte count to
+ *      report once step 2's bytes are all in.
+ *
+ * Reporting a download percentage through step 3 would mean inventing a
+ * number with nothing behind it -- exactly the kind of fake progress this
+ * file used to do and shouldn't. Instead, `onDownloadProgress` only ever
+ * carries real bytes-over-real-total for steps 1-2 (weighted so the caller
+ * sees one number moving 0->100 across both real downloads, model first
+ * since it's tiny and finishes almost immediately), and `onInitializing`
+ * fires exactly once, the moment step 2's real download hits 100%, so the
+ * caller can swap to a distinct "now compiling, no percentage to show"
+ * label instead of leaving a stale 100% sitting there looking stuck.
+ */
+const MODEL_DOWNLOAD_WEIGHT = 0.15;
+
+async function loadImdnModel(
+	onDownloadProgress: (fraction: number) => void = () => {},
+	onInitializing: () => void = () => {}
+): Promise<InferenceSession> {
 	if (imdnSession) return imdnSession;
 
 	if (navigator.gpu) {
@@ -153,15 +264,42 @@ async function loadImdnModel(): Promise<InferenceSession> {
 		}
 	}
 
+	const modelBuffer = await fetchImdnModel((fraction) =>
+		onDownloadProgress(fraction * MODEL_DOWNLOAD_WEIGHT)
+	);
+
+	let announcedInitializing = false;
+	beginOrtDownloadTracking((fraction) => {
+		onDownloadProgress(MODEL_DOWNLOAD_WEIGHT + fraction * (1 - MODEL_DOWNLOAD_WEIGHT));
+		// The .wasm binary is the only file this tracks (see ort-wasm-cache.ts),
+		// so fraction reaching 1 means every byte of it is actually in --
+		// the earliest honest moment to say "downloading is over, now
+		// initializing" rather than continuing to imply there's more to fetch.
+		if (fraction >= 1 && !announcedInitializing) {
+			announcedInitializing = true;
+			onInitializing();
+		}
+	});
 	try {
-		imdnSession = await InferenceSession.create(IMDN_MODEL_PATH, {
-			executionProviders: [{ name: 'webgpu', preferredLayout: 'NCHW' }]
-		});
-		imdnActiveProvider = 'webgpu';
-	} catch {
-		imdnSession = await InferenceSession.create(IMDN_MODEL_PATH, { executionProviders: ['wasm'] });
-		imdnActiveProvider = 'wasm';
+		try {
+			imdnSession = await InferenceSession.create(new Uint8Array(modelBuffer), {
+				executionProviders: [{ name: 'webgpu', preferredLayout: 'NCHW' }]
+			});
+			imdnActiveProvider = 'webgpu';
+		} catch {
+			imdnSession = await InferenceSession.create(new Uint8Array(modelBuffer), {
+				executionProviders: ['wasm']
+			});
+			imdnActiveProvider = 'wasm';
+		}
+	} finally {
+		endOrtDownloadTracking();
 	}
+	// Covers the case where the wasm binary was already cached (no network
+	// read-loop ever ran, so the fraction>=1 branch above never fired) --
+	// downloading is just as "over" here, immediately, so still announce it
+	// rather than leaving the caller on whatever stage it was in before.
+	if (!announcedInitializing) onInitializing();
 
 	return imdnSession;
 }
@@ -177,7 +315,10 @@ async function fallbackImdnToWasm(): Promise<InferenceSession> {
 	} catch {
 		// Ignore -- we're replacing this session anyway.
 	}
-	imdnSession = await InferenceSession.create(IMDN_MODEL_PATH, { executionProviders: ['wasm'] });
+	const modelBuffer = await fetchImdnModel(() => {});
+	imdnSession = await InferenceSession.create(new Uint8Array(modelBuffer), {
+		executionProviders: ['wasm']
+	});
 	imdnActiveProvider = 'wasm';
 	return imdnSession;
 }
@@ -576,7 +717,23 @@ async function upscale(request: UpscaleRequest) {
 	// frames to Conversion, so the loading-engine -> encoding stage change in
 	// the UI actually lines up with real work instead of happening instantly.
 	if (plan.engine === 'ai') {
-		await loadImdnModel();
+		await loadImdnModel(
+			(fraction) => {
+				post({
+					type: 'progress',
+					progress: Math.round(fraction * 100),
+					stage: 'loading-engine',
+					engine: plan.engine
+				});
+			},
+			() => {
+				// Downloading is done; InferenceSession.create() is still busy
+				// instantiating/compiling with no further bytes to report --
+				// say so explicitly instead of leaving the UI on a 100% that
+				// looks finished when it isn't.
+				post({ type: 'progress', progress: 100, stage: 'initializing-engine', engine: plan.engine });
+			}
+		);
 	} else {
 		await ensureFsrPipeline();
 	}
@@ -589,6 +746,18 @@ async function upscale(request: UpscaleRequest) {
 		output,
 		video: {
 			codec: 'avc',
+			// Bake rotation into the pixels ourselves instead of letting Mediabunny
+			// re-tag the output with the input's rotation metadata: our process()
+			// callback already sizes/draws frames using *display* (post-rotation)
+			// dimensions (getDisplayWidth/getDisplayHeight, getFrameSize), so the
+			// canvases we return are already correctly oriented. Mediabunny's
+			// process() docs say "rotation metadata of the returned sample will be
+			// ignored", but allowRotationMetadata defaults to true, meaning it can
+			// still stamp the *input* track's own rotation matrix onto the output
+			// container -- on a portrait phone clip that doubles the rotation on
+			// playback (once baked in by us, once again via container metadata),
+			// which is exactly what made before/after look mismatched in height.
+			allowRotationMetadata: false,
 			quality: new Quality('high'),
 			process: async (sample: VideoSample) => {
 				if (plan.engine === 'ai') {

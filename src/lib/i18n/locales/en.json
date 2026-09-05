@@ -12,16 +12,16 @@
         "href": "/"
       },
       {
-        "label": "Video to MP3",
-        "href": "/video-to-mp3"
+        "label": "Video Upscaler",
+        "href": "/video-upscaler"
       },
       {
         "label": "MP4 to MP3",
         "href": "/mp4-to-mp3"
       },
       {
-        "label": "Video Upscaler",
-        "href": "/video-upscaler"
+        "label": "Video to MP3",
+        "href": "/video-to-mp3"
       }
     ],
     "blog": "Blog",
@@ -271,6 +271,7 @@
     "progress": {
       "probing": "Reading your video...",
       "loadingEngine": "Downloading upscaler (one-time)...",
+      "initializingEngine": "Initializing engine...",
       "encodingAi": "Upscaling with AI model...",
       "encodingFsr": "Upscaling with FSR...",
       "done": "Done!"
