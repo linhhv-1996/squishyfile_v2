@@ -181,7 +181,8 @@
     },
     "result": {
       "statLabel": "smaller than the original",
-      "download": "Download compressed video (MP4)",
+      "viewResult": "View before/after",
+      "download": "Download compressed video",
       "summary": "{from} → {to} · {width}×{height}",
       "targetMet": "Under your {target} MB target.",
       "targetMissed": "Couldn't get under {target} MB — this is as small as it goes without destroying the video.",

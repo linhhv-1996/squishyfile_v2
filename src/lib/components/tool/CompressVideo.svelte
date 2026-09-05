@@ -7,6 +7,7 @@
 	import { getStrings } from '$lib/i18n';
 	import ShareRow from '$lib/components/share/ShareRow.svelte';
 	import SupportLink from '$lib/components/support/SupportLink.svelte';
+	import BeforeAfterVideoSlider from './BeforeAfterVideoSlider.svelte';
 	import type { CompressionLevel, PlanWarning } from '$lib/compress/plan';
 	import type { WorkerOutMessage } from './compress.worker';
 
@@ -33,6 +34,11 @@
 	let fileInputEl = $state<HTMLInputElement>();
 	let isSampleLoading = $state(false);
 	let resultEl = $state<HTMLDivElement>();
+	// Object URL for the source file, created once a run finishes so the
+	// before/after modal has something to show next to the compressed
+	// result -- not created up front since most runs never open the modal.
+	let originalPreviewUrl = $state<string | null>(null);
+	let viewResultOpen = $state(false);
 
 	let result = $state<{
 		url: string;
@@ -90,6 +96,10 @@
 			// done
 			progress = 100;
 			revokeResult();
+			// `file` is still the file this run was started with -- isBusy
+			// keeps the input locked for the whole run, so it can't have
+			// changed out from under us.
+			if (file) originalPreviewUrl = URL.createObjectURL(file);
 			result = {
 				url: URL.createObjectURL(data.blob),
 				fileName: data.fileName,
@@ -112,6 +122,9 @@
 	function revokeResult() {
 		if (result) URL.revokeObjectURL(result.url);
 		result = null;
+		if (originalPreviewUrl) URL.revokeObjectURL(originalPreviewUrl);
+		originalPreviewUrl = null;
+		viewResultOpen = false;
 	}
 
 	onDestroy(() => {
@@ -463,6 +476,11 @@
 			{/each}
 
 			<div class="result-actions">
+				{#if originalPreviewUrl}
+					<button type="button" class="compress-new-btn" onclick={() => (viewResultOpen = true)}>
+						{t.tool.result.viewResult}
+					</button>
+				{/if}
 				<a href={result.url} download={result.fileName} class="download-btn">
 					{t.tool.result.download}
 				</a>
@@ -481,3 +499,13 @@
 <ShareRow title={shareTitle} />
 
 <hr class="content-divider" />
+
+{#if originalPreviewUrl && result}
+	<BeforeAfterVideoSlider
+		bind:open={viewResultOpen}
+		beforeUrl={originalPreviewUrl}
+		afterUrl={result.url}
+		beforeLabel="Original"
+		afterLabel="Compressed"
+	/>
+{/if}

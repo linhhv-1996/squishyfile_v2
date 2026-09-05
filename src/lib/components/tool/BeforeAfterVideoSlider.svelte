@@ -33,6 +33,14 @@
 	let splitPercent = $state(50);
 	let isDragging = $state(false);
 
+	// Tags stay put in their box corners -- only their own video's visible
+	// region decides whether they're shown. Once that region shrinks past
+	// ~10% of the width there's no video left under the tag to label, so
+	// it fades out instead of sitting on top of the other side's video.
+	const TAG_HIDE_THRESHOLD = 30;
+	const showBeforeTag = $derived(splitPercent > TAG_HIDE_THRESHOLD);
+	const showAfterTag = $derived(100 - splitPercent > TAG_HIDE_THRESHOLD);
+
 	let isPlaying = $state(false);
 	let duration = $state(0);
 	let currentTime = $state(0);
@@ -172,8 +180,8 @@
 					style="clip-path: inset(0 0 0 {splitPercent}%)"
 				></video>
 
-				<span class="bavs-tag bavs-tag-left">{beforeLabel}</span>
-				<span class="bavs-tag bavs-tag-right">{afterLabel}</span>
+				<span class="bavs-tag bavs-tag-left" class:bavs-tag-hidden={!showBeforeTag}>{beforeLabel}</span>
+				<span class="bavs-tag bavs-tag-right" class:bavs-tag-hidden={!showAfterTag}>{afterLabel}</span>
 
 				<div class="bavs-divider" style="left: {splitPercent}%"></div>
 				<div
@@ -302,13 +310,19 @@
 		font-size: 12px;
 		font-weight: 600;
 		letter-spacing: 0.02em;
+		white-space: nowrap;
 		pointer-events: none;
+		opacity: 1;
+		transition: opacity 0.15s ease;
 	}
 	.bavs-tag-left {
 		left: 10px;
 	}
 	.bavs-tag-right {
 		right: 10px;
+	}
+	.bavs-tag-hidden {
+		opacity: 0;
 	}
 
 	.bavs-divider {
