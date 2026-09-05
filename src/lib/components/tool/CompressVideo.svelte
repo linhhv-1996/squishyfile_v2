@@ -10,9 +10,14 @@
 	import type { CompressionLevel, PlanWarning } from '$lib/compress/plan';
 	import type { WorkerOutMessage } from './compress.worker';
 
-	let { shareTitle = '' }: { shareTitle?: string } = $props();
+	let {
+		shareTitle = '',
+		mode = 'default'
+	}: { shareTitle?: string; mode?: 'default' | 'to-size' } = $props();
 
 	const t = getStrings();
+
+	const isSizeMode = $derived(mode === 'to-size');
 
 	type Stage = 'probing' | 'loading-engine' | 'encoding';
 
@@ -135,6 +140,13 @@
 		if (!next) return;
 		file = next;
 		reset();
+		// The "compress to size" page treats target size as the primary
+		// control (and hides compression level entirely), so pre-fill it at
+		// 50% of the source file size the moment a file is picked, instead of
+		// leaving it blank like the default/iPhone pages do.
+		if (isSizeMode) {
+			targetSize = Math.max(1, Math.round(next.size / (1024 * 1024) / 2));
+		}
 	}
 
 	function onFileInputChange(event: Event) {
@@ -238,6 +250,14 @@
 		return value !== '' && value !== null;
 	}
 
+	// A platform preset that's already at or above the source file's size is
+	// just as pointless as a manually typed target above the file's size —
+	// squishing to a target the file already meets does nothing, so the tag
+	// is neither selectable nor shown as active.
+	function presetPointless(mb: number) {
+		return file !== null && mb * 1024 * 1024 >= file.size;
+	}
+
 	const targetSizeActive = $derived(hasTargetSize(targetSize));
 
 	const targetIsPointless = $derived(
@@ -320,37 +340,42 @@
 	</div>
 
 	<div class="controls" class:show={file !== null}>
-		<div class="field">
-			<label for="quality">{t.tool.quality.label}</label>
-			<input
-				type="range"
-				id="quality"
-				min="1"
-				max="3"
-				step="1"
-				disabled={isBusy || targetSizeActive}
-				bind:value={level}
-			/>
-			<div class="quality-row">
-				<span>{t.tool.quality.light}</span>
-				<span>{t.tool.quality.max}</span>
+		{#if !isSizeMode}
+			<div class="field">
+				<label for="quality">{t.tool.quality.label}</label>
+				<input
+					type="range"
+					id="quality"
+					min="1"
+					max="3"
+					step="1"
+					disabled={isBusy || targetSizeActive}
+					bind:value={level}
+				/>
+				<div class="quality-row">
+					<span>{t.tool.quality.light}</span>
+					<span>{t.tool.quality.max}</span>
+				</div>
+				<p class="hint">
+					{#if targetSizeActive}
+						{t.tool.quality.disabledByTarget}
+					{:else}
+						{t.tool.quality.levels[level - 1]}
+					{/if}
+				</p>
 			</div>
-			<p class="hint">
-				{#if targetSizeActive}
-					{t.tool.quality.disabledByTarget}
-				{:else}
-					{t.tool.quality.levels[level - 1]}
-				{/if}
-			</p>
-		</div>
+		{/if}
 		<div class="field">
-			<label for="targetSize">{t.tool.targetSize.label}</label>
+			<label for="targetSize">
+				{isSizeMode ? t.tool.targetSize.labelRequired : t.tool.targetSize.label}
+			</label>
 			<div class="size-input">
 				<input
 					type="number"
 					id="targetSize"
 					placeholder={t.tool.targetSize.placeholder}
 					min="1"
+					required={isSizeMode}
 					disabled={isBusy}
 					bind:value={targetSize}
 				/>
@@ -359,10 +384,27 @@
 			<p class="hint">
 				{#if targetIsPointless && file}
 					{fill(t.tool.targetPreview, { size: formatSize(file.size) })}
+				{:else if isSizeMode}
+					{t.tool.targetSize.hintSizeMode}
 				{:else}
 					{t.tool.targetSize.hint}
 				{/if}
 			</p>
+			{#if isSizeMode}
+				<div class="platform-tags">
+					{#each t.tool.targetSize.platforms as preset (preset.label)}
+						<button
+							type="button"
+							class="platform-tag"
+							class:active={targetSize === preset.mb && !presetPointless(preset.mb)}
+							disabled={isBusy || presetPointless(preset.mb)}
+							onclick={() => (targetSize = preset.mb)}
+						>
+							{preset.label} · {preset.mb}MB
+						</button>
+					{/each}
+				</div>
+			{/if}
 		</div>
 	</div>
 

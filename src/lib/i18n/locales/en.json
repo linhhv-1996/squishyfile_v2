@@ -126,7 +126,39 @@
       "label": "Target size (optional)",
       "placeholder": "e.g. 50",
       "unit": "MB",
-      "hint": "If set, this overrides the compression level above."
+      "hint": "If set, this overrides the compression level above.",
+      "labelRequired": "Target size",
+      "hintSizeMode": "Pre-filled at 50% of your file size — tap a platform below or type your own.",
+      "platforms": [
+        {
+          "label": "WhatsApp",
+          "mb": 16
+        },
+        {
+          "label": "Discord Free",
+          "mb": 20
+        },
+        {
+          "label": "Messenger/Gmail",
+          "mb": 25
+        },
+        {
+          "label": "Discord Nitro Basic",
+          "mb": 50
+        },
+        {
+          "label": "LinkedIn",
+          "mb": 200
+        },
+        {
+          "label": "Discord Nitro",
+          "mb": 500
+        },
+        {
+          "label": "TikTok",
+          "mb": 500
+        }
+      ]
     },
     "button": {
       "idle": "Squish it",

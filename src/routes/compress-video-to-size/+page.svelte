@@ -26,7 +26,7 @@
 	</div>
 </section>
 
-<CompressVideo shareTitle={copy.meta.title} />
+<CompressVideo shareTitle={copy.meta.title} mode="to-size" />
 
 <div class="inner seo">
 	{@html data.seoHtml}
