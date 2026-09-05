@@ -6,34 +6,38 @@
 
 ## Hi, I'm J.Julian
 
-<p>I'm the person behind SquishyFile — a solo developer who's been obsessed with technology for as long as I can remember. I built this site out of that obsession, and out of a simple belief: useful tools shouldn't come with a price tag, an account wall, or a catch.</p>
+<p>I'm the person behind SquishyFile. I've always been into technology and building stuff on the side, and this site is basically that hobby turned into something other people can use.</p>
 
-<p>SquishyFile started as a way to solve a problem I kept running into myself — needing to shrink a video quickly, without installing software or trusting some random website with my files. So I built something I'd actually want to use, and decided to share it with anyone else who needs the same thing.</p>
-
-</section>
-
-<section>
-
-## Why I built this
-
-<p>Most "free" tools online aren't really free — they cap your file size, watermark your export, or ask you to sign up before you can download anything. I wanted SquishyFile to be different: no account, no watermark, no artificial limits. Just open the page, drop in a file, and get your result.</p>
-
-<p>I'm also a big believer in privacy by design. That's why every tool on this site runs entirely in your browser using WebAssembly — your files are processed on your own device and never uploaded to a server. It's not a marketing claim; it's how the site is actually built, and you're welcome to check the network requests yourself while a file is compressing or converting.</p>
+<p>SquishyFile started as a way to mess around with WebAssembly and WebGPU — two different technologies for running real computation in the browser instead of on a server. Video compression ended up being the first tool I shipped, and the site grew from there.</p>
 
 </section>
 
 <section>
 
-## How the site stays free
+## How it's built
 
-<p>SquishyFile is supported by display advertising, which covers hosting and lets me keep building and improving the tools without charging anyone or selling data. I don't sell, share, or otherwise use your files for anything — because they never leave your device in the first place. You can read the full details in the <a href="/privacy">Privacy Policy</a>.</p>
+<p>The whole site is a SvelteKit app, deployed on Cloudflare Pages. There's no backend doing the actual video work — when you drop a file in, it gets processed right there in your browser using WebAssembly builds of the same encoders/decoders that run on desktop. For heavier stuff like upscaling, I use WebGPU instead so it runs on your GPU rather than the CPU — different tool for a different job, not an upgrade from WASM.</p>
+
+<p>That's also why the site feels fast and doesn't need you to wait in an upload queue — there's no upload. Your browser is doing the compute, not some server somewhere.</p>
 
 </section>
 
 <section>
 
-## What's next
+## Why it's free
 
-<p>SquishyFile is dedicated to video — compress, convert, and (soon) upscale, all running locally in your browser. Rather than being a jack-of-all-trades tools site, I'd rather it be the best place on the web for whatever you need to do with a video file. More tools in that direction are already in the works. If there's something video-related you wish existed here, or something on the site that could work better, I'd genuinely like to hear about it — see the <a href="/contact">Contact page</a> for how to reach me.</p>
+<p>Because everything runs on your device instead of my server, I don't have to pay for the compute to process your files — your own computer does that. That's what makes it possible to give the tools away for free instead of charging for them or gating them behind an account.</p>
+
+<p>The site is supported by ads, which covers hosting and lets me keep it free and keep adding tools.</p>
+
+</section>
+
+<section>
+
+## Where the site is headed
+
+<p>SquishyFile is going all-in on video. The plan is to build out a full set of video tools, all running client-side the same way: compress, convert between formats, remove/replace background, and upscale, with more added as I build them out. Instead of spreading into unrelated tools, I'd rather this be the one place you go for anything video-related.</p>
+
+<p>If there's a video tool you wish existed, or something's broken, let me know on the <a href="/contact">Contact page</a>.</p>
 
 </section>
