@@ -1,6 +1,6 @@
 # About SquishyFile
 
-<p class="byline">Last updated September 4, 2026</p>
+<p class="byline">Last updated September 5, 2026</p>
 
 <section>
 
@@ -18,7 +18,7 @@
 
 <p>Most "free" tools online aren't really free — they cap your file size, watermark your export, or ask you to sign up before you can download anything. I wanted SquishyFile to be different: no account, no watermark, no artificial limits. Just open the page, drop in a file, and get your result.</p>
 
-<p>I'm also a big believer in privacy by design. That's why every tool on this site runs entirely in your browser using WebAssembly — your files are processed on your own device and never uploaded to a server. It's not a marketing claim; it's how the site is actually built, and you're welcome to check the network requests yourself while a file is compressing.</p>
+<p>I'm also a big believer in privacy by design. That's why every tool on this site runs entirely in your browser using WebAssembly — your files are processed on your own device and never uploaded to a server. It's not a marketing claim; it's how the site is actually built, and you're welcome to check the network requests yourself while a file is compressing or converting.</p>
 
 </section>
 
@@ -34,6 +34,6 @@
 
 ## What's next
 
-<p>SquishyFile currently focuses on file compression, starting with video, with more free tools planned as time allows. If there's a tool you wish existed, or something on the site that could work better, I'd genuinely like to hear about it — see the <a href="/contact">Contact page</a> for how to reach me.</p>
+<p>SquishyFile is dedicated to video — compress, convert, and (soon) upscale, all running locally in your browser. Rather than being a jack-of-all-trades tools site, I'd rather it be the best place on the web for whatever you need to do with a video file. More tools in that direction are already in the works. If there's something video-related you wish existed here, or something on the site that could work better, I'd genuinely like to hear about it — see the <a href="/contact">Contact page</a> for how to reach me.</p>
 
 </section>
