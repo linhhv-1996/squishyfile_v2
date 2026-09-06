@@ -94,6 +94,16 @@ const TARGET_BPP_FLOOR = 0.075;
 /** Never emit a video track thinner than this — it stops being video. */
 const MIN_VIDEO_BITRATE = 45_000;
 
+/**
+ * Bare-minimum audio bitrate before it's not worth calling it audio anymore
+ * (mono, barely-there, but present). Below this there's nothing left to give
+ * the track, so we drop it.
+ */
+const MIN_AUDIO_BITRATE = 16_000;
+
+/** Standard audio bitrates, largest first — see planAudio() for why we snap to these. */
+const AUDIO_BITRATE_LADDER = [128_000, 96_000, 64_000, 48_000, 32_000, 24_000, MIN_AUDIO_BITRATE] as const;
+
 /** MP4 container + index overhead. Small, but it's the difference between 24.9 and 25.1 MB. */
 const MUX_OVERHEAD = 0.985;
 
@@ -193,21 +203,28 @@ function normalizedFrameRate(src: SourceInfo): number {
 function planAudio(src: SourceInfo, totalBudget: number) {
 	if (!src.hasAudio) return { audioBitrate: null, audioChannels: 0, removed: false };
 
-	// Below this, there simply isn't a file to split — video wins.
-	if (totalBudget < 80_000) return { audioBitrate: null, audioChannels: 0, removed: true };
+	// Only give up on audio entirely when the budget can't even cover the
+	// bare-minimum audio floor plus *some* floor of video (the 8kbps floor
+	// target-size mode itself uses below). Previously this cut audio below a
+	// flat 80kbps regardless of how little that actually cost — most files
+	// hitting "Max squish" or a small target size have plenty of room for a
+	// 16kbps mono track and were losing audio for no reason (reported
+	// 2026-09-06).
+	if (totalBudget < MIN_AUDIO_BITRATE + 8_000) {
+		return { audioBitrate: null, audioChannels: 0, removed: true };
+	}
 
-	const ladder =
-		totalBudget >= 2_000_000
-			? 128_000
-			: totalBudget >= 1_000_000
-				? 96_000
-				: totalBudget >= 500_000
-					? 64_000
-					: totalBudget >= 250_000
-						? 48_000
-						: 32_000;
-
-	const bitrate = Math.round(Math.max(24_000, Math.min(ladder, totalBudget * 0.18)));
+	// Snap to a fixed ladder rather than computing a continuous fraction of
+	// the budget. Two reasons: real AAC/Opus encoders are tuned around a
+	// handful of standard rates, not arbitrary values like the 25,969 bps a
+	// raw `totalBudget * 0.18` calculation could produce — and some browsers'
+	// AAC encoders reject or mishandle odd low bitrates outright rather than
+	// just sounding worse (an "OperationError: Encoding error" that
+	// `pickAudioCodec` in mediabunny.ts now also guards against — reported
+	// 2026-09-06). 128 kbps is the ceiling on purpose: this is a video's
+	// accompanying audio track, not a standalone music file, so there's
+	// nothing to gain from climbing to 192/320.
+	const bitrate = AUDIO_BITRATE_LADDER.find((r) => r <= totalBudget * 0.18) ?? MIN_AUDIO_BITRATE;
 	// Stereo below ~64 kbps is worse than mono at the same rate.
 	const channels = bitrate <= 64_000 ? 1 : Math.min(2, src.audioChannels || 2);
 	return { audioBitrate: bitrate, audioChannels: channels, removed: false };

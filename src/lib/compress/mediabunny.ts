@@ -101,12 +101,28 @@ export async function canEncodeVideoNatively(): Promise<boolean> {
 }
 
 /**
- * AAC first for maximum compatibility, Opus as the fallback where AAC
- * encoding isn't available. Null means this browser can't encode audio at
- * all, and the track gets dropped rather than failing the whole conversion.
+ * AAC above 64 kbps (maximum compatibility), Opus at or below it.
+ *
+ * We tried asking the browser instead of hardcoding this split -- passing
+ * the real bitrate/channels into `getFirstEncodableAudioCodec` so it could
+ * tell us whether AAC actually handles this config. It can't be trusted:
+ * Chrome's answer is optimistic (`isConfigSupported`-style, not a real
+ * encode attempt) and kept saying yes for a 16-24 kbps mono AAC track that
+ * then threw "OperationError: Encoding error" on the very first sample --
+ * reproduced at 16000, 24000 and 25969 bps alike, on both the first and a
+ * freshly-created worker's first encode, so it's not a warm-up/session
+ * artifact either (reported 2026-09-06). Below 64 kbps we now go straight
+ * to Opus, which is both more reliable here and the better codec for this
+ * range anyway; AAC only gets tried where we've actually seen it hold up.
+ * Null means this browser can't encode audio at all, and the track gets
+ * dropped rather than failing the whole conversion.
  */
-async function pickAudioCodec(): Promise<AudioCodec | null> {
-	return getFirstEncodableAudioCodec(['aac', 'opus']);
+const AAC_MIN_RELIABLE_BITRATE = 64_000;
+
+async function pickAudioCodec(bitrate: number, numberOfChannels: number): Promise<AudioCodec | null> {
+	const preference: AudioCodec[] =
+		bitrate < AAC_MIN_RELIABLE_BITRATE ? ['opus', 'aac'] : ['aac', 'opus'];
+	return getFirstEncodableAudioCodec(preference, { bitrate, numberOfChannels });
 }
 
 function buildQuality(plan: CompressionPlan): Quality {
@@ -130,7 +146,8 @@ export async function compressWithMediabunny(
 	const input = new Input({ formats: ALL_FORMATS, source: new BlobSource(file) });
 	const output = new Output({ format: new Mp4OutputFormat(), target: new BufferTarget() });
 
-	const audioCodec = plan.audioBitrate === null ? null : await pickAudioCodec();
+	const audioCodec =
+		plan.audioBitrate === null ? null : await pickAudioCodec(plan.audioBitrate, plan.audioChannels);
 
 	const conversion = await Conversion.init({
 		input,

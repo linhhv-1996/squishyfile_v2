@@ -55,13 +55,20 @@
 
 	let worker: Worker | undefined;
 
-	// Created on first use, not on page load. The worker bundles the whole
-	// Mediabunny demuxer/muxer set (~550 kB), and most visitors reading the
-	// page below never touch the tool.
-	function getWorker(): Worker | undefined {
+	// A fresh Worker per compression run, not a cached one reused across
+	// clicks. Mediabunny's WebCodecs AudioEncoder has turned out to fail with
+	// "OperationError: Encoding error" on the *second* encode inside the same
+	// worker/document context even with an identical, otherwise-valid config
+	// (an apparent browser-side AAC encoder bug, not anything about our
+	// bitrate/channel choice — reported 2026-09-06, after the bitrate-ladder
+	// and codec-capability fixes turned out not to be the actual cause).
+	// Terminating and recreating the worker for every run guarantees the
+	// browser fully releases whatever encoder state that bug lives in, at the
+	// cost of re-parsing the ~550 kB worker bundle each time.
+	function createWorker(): Worker | undefined {
 		if (!browser) return undefined;
-		if (worker) return worker;
 
+		worker?.terminate();
 		worker = new Worker(new URL('./compress.worker.ts', import.meta.url), {
 			type: 'module'
 		});
@@ -235,7 +242,7 @@
 	}
 
 	function startCompression() {
-		const activeWorker = getWorker();
+		const activeWorker = createWorker();
 		if (!file || !activeWorker) return;
 		if (isSizeMode && !hasTargetSize(targetSize)) return;
 		reset();

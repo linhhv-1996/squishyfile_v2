@@ -149,6 +149,71 @@ async function runPass(
 	);
 }
 
+/**
+ * Some WebCodecs hardware encoder failures surface as a generic
+ * "OperationError: Encoding error" (or, on some browsers, "EncodingError")
+ * with no useful detail — not because the file/plan is unsupported (that's
+ * `UnsupportedByMediabunnyError`, thrown before we ever get here), but
+ * because the browser's hardware encoder session is unavailable right now.
+ * Chrome/Safari's hardware H.264 encoders are a shared, limited resource —
+ * closing one doesn't always free it instantly — so compressing twice back
+ * to back in the same tab can outrun that release and every further attempt
+ * fails the exact same way until the page reloads (reported 2026-09-06).
+ */
+function isRecoverableEncodingError(error: unknown): boolean {
+	return (
+		error instanceof DOMException &&
+		(error.name === 'OperationError' || error.name === 'EncodingError')
+	);
+}
+
+/**
+ * Runs one pass, and if Mediabunny's hardware encoder fails outright (see
+ * `isRecoverableEncodingError`), falls back to the software ffmpeg.wasm
+ * engine for the rest of this run instead of failing the whole compression.
+ * ffmpeg.wasm encodes entirely in software, so it never touches whatever
+ * hardware encoder session Mediabunny couldn't get.
+ */
+async function runPassWithFallback(
+	engineRef: { current: Engine },
+	file: File,
+	plan: CompressionPlan,
+	pass: number,
+	signal: AbortSignal
+): Promise<Blob> {
+	try {
+		return await runPass(engineRef.current, file, plan, pass, signal);
+	} catch (error) {
+		// Full diagnostic dump, unconditionally, before deciding what to do with
+		// it — this is the one line that actually says what the error *is*
+		// (name/message/engine/pass/plan), instead of the generic string that
+		// eventually reaches the UI. Copy this line's object when reporting an
+		// encoding failure.
+		console.error('[compress.worker] pass failed:', {
+			engine: engineRef.current,
+			pass,
+			mode: plan.mode,
+			width: plan.width,
+			height: plan.height,
+			videoBitrate: plan.videoBitrate,
+			audioBitrate: plan.audioBitrate,
+			name: error instanceof Error ? error.name : typeof error,
+			message: error instanceof Error ? error.message : String(error),
+			stack: error instanceof Error ? error.stack : undefined,
+			raw: error
+		});
+
+		if (engineRef.current !== 'mediabunny' || signal.aborted || !isRecoverableEncodingError(error)) {
+			throw error;
+		}
+		console.warn(
+			'[compress.worker] mediabunny hardware encode failed, falling back to ffmpeg'
+		);
+		engineRef.current = 'ffmpeg';
+		return runPass('ffmpeg', file, plan, pass, signal);
+	}
+}
+
 async function compress(request: CompressRequest) {
 	const { file, level, targetSizeMB } = request;
 
@@ -158,7 +223,7 @@ async function compress(request: CompressRequest) {
 	currentSignal = signal;
 
 	post({ type: 'progress', progress: 0, stage: 'probing', pass: 1 });
-	const { engine, source } = await resolveEngineAndSource(file, (fraction) =>
+	const { engine: initialEngine, source } = await resolveEngineAndSource(file, (fraction) =>
 		post({
 			type: 'progress',
 			progress: Math.round(fraction * 100),
@@ -166,6 +231,7 @@ async function compress(request: CompressRequest) {
 			pass: 1
 		})
 	);
+	const engineRef = { current: initialEngine };
 
 	const desiredBytes = targetSizeMB ? targetSizeMB * MB : null;
 
@@ -182,7 +248,7 @@ async function compress(request: CompressRequest) {
 				? planForTargetSize(source, planningBytes)
 				: planForLevel(source, level);
 
-		blob = await runPass(engine, file, plan, pass, signal);
+		blob = await runPassWithFallback(engineRef, file, plan, pass, signal);
 
 		if (desiredBytes === null || planningBytes === null) {
 			// Constant-quality encoding has no size ceiling: a grainy or
@@ -193,7 +259,7 @@ async function compress(request: CompressRequest) {
 			if (plan.quantizer !== null && blob.size >= file.size * 0.98 && pass === 1) {
 				pass += 1;
 				plan = { ...plan, quantizer: null };
-				blob = await runPass(engine, file, plan, pass, signal);
+				blob = await runPassWithFallback(engineRef, file, plan, pass, signal);
 			}
 			break;
 		}
@@ -223,7 +289,7 @@ async function compress(request: CompressRequest) {
 		width: plan.width,
 		height: plan.height,
 		frameRate: Math.round(plan.frameRate),
-		engine,
+		engine: engineRef.current,
 		passes: pass,
 		targetMet: desiredBytes === null ? null : blob.size <= desiredBytes,
 		warnings: plan.warnings

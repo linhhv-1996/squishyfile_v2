@@ -24,3 +24,7 @@ Thumbs.db
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Large speech-to-text model, downloaded from Hugging Face at runtime
+# instead of being bundled/deployed -- see $lib/video2text/plan.ts.
+/.local-models
