@@ -55,6 +55,14 @@
 		</button>
 
 		<nav class="main-nav" class:open={menuOpen}>
+			<a
+				href="/"
+				class:active={page.url.pathname.endsWith('/')}
+				onclick={closeMenu}
+			>
+				{t.nav.home}
+			</a>
+
 			<div class="nav-tools">
 				{#each t.nav.categories as category (category.label)}
 					<a href={category.href} class:active={isActive(category.href)} onclick={closeMenu}>
