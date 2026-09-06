@@ -86,6 +86,16 @@ If what you actually want is an audio file rather than written text — say, a Z
 
 </section>
 
+<section>
+
+## Languages the transcriber understands
+
+The speech-recognition model is multilingual, not just English-tuned. Right now it transcribes ten languages out of the box: English, German, Spanish, French, Italian, Polish, Russian, Ukrainian, Croatian and Belarusian. Drop in a video in any of these and the tool detects the speech and writes it out without any language picker or setup step.
+
+More languages are on the roadmap. Language coverage is expected to grow in future updates -- if a language you need isn't supported yet, it's worth checking back.
+
+</section>
+
 <section id="faq">
 
 ## Frequently asked questions
@@ -94,7 +104,7 @@ If what you actually want is an audio file rather than written text — say, a Z
 <div class="faq-card"><h3>Is this really free?</h3><p>Yes — no account, no watermark on the transcript, and no cap on how many videos you convert.</p></div>
 <div class="faq-card"><h3>Is my video uploaded anywhere?</h3><p>No. The audio is extracted and transcribed entirely on your own device, in your browser. Nothing is sent to a server.</p></div>
 <div class="faq-card"><h3>What video formats are supported?</h3><p>MP4, MOV, MKV, AVI and WebM all work directly, along with audio-only files like MP3.</p></div>
-<div class="faq-card"><h3>What languages does it support?</h3><p>The speech-recognition model is multilingual, so it isn't limited to English-language audio.</p></div>
+<div class="faq-card"><h3>What languages does it support?</h3><p>Ten languages today: English, German, Spanish, French, Italian, Polish, Russian, Ukrainian, Croatian and Belarusian. More languages are planned for future updates.</p></div>
 <div class="faq-card"><h3>Why does the first transcription take a while?</h3><p>The speech-recognition model has to download to your browser the first time you use the tool. It's cached afterward, so later transcriptions start immediately.</p></div>
 <div class="faq-card"><h3>Can I get an SRT or subtitle file instead of plain text?</h3><p>Not currently — the download is a plain .txt transcript, with or without timestamps. Syncing captions onto the video itself needs a dedicated subtitle tool.</p></div>
 <div class="faq-card"><h3>How accurate is the transcript?</h3><p>It depends on the audio — clear, single-speaker recordings transcribe well, while background noise, music or heavy cross-talk reduce accuracy. Treat the result as a strong draft rather than a guaranteed word-for-word copy.</p></div>

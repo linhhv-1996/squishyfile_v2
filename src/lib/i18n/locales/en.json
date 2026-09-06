@@ -320,7 +320,11 @@
 			"copy": "Copy text",
 			"copied": "Copied!",
 			"download": "Download .txt",
-			"transcribeNew": "Transcribe another video"
+			"transcribeNew": "Transcribe another video",
+			"play": "Play",
+			"pause": "Pause",
+			"seek": "Seek",
+			"listenOriginal": "Listen to the original audio and compare it with the transcript below."
 		},
 		"privacyNote": "Keep this tab open and active while it processes — for the fastest speed.",
 		"errors": {

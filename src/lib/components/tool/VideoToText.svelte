@@ -38,12 +38,37 @@
 	let resultEl = $state<HTMLDivElement>();
 	let copied = $state(false);
 
+	// Lets the user replay the original audio/video alongside the transcript
+	// to sanity-check the model's output -- same custom-styled player as
+	// ConvertVideoToMp3.svelte (native <audio controls> can't be restyled
+	// consistently across browsers). sourceUrl wraps the *input* file, not a
+	// worker result, so it's created/revoked independently of `result`.
+	let sourceUrl = $state<string | null>(null);
+	let audioEl = $state<HTMLAudioElement>();
+	let isPlaying = $state(false);
+	let currentTime = $state(0);
+	let audioDuration = $state(0);
+	const seekPercent = $derived(audioDuration > 0 ? (currentTime / audioDuration) * 100 : 0);
+
 	let result = $state<{
 		text: string;
 		segments: { text: string; startSec: number }[];
 		durationSec: number;
 	} | null>(null);
 	let showTimestamps = $state(false);
+
+	// `file` is plain state (not a prop), so a $effect is what keeps
+	// sourceUrl in sync with it and revokes the previous URL on every change
+	// (including on unmount, via the cleanup return).
+	$effect(() => {
+		if (!file) {
+			sourceUrl = null;
+			return;
+		}
+		const url = URL.createObjectURL(file);
+		sourceUrl = url;
+		return () => URL.revokeObjectURL(url);
+	});
 
 	let worker: Worker | undefined;
 
@@ -113,6 +138,10 @@
 		errorMessage = '';
 		copied = false;
 		result = null;
+		audioEl?.pause();
+		isPlaying = false;
+		currentTime = 0;
+		audioDuration = 0;
 	}
 
 	function handleFile(next: File | null | undefined) {
@@ -211,6 +240,30 @@
 		} catch (err) {
 			console.error('[VideoToText] copy failed:', err);
 		}
+	}
+
+	function togglePlay() {
+		if (!audioEl) return;
+		if (audioEl.paused) audioEl.play();
+		else audioEl.pause();
+	}
+
+	function onAudioLoadedMetadata() {
+		if (audioEl) audioDuration = audioEl.duration || 0;
+	}
+
+	function onAudioTimeUpdate() {
+		if (audioEl) currentTime = audioEl.currentTime;
+	}
+
+	function onAudioEnded() {
+		isPlaying = false;
+	}
+
+	function onSeekInput(event: Event) {
+		const value = Number((event.currentTarget as HTMLInputElement).value);
+		currentTime = value;
+		if (audioEl) audioEl.currentTime = value;
 	}
 
 	function formatTimestamp(totalSeconds: number) {
@@ -321,6 +374,56 @@
 		{#if result}
 			<p class="result-summary">{fill(t.toolVideoToText.result.summary, { duration: formatDuration(result.durationSec) })}</p>
 
+			{#if sourceUrl}
+				<p class="listen-hint">{t.toolVideoToText.result.listenOriginal}</p>
+				<div class="audio-player">
+					<button
+						type="button"
+						class="audio-play-btn"
+						onclick={togglePlay}
+						aria-label={isPlaying ? t.toolVideoToText.result.pause : t.toolVideoToText.result.play}
+					>
+						{#if isPlaying}
+							<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+								<rect x="6" y="5" width="4" height="14" rx="1" />
+								<rect x="14" y="5" width="4" height="14" rx="1" />
+							</svg>
+						{:else}
+							<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+								<path d="M7 5.5v13a1 1 0 0 0 1.53.85l10.4-6.5a1 1 0 0 0 0-1.7l-10.4-6.5A1 1 0 0 0 7 5.5Z" />
+							</svg>
+						{/if}
+					</button>
+
+					<span class="audio-time">{formatDuration(currentTime)}</span>
+
+					<input
+						type="range"
+						class="audio-seek"
+						min="0"
+						max={audioDuration || 0}
+						step="0.01"
+						value={currentTime}
+						oninput={onSeekInput}
+						style="background: linear-gradient(90deg, var(--coral) {seekPercent}%, var(--line) {seekPercent}%)"
+						aria-label={t.toolVideoToText.result.seek}
+					/>
+
+					<span class="audio-time is-total">{formatDuration(audioDuration)}</span>
+
+					<audio
+						bind:this={audioEl}
+						src={sourceUrl}
+						preload="metadata"
+						onloadedmetadata={onAudioLoadedMetadata}
+						ontimeupdate={onAudioTimeUpdate}
+						onended={onAudioEnded}
+						onplay={() => (isPlaying = true)}
+						onpause={() => (isPlaying = false)}
+					></audio>
+				</div>
+			{/if}
+
 			<label class="timestamps-toggle">
 				<input type="checkbox" bind:checked={showTimestamps} />
 				{t.toolVideoToText.result.showTimestamps}
@@ -373,6 +476,12 @@
 		cursor: pointer;
 		font-family: inherit;
 		appearance: none;
+	}
+
+	.listen-hint {
+		margin: 14px 0 0;
+		font-size: 12.5px;
+		color: var(--muted);
 	}
 
 	.dz-langs {
