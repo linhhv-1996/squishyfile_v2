@@ -8,12 +8,12 @@
 	"nav": {
 		"categories": [
 			{
-				"label": "Video",
-				"href": "/"
-			},
-			{
 				"label": "Video Upscaler",
 				"href": "/video-upscaler"
+			},
+			{
+				"label": "Video to Text",
+				"href": "/video-to-text"
 			},
 			{
 				"label": "MP4 to MP3",
@@ -22,10 +22,6 @@
 			{
 				"label": "Video to MP3",
 				"href": "/video-to-mp3"
-			},
-			{
-				"label": "Video to Text",
-				"href": "/video-to-text"
 			}
 		],
 		"blog": "Blog",
@@ -45,10 +41,6 @@
 			{
 				"label": "How it works",
 				"href": "/#how-it-works"
-			},
-			{
-				"label": "FAQ",
-				"href": "/#faq"
 			},
 			{
 				"label": "Privacy",
@@ -92,6 +84,10 @@
 			{
 				"label": "Video Upscaler",
 				"href": "/video-upscaler"
+			},
+			{
+				"label": "Video to Text",
+				"href": "/video-to-text"
 			}
 		],
 		"copyright": "© {year} {siteName}. All rights reserved."
@@ -335,8 +331,8 @@
 	"pages": {
 		"home": {
 			"meta": {
-				"title": "SquishyFile — Free Video Compressor, No Watermark or Limit",
-				"description": "Free online video compressor for MP4, MOV, MKV, AVI and WebM — no uploads, no file-size limit, no watermark, no sign up required."
+				"title": "Video Compressor Online – Reduce Video Size | SquishyFile",
+				"description": "Free online video compressor — reduce video size for MP4, MOV, MKV, AVI and WebM in your browser. No uploads, no file-size limit, no watermark, no sign-up."
 			},
 			"hero": {
 				"title": "Squish your videos, keep the quality",
@@ -350,7 +346,7 @@
 		},
 		"compressToSize": {
 			"meta": {
-				"title": "Compress Video to 10MB, 25MB or Any Size — SquishyFile",
+				"title": "Compress Video to 10MB, 25MB or 50MB — SquishyFile",
 				"description": "Shrink your video to an exact size — 10MB, 25MB or any target — for email, Discord, WhatsApp and Instagram limits. 100% free, no watermark, no sign up."
 			},
 			"hero": {
@@ -416,8 +412,8 @@
 		},
 		"videoToMp3": {
 			"meta": {
-				"title": "Video to MP3 Converter — Free, No Limit, No Watermark",
-				"description": "Convert any video to MP3 free — extract audio from MP4, MOV, MKV, AVI and WebM. No file-size limit, no watermark, no sign up required."
+				"title": "Free Video to MP3 Converter – Extract Audio from Video",
+				"description": "Convert any video to MP3 online, free — extract audio from MP4, MOV, MKV, AVI and WebM. No file-size limit, no watermark, no sign-up required."
 			},
 			"hero": {
 				"title": "Convert video to MP3, free and private",
@@ -431,8 +427,8 @@
 		},
 		"mp4ToMp3": {
 			"meta": {
-				"title": "MP4 to MP3 Converter — Free, No Limit, No Watermark",
-				"description": "Convert MP4 to MP3 free — extract the audio track from any MP4 video. No file-size limit, no watermark, no sign up needed."
+				"title": "MP4 to MP3 Converter – Extract Audio Free | SquishyFile",
+				"description": "Convert MP4 to MP3 free — extract high-quality audio from any MP4 video, right in your browser. No file-size limit, no watermark, no sign-up needed."
 			},
 			"hero": {
 				"title": "Convert MP4 to MP3 in seconds",
@@ -446,8 +442,8 @@
 		},
 		"movToMp3": {
 			"meta": {
-				"title": "MOV to MP3 Converter — Free, No Limit, No Watermark",
-				"description": "Convert MOV to MP3 free — extract audio from iPhone and QuickTime videos. No file-size limit, no watermark, no sign up needed."
+				"title": "MOV to MP3 Converter – Extract Audio from MOV | SquishyFile",
+				"description": "Convert MOV to MP3 free — extract audio from iPhone and QuickTime MOV videos, right in your browser. No file-size limit, no watermark, no sign-up needed."
 			},
 			"hero": {
 				"title": "Convert MOV to MP3, no app needed",
@@ -461,7 +457,7 @@
 		},
 		"videoUpscaler": {
 			"meta": {
-				"title": "Video Upscaler — Free 1080p & 4K AI Upscaling, No Watermark",
+				"title": "Video Upscaler Online – Free AI Upscaling to 1080p & 4K",
 				"description": "Free video upscaler that runs entirely in your browser — upscale 480p or 720p video to 1080p or 4K with 2x or 4x scale, no upload, no watermark, no sign up."
 			},
 			"hero": {
@@ -476,7 +472,7 @@
 		},
 		"videoToText": {
 			"meta": {
-				"title": "Free Video to Text Converter – No Upload, No Sign-Up",
+				"title": "Video to Text Converter – Free Video Transcription",
 				"description": "Transcribe video to text for free, right in your browser. No uploads, no size limit, no sign-up — works with MP4, MOV, MKV, AVI, WebM and multiple languages."
 			},
 			"hero": {

@@ -395,7 +395,7 @@
 		width: 100%;
 		min-height: 180px;
 		margin-top: 10px;
-		padding: 12px 14px;
+		padding: 10px;
 		border: 1.5px solid var(--line);
 		border-radius: var(--radius-sm);
 		font-family: inherit;
