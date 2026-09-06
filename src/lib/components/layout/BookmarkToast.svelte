@@ -12,7 +12,7 @@
 	const STORAGE_KEY = 'sf_bookmark_toast_dismissed_at';
 	const COOLDOWN_DAYS = 21;
 	const SHOW_AFTER_MS = 20000; // let them actually use the tool first
-	const AUTO_HIDE_MS = 12000;
+	const AUTO_HIDE_MS = 20000;
 
 	let visible = $state(false);
 	let shortcut = $state('Ctrl + D');
