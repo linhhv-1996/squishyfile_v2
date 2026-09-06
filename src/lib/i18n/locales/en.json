@@ -495,5 +495,9 @@
 		"text": "Found this tool useful? ",
 		"linkLabel": "Buy me a coffee",
 		"href": "https://ko-fi.com/jjjulian"
+	},
+	"bookmarkToast": {
+		"message": "Found this useful? Bookmark it for next time.",
+		"dismiss": "Dismiss"
 	}
 }

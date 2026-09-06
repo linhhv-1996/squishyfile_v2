@@ -8,6 +8,7 @@
 	import '../global.css';
 	import Header from '$lib/components/layout/Header.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
+	import BookmarkToast from '$lib/components/layout/BookmarkToast.svelte';
 
 	let { children } = $props();
 </script>
@@ -19,3 +20,4 @@
 <Header />
 {@render children()}
 <Footer />
+<BookmarkToast />
