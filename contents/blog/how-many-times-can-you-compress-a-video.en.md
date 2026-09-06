@@ -7,7 +7,7 @@ excerpt: If a compressed video looks worse than you expected, the problem usuall
 
 # How Many Times Can You Compress a Video Before It Looks Bad?
 
-<p class="byline">September 4, 2026 · SquishyFile Team</p>
+<p class="byline">September 3, 2026 · SquishyFile Team</p>
 
 <section>
 

@@ -7,7 +7,7 @@ excerpt: Picking 320kbps by default feels like the safe choice, but it's often j
 
 # MP3 Quality Explained: 128, 192 or 320kbps — Which Should You Actually Use?
 
-<p class="byline">September 4, 2026 · SquishyFile Team</p>
+<p class="byline">September 3, 2026 · SquishyFile Team</p>
 
 <section>
 

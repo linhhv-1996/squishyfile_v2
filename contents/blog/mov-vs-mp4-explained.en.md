@@ -7,7 +7,7 @@ excerpt: A video that plays fine on your iPhone but won't open on a Windows PC i
 
 # MOV vs. MP4: Why Some of Your Videos Won't Open Everywhere
 
-<p class="byline">September 4, 2026 · SquishyFile Team</p>
+<p class="byline">September 2, 2026 · SquishyFile Team</p>
 
 <section>
 

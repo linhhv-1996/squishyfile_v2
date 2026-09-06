@@ -7,7 +7,7 @@ excerpt: A video that technically uploads and a video that actually looks sharp 
 
 # Best Video Settings for Instagram, TikTok, YouTube and Discord
 
-<p class="byline">September 4, 2026 · SquishyFile Team</p>
+<p class="byline">September 1, 2026 · SquishyFile Team</p>
 
 <section>
 
