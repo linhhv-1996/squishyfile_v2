@@ -1,6 +1,6 @@
 # Turn an iPhone MOV Recording Into MP3
 
-<p class="byline">Last updated September 4, 2026 · SquishyFile Team</p>
+<p class="byline">Last updated September 7, 2026 · SquishyFile Team</p>
 
 <section>
 
@@ -38,6 +38,8 @@
 
 <p>MOV is Apple's QuickTime container — the default for anything recorded on iPhone or Mac, and part of why it's occasionally awkward to work with on non-Apple software. That awkwardness is usually about the video side (see our <a href="/blog/mov-vs-mp4-explained">MOV vs. MP4 guide</a> if a MOV file itself won't open somewhere) — the audio track inside extracts to MP3 the same way regardless of the container, so you don't need to convert the video to MP4 first just to get the sound out.</p>
 
+<p>The audio itself is typically AAC, the same format most MP4s use, so there's nothing unusual to convert from. And it makes no difference here whether the video track is H.264 or the newer HEVC — that only affects how the video plays back, not how the audio comes out.</p>
+
 </section>
 
 <section>
@@ -62,6 +64,7 @@
 
 <div class="faq-grid">
 <div class="faq-card"><h3>Does this work with iPhone videos?</h3><p>Yes — MOV is the default format for iPhone recordings, and this tool reads them directly, no conversion app needed first.</p></div>
+<div class="faq-card"><h3>Does this only work for iPhone MOV files?</h3><p>No — MOV is mainly an iPhone/Mac format, but some Android phones and cameras export it too. The converter doesn't care where the file came from, only that it's a MOV with an audio track.</p></div>
 <div class="faq-card"><h3>Is my video uploaded anywhere?</h3><p>No — the audio extraction happens on your own device, in your browser. Your MOV file never leaves your phone or computer.</p></div>
 <div class="faq-card"><h3>What quality should I choose?</h3><p>128 kbps is fine for speech, 192 kbps is a good default, and 320 kbps keeps the most detail for music.</p></div>
 <div class="faq-card"><h3>Is there a watermark on the MP3?</h3><p>No — the file you download is clean, with no watermark and no file size limit.</p></div>

@@ -1,6 +1,6 @@
 # Pull the Audio Out of an MP4 File, Free
 
-<p class="byline">Last updated September 4, 2026 · SquishyFile Team</p>
+<p class="byline">Last updated September 7, 2026 · SquishyFile Team</p>
 
 <section>
 
@@ -30,6 +30,8 @@
 
 <p>A few sources cover most of what people convert: a Zoom, Teams or Google Meet recording where the discussion is the part that matters afterward, an OBS or Loom screen capture with narration, a video downloaded from somewhere that you'd rather have as background audio, or footage from a phone or camera that was really shot for the sound — an interview, a live performance, a lecture. In each case, keeping the full MP4 around just for its audio wastes space; the MP3 is a fraction of the size and plays anywhere an MP4 would need a video player for.</p>
 
+<p>Whichever of these it is, the audio track inside an MP4 is almost always already AAC — a compressed format in its own right, not raw audio — so converting it to MP3 is a straightforward re-encode rather than some risky extraction process. It's why this works reliably across such different kinds of MP4s in the first place.</p>
+
 </section>
 
 <section>
@@ -37,6 +39,8 @@
 ## Picking a bitrate for MP4 audio
 
 <p>The source usually tells you what to pick. A webinar or meeting recording is almost entirely speech, so <strong>128 kbps</strong> keeps it perfectly clear at a small file size — useful if you're archiving a lot of these. A screen recording with background music or a mixed narration-plus-clips video does well at <strong>192 kbps</strong>. If the MP4 is footage of a live performance, a DJ set or anything where the music itself is the point, <strong>320 kbps</strong> keeps the most detail.</p>
+
+<p>Phone and screen-recording MP4s are usually the biggest files people bring to a converter — a few minutes of 4K video can run into gigabytes. That's fine here: because the conversion happens on your own device instead of a server, there's nothing to queue, no upload to wait on, and no size cap to bump into.</p>
 
 </section>
 
@@ -54,6 +58,7 @@
 
 <div class="faq-grid">
 <div class="faq-card"><h3>Will this work with any MP4 file?</h3><p>Yes, as long as the MP4 has an audio track. Silent video-only files — some screen recordings and stock footage clips — have nothing to extract, and the tool will tell you if that's the case.</p></div>
+<div class="faq-card"><h3>Will converting to MP3 make the audio worse?</h3><p>Barely, if at all. Most MP4s already store their audio as AAC, which is compressed to begin with, so going to MP3 at 192 or 320 kbps is a small re-encode, not a big quality drop. It only really shows on 128 kbps with music — for speech it's not noticeable either way.</p></div>
 <div class="faq-card"><h3>Is my file uploaded to a server?</h3><p>No — the conversion happens on your own device, in your browser. Your MP4 never leaves your computer or phone.</p></div>
 <div class="faq-card"><h3>What's the difference between the quality options?</h3><p>128 kbps is smallest and fine for speech, 192 kbps is a solid general-purpose choice, and 320 kbps keeps the most detail for music.</p></div>
 <div class="faq-card"><h3>Is there a watermark or file size limit?</h3><p>No — the MP3 you download is clean, and there's no cap on how large a file you can convert or how many you do.</p></div>
