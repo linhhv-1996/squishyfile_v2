@@ -10,6 +10,7 @@
 	import BeforeAfterVideoSlider from './BeforeAfterVideoSlider.svelte';
 	import type { CompressionLevel, PlanWarning } from '$lib/compress/plan';
 	import type { WorkerOutMessage } from './compress.worker';
+	import { trackEvent, roundMb } from '$lib/analytics';
 
 	let {
 		shareTitle = '',
@@ -19,6 +20,13 @@
 	const t = getStrings();
 
 	const isSizeMode = $derived(mode === 'to-size');
+
+	const TOOL = 'compress';
+	function track(action: string, params: Record<string, string | number | boolean | undefined> = {}) {
+		trackEvent(`tool_${TOOL}_${action}`, params);
+	}
+	// Set when a run starts so the success event can report how long it took.
+	let convertStartedAt = 0;
 
 	type Stage = 'probing' | 'loading-engine' | 'encoding';
 
@@ -79,6 +87,7 @@
 			console.error('[CompressVideo] worker crashed:', event.message, event);
 			status = 'error';
 			errorMessage = t.tool.errors.generic;
+			track('convert_error', { error_code: 'worker_crash' });
 		};
 		worker.onmessageerror = (event: MessageEvent) => {
 			console.error('[CompressVideo] worker message could not be deserialized:', event);
@@ -97,6 +106,7 @@
 				console.error('[CompressVideo] worker reported an error:', data.message);
 				status = 'error';
 				errorMessage = t.tool.errors.generic;
+				track('convert_error', { error_code: 'worker_error' });
 				return;
 			}
 
@@ -120,6 +130,13 @@
 				warnings: data.warnings
 			};
 			status = 'done';
+			track('convert_success', {
+				duration_ms: Date.now() - convertStartedAt,
+				original_size_mb: roundMb(data.originalBytes),
+				result_size_mb: roundMb(data.compressedBytes),
+				saved_percent: data.savedPercent,
+				target_met: data.targetMet ?? undefined
+			});
 			tick().then(() => resultEl?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
 		};
 
@@ -156,10 +173,11 @@
 		revokeResult();
 	}
 
-	function handleFile(next: File | null | undefined) {
+	function handleFile(next: File | null | undefined, method: 'browse' | 'drop' | 'sample' = 'browse') {
 		if (!next) return;
 		file = next;
 		reset();
+		track('file_added', { method, file_size_mb: roundMb(next.size) });
 		// The "compress to size" page treats target size as the primary
 		// control (and hides compression level entirely), so pre-fill it at
 		// 50% of the source file size the moment a file is picked, instead of
@@ -177,7 +195,7 @@
 		event.preventDefault();
 		isDragging = false;
 		if (isBusy) return;
-		handleFile(event.dataTransfer?.files?.[0]);
+		handleFile(event.dataTransfer?.files?.[0], 'drop');
 	}
 
 	function onDragOver(event: DragEvent) {
@@ -215,6 +233,7 @@
 		if (fileInputEl) fileInputEl.value = '';
 		file = null;
 		reset();
+		track('file_removed');
 	}
 
 	// Used from the "done" result panel to start over with a new file,
@@ -223,6 +242,7 @@
 		if (fileInputEl) fileInputEl.value = '';
 		file = null;
 		reset();
+		track('reset');
 	}
 
 	async function loadSample() {
@@ -232,10 +252,11 @@
 			const response = await fetch('/13069876_1280_720_30fps.mp4');
 			if (!response.ok) throw new Error('sample fetch failed');
 			const blob = await response.blob();
-			handleFile(new File([blob], '13069876_1280_720_30fps.mp4', { type: 'video/mp4' }));
+			handleFile(new File([blob], '13069876_1280_720_30fps.mp4', { type: 'video/mp4' }), 'sample');
 		} catch {
 			status = 'error';
 			errorMessage = t.tool.errors.generic;
+			track('convert_error', { error_code: 'sample_fetch_failed' });
 		} finally {
 			isSampleLoading = false;
 		}
@@ -248,6 +269,12 @@
 		reset();
 		status = 'processing';
 		stage = 'probing';
+		convertStartedAt = Date.now();
+		track('convert_start', {
+			mode,
+			level,
+			target_size_mb: hasTargetSize(targetSize) ? Number(targetSize) : undefined
+		});
 		activeWorker.postMessage({
 			type: 'compress',
 			file,
@@ -257,6 +284,7 @@
 	}
 
 	function cancelCompression() {
+		track('convert_cancel');
 		worker?.postMessage({ type: 'cancel' });
 		reset();
 	}
@@ -484,11 +512,23 @@
 
 			<div class="result-actions">
 				{#if originalPreviewUrl}
-					<button type="button" class="compress-new-btn" onclick={() => (viewResultOpen = true)}>
+					<button
+						type="button"
+						class="compress-new-btn"
+						onclick={() => {
+							viewResultOpen = true;
+							track('view_result');
+						}}
+					>
 						{t.tool.result.viewResult}
 					</button>
 				{/if}
-				<a href={result.url} download={result.fileName} class="download-btn">
+				<a
+					href={result.url}
+					download={result.fileName}
+					class="download-btn"
+					onclick={() => track('download')}
+				>
 					{t.tool.result.download}
 				</a>
 				<button type="button" class="compress-new-btn" onclick={compressAnother}>

@@ -11,6 +11,7 @@
 	import SupportLink from '$lib/components/support/SupportLink.svelte';
 	import { MP3_QUALITIES, type Mp3Quality } from '$lib/video2mp3/plan';
 	import type { WorkerOutMessage } from './video2mp3.worker';
+	import { trackEvent, roundMb } from '$lib/analytics';
 
 	let {
 		shareTitle = '',
@@ -25,6 +26,13 @@
 	} = $props();
 
 	const t = getStrings();
+
+	const TOOL = 'mp3';
+	function track(action: string, params: Record<string, string | number | boolean | undefined> = {}) {
+		trackEvent(`tool_${TOOL}_${action}`, params);
+	}
+	// Set when a run starts so the success event can report how long it took.
+	let convertStartedAt = 0;
 
 	type Stage = 'probing' | 'loading-engine' | 'encoding';
 
@@ -79,6 +87,7 @@
 			console.error('[ConvertVideoToMp3] worker crashed:', event.message, event);
 			status = 'error';
 			errorMessage = t.toolMp3.errors.generic;
+			track('convert_error', { error_code: 'worker_crash' });
 		};
 		worker.onmessageerror = (event: MessageEvent) => {
 			console.error('[ConvertVideoToMp3] worker message could not be deserialized:', event);
@@ -96,6 +105,9 @@
 				console.error('[ConvertVideoToMp3] worker reported an error:', data.message);
 				status = 'error';
 				errorMessage = data.code === 'no_audio' ? t.toolMp3.errors.noAudio : t.toolMp3.errors.generic;
+				track('convert_error', {
+					error_code: data.code === 'no_audio' ? 'no_audio' : 'worker_error'
+				});
 				return;
 			}
 
@@ -111,6 +123,12 @@
 				quality: usedQuality
 			};
 			status = 'done';
+			track('convert_success', {
+				duration_ms: Date.now() - convertStartedAt,
+				original_size_mb: roundMb(data.originalBytes),
+				result_size_mb: roundMb(data.convertedBytes),
+				quality: usedQuality
+			});
 			tick().then(() => resultEl?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
 		};
 
@@ -178,10 +196,11 @@
 		revokeResult();
 	}
 
-	function handleFile(next: File | null | undefined) {
+	function handleFile(next: File | null | undefined, method: 'browse' | 'drop' | 'sample' = 'browse') {
 		if (!next) return;
 		file = next;
 		reset();
+		track('file_added', { method, file_size_mb: roundMb(next.size) });
 	}
 
 	function onFileInputChange(event: Event) {
@@ -192,7 +211,7 @@
 		event.preventDefault();
 		isDragging = false;
 		if (isBusy) return;
-		handleFile(event.dataTransfer?.files?.[0]);
+		handleFile(event.dataTransfer?.files?.[0], 'drop');
 	}
 
 	function onDragOver(event: DragEvent) {
@@ -230,6 +249,7 @@
 		if (fileInputEl) fileInputEl.value = '';
 		file = null;
 		reset();
+		track('file_removed');
 	}
 
 	// Used from the "done" result panel to start over with a new file,
@@ -238,6 +258,7 @@
 		if (fileInputEl) fileInputEl.value = '';
 		file = null;
 		reset();
+		track('reset');
 	}
 
 	async function loadSample() {
@@ -253,10 +274,11 @@
 			const response = await fetch(samplePath);
 			if (!response.ok) throw new Error('sample fetch failed');
 			const blob = await response.blob();
-			handleFile(new File([blob], sampleFileName, { type: sampleMimeType }));
+			handleFile(new File([blob], sampleFileName, { type: sampleMimeType }), 'sample');
 		} catch {
 			status = 'error';
 			errorMessage = t.toolMp3.errors.generic;
+			track('convert_error', { error_code: 'sample_fetch_failed' });
 		} finally {
 			isSampleLoading = false;
 		}
@@ -269,10 +291,13 @@
 		usedQuality = quality;
 		status = 'processing';
 		stage = 'probing';
+		convertStartedAt = Date.now();
+		track('convert_start', { quality });
 		activeWorker.postMessage({ type: 'convert', file, quality });
 	}
 
 	function cancelConversion() {
+		track('convert_cancel');
 		worker?.postMessage({ type: 'cancel' });
 		reset();
 	}
@@ -438,7 +463,12 @@
 			</div>
 
 			<div class="result-actions">
-				<a href={result.url} download={result.fileName} class="download-btn">
+				<a
+					href={result.url}
+					download={result.fileName}
+					class="download-btn"
+					onclick={() => track('download')}
+				>
 					{t.toolMp3.result.download}
 				</a>
 				<button type="button" class="compress-new-btn" onclick={convertAnother}>

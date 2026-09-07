@@ -12,10 +12,18 @@
 	import BeforeAfterVideoSlider from './BeforeAfterVideoSlider.svelte';
 	import { UPSCALE_SCALES, type UpscaleEngine, type UpscaleScale } from '$lib/upscale/plan';
 	import type { WorkerOutMessage } from './upscale-fsrcnn.worker';
+	import { trackEvent, roundMb } from '$lib/analytics';
 
 	let { shareTitle = '' }: { shareTitle?: string } = $props();
 
 	const t = getStrings();
+
+	const TOOL = 'upscale';
+	function track(action: string, params: Record<string, string | number | boolean | undefined> = {}) {
+		trackEvent(`tool_${TOOL}_${action}`, params);
+	}
+	// Set when a run starts so the success event can report how long it took.
+	let convertStartedAt = 0;
 
 	type Stage = 'probing' | 'loading-engine' | 'initializing-engine' | 'encoding';
 
@@ -68,6 +76,7 @@
 			console.error('[UpscaleVideo] worker crashed:', event.message, event);
 			status = 'error';
 			errorMessage = t.toolUpscale.errors.generic;
+			track('convert_error', { error_code: 'worker_crash' });
 		};
 		worker.onmessageerror = (event: MessageEvent) => {
 			console.error('[UpscaleVideo] worker message could not be deserialized:', event);
@@ -86,6 +95,7 @@
 				console.error('[UpscaleVideo] worker reported an error:', data.message);
 				status = 'error';
 				errorMessage = t.toolUpscale.errors.generic;
+				track('convert_error', { error_code: 'worker_error' });
 				return;
 			}
 
@@ -109,6 +119,13 @@
 				engine: data.engine
 			};
 			status = 'done';
+			track('convert_success', {
+				duration_ms: Date.now() - convertStartedAt,
+				original_size_mb: roundMb(data.originalBytes),
+				result_size_mb: roundMb(data.newBytes),
+				scale: data.scale,
+				engine: data.engine
+			});
 			tick().then(() => resultEl?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
 		};
 
@@ -146,10 +163,11 @@
 		revokeResult();
 	}
 
-	function handleFile(next: File | null | undefined) {
+	function handleFile(next: File | null | undefined, method: 'browse' | 'drop' | 'sample' = 'browse') {
 		if (!next) return;
 		file = next;
 		reset();
+		track('file_added', { method, file_size_mb: roundMb(next.size) });
 	}
 
 	function onFileInputChange(event: Event) {
@@ -160,7 +178,7 @@
 		event.preventDefault();
 		isDragging = false;
 		if (isBusy) return;
-		handleFile(event.dataTransfer?.files?.[0]);
+		handleFile(event.dataTransfer?.files?.[0], 'drop');
 	}
 
 	function onDragOver(event: DragEvent) {
@@ -198,6 +216,7 @@
 		if (fileInputEl) fileInputEl.value = '';
 		file = null;
 		reset();
+		track('file_removed');
 	}
 
 	// Used from the "done" result panel to start over with a new file,
@@ -206,6 +225,7 @@
 		if (fileInputEl) fileInputEl.value = '';
 		file = null;
 		reset();
+		track('reset');
 	}
 
 	async function loadSample() {
@@ -215,10 +235,11 @@
 			const response = await fetch('/6568706-sd_426_226_25fps.mp4');
 			if (!response.ok) throw new Error('sample fetch failed');
 			const blob = await response.blob();
-			handleFile(new File([blob], '6568706-sd_426_226_25fps.mp4', { type: 'video/mp4' }));
+			handleFile(new File([blob], '6568706-sd_426_226_25fps.mp4', { type: 'video/mp4' }), 'sample');
 		} catch {
 			status = 'error';
 			errorMessage = t.toolUpscale.errors.generic;
+			track('convert_error', { error_code: 'sample_fetch_failed' });
 		} finally {
 			isSampleLoading = false;
 		}
@@ -231,10 +252,13 @@
 		usedScale = scale;
 		status = 'processing';
 		stage = 'probing';
+		convertStartedAt = Date.now();
+		track('convert_start', { scale });
 		activeWorker.postMessage({ type: 'upscale', file, scale });
 	}
 
 	function cancelUpscale() {
+		track('convert_cancel');
 		worker?.postMessage({ type: 'cancel' });
 		reset();
 	}
@@ -370,11 +394,23 @@
 
 			<div class="result-actions">
 				{#if originalPreviewUrl}
-					<button type="button" class="compress-new-btn" onclick={() => (viewResultOpen = true)}>
+					<button
+						type="button"
+						class="compress-new-btn"
+						onclick={() => {
+							viewResultOpen = true;
+							track('view_result');
+						}}
+					>
 						{t.toolUpscale.result.viewResult}
 					</button>
 				{/if}
-				<a href={result.url} download={result.fileName} class="download-btn">
+				<a
+					href={result.url}
+					download={result.fileName}
+					class="download-btn"
+					onclick={() => track('download')}
+				>
 					{t.toolUpscale.result.download}
 				</a>
 				<button type="button" class="compress-new-btn" onclick={upscaleAnother}>

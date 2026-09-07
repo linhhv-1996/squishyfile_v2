@@ -10,6 +10,7 @@
 	import SupportLink from '$lib/components/support/SupportLink.svelte';
 	import type { WorkerOutMessage } from './video2text.worker';
 	import { SUPPORTED_LANGUAGES } from '$lib/video2text/plan';
+	import { trackEvent, roundMb } from '$lib/analytics';
 
 	let {
 		shareTitle = '',
@@ -24,6 +25,13 @@
 	} = $props();
 
 	const t = getStrings();
+
+	const TOOL = 'transcribe';
+	function track(action: string, params: Record<string, string | number | boolean | undefined> = {}) {
+		trackEvent(`tool_${TOOL}_${action}`, params);
+	}
+	// Set when a run starts so the success event can report how long it took.
+	let convertStartedAt = 0;
 
 	type Stage = 'probing' | 'loading-model' | 'decoding-audio' | 'transcribing';
 
@@ -86,6 +94,7 @@
 			console.error('[VideoToText] worker crashed:', event.message, event);
 			status = 'error';
 			errorMessage = t.toolVideoToText.errors.generic;
+			track('convert_error', { error_code: 'worker_crash' });
 		};
 		worker.onmessageerror = (event: MessageEvent) => {
 			console.error('[VideoToText] worker message could not be deserialized:', event);
@@ -104,6 +113,9 @@
 				status = 'error';
 				errorMessage =
 					data.code === 'no_audio' ? t.toolVideoToText.errors.noAudio : t.toolVideoToText.errors.generic;
+				track('convert_error', {
+					error_code: data.code === 'no_audio' ? 'no_audio' : 'worker_error'
+				});
 				return;
 			}
 
@@ -111,6 +123,11 @@
 			progress = 100;
 			result = { text: data.text, segments: data.segments, durationSec: data.durationSec };
 			status = 'done';
+			track('convert_success', {
+				duration_ms: Date.now() - convertStartedAt,
+				media_duration_sec: Math.round(data.durationSec),
+				transcript_chars: data.text.length
+			});
 			tick().then(() => resultEl?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
 		};
 
@@ -144,10 +161,11 @@
 		audioDuration = 0;
 	}
 
-	function handleFile(next: File | null | undefined) {
+	function handleFile(next: File | null | undefined, method: 'browse' | 'drop' | 'sample' = 'browse') {
 		if (!next) return;
 		file = next;
 		reset();
+		track('file_added', { method, file_size_mb: roundMb(next.size) });
 	}
 
 	function onFileInputChange(event: Event) {
@@ -158,7 +176,7 @@
 		event.preventDefault();
 		isDragging = false;
 		if (isBusy) return;
-		handleFile(event.dataTransfer?.files?.[0]);
+		handleFile(event.dataTransfer?.files?.[0], 'drop');
 	}
 
 	function onDragOver(event: DragEvent) {
@@ -193,12 +211,14 @@
 		if (fileInputEl) fileInputEl.value = '';
 		file = null;
 		reset();
+		track('file_removed');
 	}
 
 	function transcribeAnother() {
 		if (fileInputEl) fileInputEl.value = '';
 		file = null;
 		reset();
+		track('reset');
 	}
 
 	async function loadSample() {
@@ -208,10 +228,11 @@
 			const response = await fetch(samplePath);
 			if (!response.ok) throw new Error('sample fetch failed');
 			const blob = await response.blob();
-			handleFile(new File([blob], sampleFileName, { type: sampleMimeType }));
+			handleFile(new File([blob], sampleFileName, { type: sampleMimeType }), 'sample');
 		} catch {
 			status = 'error';
 			errorMessage = t.toolVideoToText.errors.generic;
+			track('convert_error', { error_code: 'sample_fetch_failed' });
 		} finally {
 			isSampleLoading = false;
 		}
@@ -223,10 +244,13 @@
 		reset();
 		status = 'processing';
 		stage = 'probing';
+		convertStartedAt = Date.now();
+		track('convert_start');
 		activeWorker.postMessage({ type: 'transcribe', file });
 	}
 
 	function cancelTranscription() {
+		track('convert_cancel');
 		worker?.postMessage({ type: 'cancel' });
 		reset();
 	}
@@ -236,6 +260,7 @@
 		try {
 			await navigator.clipboard.writeText(showTimestamps ? timestampedText() : result.text);
 			copied = true;
+			track('copy_transcript');
 			setTimeout(() => (copied = false), 2000);
 		} catch (err) {
 			console.error('[VideoToText] copy failed:', err);
@@ -454,7 +479,12 @@
 				<button type="button" class="download-btn" onclick={copyText}>
 					{copied ? t.toolVideoToText.result.copied : t.toolVideoToText.result.copy}
 				</button>
-				<a href={downloadUrl()} download="transcript.txt" class="download-btn">
+				<a
+					href={downloadUrl()}
+					download="transcript.txt"
+					class="download-btn"
+					onclick={() => track('download')}
+				>
 					{t.toolVideoToText.result.download}
 				</a>
 				<button type="button" class="compress-new-btn" onclick={transcribeAnother}>
