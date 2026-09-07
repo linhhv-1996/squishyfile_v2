@@ -55,8 +55,8 @@
 		height: 250px;
 		box-sizing: border-box;
 		border-radius: var(--radius-sm, 10px);
-		border: 1px solid #E4DFCF;
-		background: #FFFFFF;
+		border: 1px solid var(--line, #E1EAE4);
+		background: var(--bg, #F5F9F6);
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -70,10 +70,10 @@
 	}
 	.creatify-ad:hover,
 	.creatify-ad:focus-visible {
-		border-color: #D8D2BE;
+		border-color: #C7D4CD;
 	}
 	.creatify-ad--placeholder {
-		background: #FFFFFF;
+		background: var(--bg, #F5F9F6);
 	}
 
 	.ad-label {
@@ -93,6 +93,10 @@
 		border-radius: 14px;
 		object-fit: cover;
 		margin-bottom: 4px;
+		/* creatify_lab.avif ships on a white square background; multiply
+		   drops the white pixels onto the card's own background so no
+		   white box shows, as long as the card stays light. */
+		mix-blend-mode: multiply;
 	}
 
 	.headline {
@@ -100,13 +104,13 @@
 		font-weight: 600;
 		font-size: 15.5px;
 		line-height: 1.25;
-		color: #2E2A38;
+		color: var(--ink, #1F2A24);
 	}
 
 	.subtitle {
 		font-size: 12.5px;
 		line-height: 1.4;
-		color: rgba(0, 0, 0, 0.5);
+		color: var(--muted, #4A5750);
 		max-width: 220px;
 	}
 
@@ -114,9 +118,9 @@
 		margin-top: 8px;
 		font-size: 12.5px;
 		font-weight: 600;
-		color: #45394F;
-		background: rgba(0, 0, 0, 0.04);
-		border: 1px solid rgba(0, 0, 0, 0.12);
+		color: var(--muted, #4A5750);
+		background: #fff;
+		border: 1.5px solid var(--line, #E1EAE4);
 		padding: 7px 16px;
 		border-radius: 999px;
 	}
