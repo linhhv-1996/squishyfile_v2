@@ -100,6 +100,12 @@
 			"headline": "Browse & stream privately",
 			"subtitle": "Encrypt your connection with NordVPN.",
 			"cta": "Try NordVPN"
+		},
+		"creatifyLab": {
+			"label": "Sponsor",
+			"headline": "Turn text into video ads",
+			"subtitle": "AI-generated ads with Creatify.",
+			"cta": "Try Creatify"
 		}
 	},
 	"share": {

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { getStrings } from '$lib/i18n';
 	import Seo from '$lib/components/seo/Seo.svelte';
-	import NordVpnAd from '$lib/components/ads/NordVpnAd.svelte';
+	import CreatifyLabAd from '$lib/components/ads/CreatifyLabAd.svelte';
 	import CompressVideo from '$lib/components/tool/CompressVideo.svelte';
 
 	let { data } = $props();
@@ -22,7 +22,7 @@
 				{/each}
 			</div>
 		</div>
-		<NordVpnAd />
+		<CreatifyLabAd />
 	</div>
 </section>
 
