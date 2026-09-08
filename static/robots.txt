@@ -1,4 +1,8 @@
-# allow crawling everything by default
+# Block Yandex
+User-agent: Yandex
+Disallow: /
+
+# Allow crawling everything by default
 User-agent: *
 Disallow:
 
