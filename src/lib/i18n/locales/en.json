@@ -93,46 +93,61 @@
       }
     ],
     "toolsHeading": "All tools",
-    "toolLinks": [
+    "toolGroups": [
       {
-        "label": "Video Compressor",
-        "href": "/"
+        "label": "Compress",
+        "items": [
+          {
+            "label": "Video Compressor",
+            "href": "/"
+          },
+          {
+            "label": "Compress Video to Size",
+            "href": "/compress-video-to-size"
+          },
+          {
+            "label": "Compress Video on iPhone",
+            "href": "/compress-video-on-iphone"
+          }
+        ]
       },
       {
-        "label": "Compress Video to Size",
-        "href": "/compress-video-to-size"
+        "label": "Convert",
+        "items": [
+          {
+            "label": "Video to MP3",
+            "href": "/video-to-mp3"
+          },
+          {
+            "label": "MP4 to MP3",
+            "href": "/mp4-to-mp3"
+          },
+          {
+            "label": "MOV to MP3",
+            "href": "/mov-to-mp3"
+          },
+          {
+            "label": "MP4 to GIF",
+            "href": "/mp4-to-gif"
+          },
+          {
+            "label": "MOV to GIF",
+            "href": "/mov-to-gif"
+          },
+          {
+            "label": "Video to Text",
+            "href": "/video-to-text"
+          }
+        ]
       },
       {
-        "label": "Compress Video on iPhone",
-        "href": "/compress-video-on-iphone"
-      },
-      {
-        "label": "Video to MP3",
-        "href": "/video-to-mp3"
-      },
-      {
-        "label": "MP4 to MP3",
-        "href": "/mp4-to-mp3"
-      },
-      {
-        "label": "MOV to MP3",
-        "href": "/mov-to-mp3"
-      },
-      {
-        "label": "MP4 to GIF",
-        "href": "/mp4-to-gif"
-      },
-      {
-        "label": "MOV to GIF",
-        "href": "/mov-to-gif"
-      },
-      {
-        "label": "Video Upscaler",
-        "href": "/video-upscaler"
-      },
-      {
-        "label": "Video to Text",
-        "href": "/video-to-text"
+        "label": "Enhance",
+        "items": [
+          {
+            "label": "Video Upscaler",
+            "href": "/video-upscaler"
+          }
+        ]
       }
     ],
     "copyright": "© {year} {siteName}. All rights reserved."

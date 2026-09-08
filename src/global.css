@@ -457,8 +457,17 @@ input[type="range"]::-moz-focus-outer{ border:0; }
 .footer-links{ display:flex; justify-content:center; flex-wrap:wrap; gap:16px; margin-bottom:14px; }
 .footer-links a{ font-size:13px; color:var(--muted); text-decoration:none; }
 .footer-links a:hover{ color:var(--ink); }
-.footer-tools{ margin-bottom:14px; }
-.footer-tools-label{ display:block; font-size:11px; font-weight:700; color:#8A968E; margin-bottom:8px; }
+.footer-tools-groups{ display:flex; justify-content:center; flex-wrap:wrap; gap:24px 40px; margin-bottom:18px; text-align:left; }
+.footer-tools-group{ min-width:160px; }
+.footer-tools-label{ display:block; font-size:11px; font-weight:700; color:#8A968E; margin-bottom:8px; text-transform:uppercase; letter-spacing:.04em; }
+.footer-links-tools{ display:block; column-gap:24px; margin-bottom:0; }
+.footer-links-tools a{ display:block; break-inside:avoid; margin-bottom:6px; }
+@media (max-width:640px){
+	.footer-tools-groups{ text-align:center; }
+	.footer-tools-group{ min-width:0; }
+	.footer-links-tools{ column-count:1 !important; display:flex !important; flex-wrap:wrap; justify-content:center; gap:8px 16px; }
+	.footer-links-tools a{ margin-bottom:0; }
+}
 .footer-copy{ font-size:12px; color:#8A968E; }
 
 /* ---------- Blog ---------- */

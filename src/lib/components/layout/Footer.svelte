@@ -16,13 +16,24 @@
 		</a>
 		<p class="footer-tagline">{t.site.tagline}</p>
 
-		<div class="footer-tools">
-			<span class="footer-tools-label">{t.footer.toolsHeading}</span>
-			<div class="footer-links">
-				{#each t.footer.toolLinks as link (link.label)}
-					<a href={link.href}>{link.label}</a>
-				{/each}
-			</div>
+		<!-- SEO: every tool link is rendered flat in the markup (no
+		     click-to-reveal), grouped under its own heading to mirror the
+		     header's Compress / Convert / Enhance structure -- crawlers and
+		     users both see the full sitemap-style list at once. -->
+		<div class="footer-tools-groups">
+			{#each t.footer.toolGroups as group (group.label)}
+				<div class="footer-tools-group">
+					<span class="footer-tools-label">{group.label}</span>
+					<div
+						class="footer-links footer-links-tools"
+						style:column-count={group.items.length > 4 ? 2 : 1}
+					>
+						{#each group.items as link (link.label)}
+							<a href={link.href}>{link.label}</a>
+						{/each}
+					</div>
+				</div>
+			{/each}
 		</div>
 
 		<div class="footer-links">
