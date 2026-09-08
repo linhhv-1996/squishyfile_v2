@@ -1,6 +1,6 @@
 # Pull the Audio Out of an MP4 File, Free
 
-<p class="byline">Last updated September 7, 2026 · SquishyFile Team</p>
+<p class="byline">Last updated September 8, 2026 · SquishyFile Team</p>
 
 <section>
 
@@ -41,6 +41,22 @@
 <p>The source usually tells you what to pick. A webinar or meeting recording is almost entirely speech, so <strong>128 kbps</strong> keeps it perfectly clear at a small file size — useful if you're archiving a lot of these. A screen recording with background music or a mixed narration-plus-clips video does well at <strong>192 kbps</strong>. If the MP4 is footage of a live performance, a DJ set or anything where the music itself is the point, <strong>320 kbps</strong> keeps the most detail.</p>
 
 <p>Phone and screen-recording MP4s are usually the biggest files people bring to a converter — a few minutes of 4K video can run into gigabytes. That's fine here: because the conversion happens on your own device instead of a server, there's nothing to queue, no upload to wait on, and no size cap to bump into.</p>
+
+<p>Two smaller technical details worth knowing, since they're easy to notice and wonder about: if the MP4's audio is wider than stereo — 5.1 surround from some screen-recording and camera formats does this — SquishyFile folds it down to stereo, since MP3 can't carry more than two channels; a genuinely mono source, like most voice memos, stays mono instead of being padded out artificially. And the output sample rate is always 44.1kHz, the standard MP3 players and DAWs expect, even if the original MP4 audio was recorded at 48kHz like most video is — MP3 only supports a few fixed sample rates, so this is a normalization, not a quality loss.</p>
+
+</section>
+
+<section>
+
+## Common problems converting MP4 to MP3
+
+<div class="faq-grid">
+<div class="faq-card"><h3>The MP3 comes out silent</h3><p>Some MP4s genuinely have no audio track — a screen recording made with the microphone off, or stock/b-roll footage — and there's nothing to extract. The tool checks for this and tells you upfront rather than handing back an empty file.</p></div>
+<div class="faq-card"><h3>My MP4 has more than one audio track — which one do I get?</h3><p>Meeting and screen-recording software sometimes saves separate tracks — a mic track and a system-audio track, for instance. SquishyFile extracts the primary track, the same one that plays automatically in a normal video player. Pulling out a specific secondary track on its own needs proper editing software, not a browser converter.</p></div>
+<div class="faq-card"><h3>Conversion is slow, or the tab seems stuck</h3><p>A few minutes of 4K phone footage or a long screen recording can be several gigabytes, and since your device is doing the work instead of a server, that takes real time. Keep the tab open and active while it converts — switching away or letting a phone screen lock can pause it — and expect a large file to take noticeably longer than a short clip.</p></div>
+<div class="faq-card"><h3>It says the file can't be read</h3><p>This usually means the MP4 is corrupted or was saved by software that wrote a non-standard container — rare, but it happens with some capture cards and older editors. Re-exporting the file from its original source, or opening and re-saving it once in a video player, usually fixes it.</p></div>
+<div class="faq-card"><h3>Can I convert just part of the video, or choose a specific track myself?</h3><p>Not currently — the tool converts the whole file's primary audio track, start to finish. If you only need a portion, trim the MP4 first in another tool, or convert the full file and trim the resulting MP3 afterward.</p></div>
+</div>
 
 </section>
 
