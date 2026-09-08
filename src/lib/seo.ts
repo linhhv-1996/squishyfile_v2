@@ -21,6 +21,8 @@ export const siteRoutes: SitemapRoute[] = [
 	{ path: '/compress-video-on-iphone', changefreq: 'weekly', priority: 0.9 },
 	{ path: '/video-to-mp3', changefreq: 'weekly', priority: 0.9 },
 	{ path: '/mp4-to-mp3', changefreq: 'weekly', priority: 0.9 },
+	{ path: '/mp4-to-gif', changefreq: 'weekly', priority: 0.85 },
+	{ path: '/mov-to-gif', changefreq: 'weekly', priority: 0.85 },
 	{ path: '/mov-to-mp3', changefreq: 'weekly', priority: 0.85 },
 	{ path: '/video-upscaler', changefreq: 'weekly', priority: 0.85 },
 	{ path: '/video-to-text', changefreq: 'weekly', priority: 0.85 },

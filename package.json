@@ -26,6 +26,7 @@
 		"@ffmpeg/ffmpeg": "^0.12.15",
 		"@ffmpeg/util": "^0.12.2",
 		"fflate": "^0.8.3",
+		"gifenc": "^1.0.3",
 		"marked": "^18.0.11",
 		"mediabunny": "^1.55.6",
 		"onnxruntime-web": "^1.27.0"
