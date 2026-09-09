@@ -1,0 +1,104 @@
+{
+	"offers": {
+		"submagic": {
+			"enabled": true,
+			"url": "https://submagic.co/?via=squishyfile",
+			"theme": "light",
+			"logo": "/sub_magic.jpg",
+			"label": "Ads",
+			"headline": "Auto-captions that hook viewers",
+			"subtitle": "AI captions & clips with Submagic.",
+			"cta": "Try Submagic"
+		},
+		"opusclip": {
+			"enabled": true,
+			"url": "https://opus.pro/?via=hoang",
+			"theme": "light",
+			"logo": "/opus_clip.jpg",
+			"label": "Ads",
+			"headline": "Turn long videos into viral clips",
+			"subtitle": "AI clipping with OpusClip.",
+			"cta": "Try OpusClip"
+		},
+		"elevenlabs": {
+			"enabled": true,
+			"url": "https://try.elevenlabs.io/glj8gdlppysq",
+			"theme": "light",
+			"logo": "/11lab.jpg",
+			"label": "Ads",
+			"headline": "Realistic AI voices & dubbing",
+			"subtitle": "Text-to-speech with ElevenLabs.",
+			"cta": "Try ElevenLabs"
+		}
+	},
+	"placements": {
+		"/": {
+			"mode": "rotate",
+			"offers": [
+				"submagic",
+				"opusclip"
+			]
+		},
+		"/compress-video-to-size": {
+			"mode": "target",
+			"offers": [
+				"opusclip"
+			]
+		},
+		"/compress-video-on-iphone": {
+			"mode": "target",
+			"offers": [
+				"submagic"
+			]
+		},
+		"/mp4-to-gif": {
+			"mode": "target",
+			"offers": [
+				"submagic"
+			]
+		},
+		"/mov-to-gif": {
+			"mode": "target",
+			"offers": [
+				"submagic"
+			]
+		},
+		"/video-to-text": {
+			"mode": "target",
+			"offers": [
+				"submagic"
+			]
+		},
+		"/video-upscaler": {
+			"mode": "target",
+			"offers": [
+				"opusclip"
+			]
+		},
+		"/video-to-mp3": {
+			"mode": "target",
+			"offers": [
+				"elevenlabs"
+			]
+		},
+		"/mp4-to-mp3": {
+			"mode": "target",
+			"offers": [
+				"elevenlabs"
+			]
+		},
+		"/mov-to-mp3": {
+			"mode": "target",
+			"offers": [
+				"elevenlabs"
+			]
+		}
+	},
+	"default": {
+		"mode": "rotate",
+		"offers": [
+			"submagic",
+			"opusclip"
+		]
+	}
+}
