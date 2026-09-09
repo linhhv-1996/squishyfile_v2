@@ -91,7 +91,7 @@
 
 <p>Yes, in the sense most people mean it: a low-resolution or slightly soft video comes out sharper, less pixelated, and better suited to a larger screen or a platform that expects a higher-resolution upload. Both the AI model and FSR paths are built to reconstruct plausible detail as they enlarge the frame, rather than just stretching pixels, so the result looks meaningfully better than a naive resize.</p>
 
-<p>What it won't do is restore information that was never in the source — heavy compression artifacts, motion blur, or an out-of-focus shot are limitations baked into the original footage, and enlarging the video doesn't undo them. If a video is unwatchable at its original resolution due to those issues, upscaling will make it bigger but the same underlying problems will still be there, just at a higher resolution.</p>
+<p>What it won't do is restore information that was never in the source — heavy compression artifacts, motion blur, or an out-of-focus shot are limitations baked into the original footage, and enlarging the video doesn't undo them. If a video is unwatchable at its original resolution due to those issues, upscaling will make it bigger but the same underlying problems will still be there, just at a higher resolution. Our guide to <a href="/blog/does-video-upscaling-actually-work">what video upscaling can and cannot recover</a> explains the trade-offs in more depth.</p>
 
 </section>
 

@@ -38,7 +38,7 @@
 
 ## Picking a bitrate for MP4 audio
 
-<p>The source usually tells you what to pick. A webinar or meeting recording is almost entirely speech, so <strong>128 kbps</strong> keeps it perfectly clear at a small file size — useful if you're archiving a lot of these. A screen recording with background music or a mixed narration-plus-clips video does well at <strong>192 kbps</strong>. If the MP4 is footage of a live performance, a DJ set or anything where the music itself is the point, <strong>320 kbps</strong> keeps the most detail.</p>
+<p>The source usually tells you what to pick. A webinar or meeting recording is almost entirely speech, so <strong>128 kbps</strong> keeps it perfectly clear at a small file size — useful if you're archiving a lot of these. A screen recording with background music or a mixed narration-plus-clips video does well at <strong>192 kbps</strong>. If the MP4 is footage of a live performance, a DJ set or anything where the music itself is the point, <strong>320 kbps</strong> keeps the most detail. See <a href="/blog/mp3-bitrate-quality-explained">which bitrate to use for MP4 audio</a> for a deeper explanation.</p>
 
 <p>Phone and screen-recording MP4s are usually the biggest files people bring to a converter — a few minutes of 4K video can run into gigabytes. That's fine here: because the conversion happens on your own device instead of a server, there's nothing to queue, no upload to wait on, and no size cap to bump into.</p>
 

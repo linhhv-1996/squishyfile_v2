@@ -46,7 +46,7 @@
 
 ## Choosing a quality setting
 
-<p>The right bitrate depends on what's actually in the audio, not just how big you want the file. <strong>128 kbps</strong> is plenty for speech — a lecture, a podcast, a voice memo — where there's no music detail to lose and a smaller file means faster sharing. <strong>192 kbps</strong> is a solid middle ground for mixed content, background music included. <strong>320 kbps</strong> is worth the extra size specifically for music you plan to actually listen to, where compression artifacts are more noticeable.</p>
+<p>The right bitrate depends on what's actually in the audio, not just how big you want the file. <strong>128 kbps</strong> is plenty for speech — a lecture, a podcast, a voice memo — where there's no music detail to lose and a smaller file means faster sharing. <strong>192 kbps</strong> is a solid middle ground for mixed content, background music included. <strong>320 kbps</strong> is worth the extra size specifically for music you plan to actually listen to, where compression artifacts are more noticeable. For a fuller explanation, see <a href="/blog/mp3-bitrate-quality-explained">how to choose the right MP3 bitrate</a>.</p>
 
 <p>Channel count is handled automatically: a source that's already mono stays mono instead of being padded out to stereo, and anything wider than stereo — 5.1 surround from some screen recordings and camera formats, for instance — gets folded down to stereo, since MP3 doesn't carry more than two channels anyway.</p>
 

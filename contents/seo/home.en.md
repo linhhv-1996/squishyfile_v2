@@ -6,7 +6,7 @@
 
 ## Why compress video with SquishyFile?
 
-<p>Most online video compressors make you upload your file to a server, sit in a queue, and hope it doesn't get stuck — slow, and a little unsettling if the footage is private. SquishyFile is a <strong>browser video compressor</strong>: it runs entirely on your device using WebAssembly, so your video never leaves your computer or phone. There's nothing to install, no account to create, and no sign-up form standing between you and a smaller file.</p>
+<p>Most online video compressors make you upload your file to a server, sit in a queue, and hope it doesn't get stuck — slow, and a little unsettling if the footage is private. SquishyFile is a <strong>browser video compressor</strong>: it runs entirely on your device using WebAssembly, so your video never leaves your computer or phone. There's nothing to install, no account to create, and no sign-up form standing between you and a smaller file. Read our <a href="/blog/is-browser-video-compression-safe">guide to how browser-based compression protects your file</a> for the technical details.</p>
 
 <p>It's also completely free, with no file-size cap and no watermark stamped on your export. Compress one clip or fifty, at any resolution, as many times as you need — SquishyFile doesn't meter usage or ask you to pay for "just one more" video. If you've searched for a <strong>compress video online free no watermark</strong> option and come away disappointed, this is built to be the tool that finally works.</p>
 
@@ -38,7 +38,7 @@
 
 ## Reduce video size without losing quality
 
-<p>The compression level slider is your shortcut to the trade-off video engineers call CRF (Constant Rate Factor) — how much detail to discard in exchange for a smaller file. "Light" keeps quality close to the original and mostly trims redundant data, which is the setting to reach for if you want to <strong>compress video without losing quality</strong> that's visible on a phone or laptop screen. "Max squish" pushes size down as far as it can go while keeping the result watchable, which is what you want for a <strong>compress large video file</strong> situation like a long screen recording or a 4K clip that's grown to several gigabytes.</p>
+<p>The compression level slider is your shortcut to the trade-off video engineers call CRF (Constant Rate Factor) — how much detail to discard in exchange for a smaller file. "Light" keeps quality close to the original and mostly trims redundant data, which is the setting to reach for if you want to <strong>compress video without losing quality</strong> that's visible on a phone or laptop screen. "Max squish" pushes size down as far as it can go while keeping the result watchable, which is what you want for a <strong>compress large video file</strong> situation like a long screen recording or a 4K clip that's grown to several gigabytes. For the technical details, see our guide to <a href="/blog/how-video-compression-works">how compression level, bitrate and resolution work</a>.</p>
 
 <p>There's no such thing as truly <strong>lossless video compression</strong> once you re-encode a video — some data always gets discarded — but SquishyFile's lighter settings get close enough that most people can't tell the difference by eye. If a compressed file still looks soft, try re-running it from the original at a lighter setting rather than compressing the already-compressed copy again, since each re-encode compounds quality loss a little more.</p>
 
@@ -71,7 +71,7 @@
 
 ## Other ways people compress video today
 
-<p>SquishyFile isn't the only option out there — here's how it compares with the alternatives most people try first.</p>
+<p>SquishyFile isn't the only option out there — here's how it compares with the alternatives most people try first. If you want to understand <a href="/blog/why-apps-compress-your-video">why apps compress videos after you send them</a>, our guide explains what happens on the platform side.</p>
 
 <div class="faq-grid">
 <div class="faq-card"><h3>Desktop apps (Handbrake, VLC)</h3><p>Powerful and free, but you have to download, install and learn a settings panel before your first export finishes. Worth it if you compress video daily; overkill for one file.</p></div>

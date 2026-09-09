@@ -46,7 +46,7 @@
 
 ## Picking a bitrate for MOV audio
 
-<p>Most MOV files people convert lean toward speech rather than music — voice memos, interviews, narrated screen recordings — so <strong>128 kbps</strong> is a sensible default: small file, no audible loss for that kind of content. Bump up to <strong>192 kbps</strong> for anything with background music mixed in, and use <strong>320 kbps</strong> when the MOV is actually a music or performance recording, or camera footage where fidelity is the point.</p>
+<p>Most MOV files people convert lean toward speech rather than music — voice memos, interviews, narrated screen recordings — so <strong>128 kbps</strong> is a sensible default: small file, no audible loss for that kind of content. Bump up to <strong>192 kbps</strong> for anything with background music mixed in, and use <strong>320 kbps</strong> when the MOV is actually a music or performance recording, or camera footage where fidelity is the point. See <a href="/blog/mp3-bitrate-quality-explained">choosing a bitrate for MOV audio</a> for more detail.</p>
 
 <p>Two smaller technical details worth knowing, since they carry over from whatever the source camera or phone recorded: if the MOV's audio is wider than stereo — some camera rigs and multi-mic setups do this — SquishyFile folds it down to stereo, since MP3 can't carry more than two channels; a genuinely mono source, like most voice memos, stays mono instead of being padded out artificially. And the output sample rate is always 44.1kHz, the standard MP3 players and DAWs expect, even if the original MOV audio was recorded at 48kHz like most video is — MP3 only supports a few fixed sample rates, so this is a normalization, not a quality loss.</p>
 

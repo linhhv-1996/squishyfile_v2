@@ -57,7 +57,7 @@ Most people arrive here with one of a few specific videos in mind, not a general
 
 By default you get a clean block of text with no timestamps — good for pasting into a document or search. Turn on "Show timestamps" and the same transcript splits into timed lines instead, so you can jump straight to the part of the video where something was actually said.
 
-Either version can be copied straight to your clipboard or downloaded as a plain .txt file. One thing worth knowing: the download is plain text, not a subtitle file — if you're specifically after an SRT or VTT file to sync captions onto the video itself, that's a different job than this tool does today, and a dedicated subtitle editor is the better fit for burning captions into a video file.
+Either version can be copied straight to your clipboard or downloaded as a plain .txt file. One thing worth knowing: the download is plain text, not a subtitle file — if you're specifically after an SRT or VTT file to sync captions onto the video itself, that's a different job than this tool does today, and a dedicated subtitle editor is the better fit for burning captions into a video file. See our guide to <a href="/blog/video-transcript-vs-subtitles">the difference between a transcript and synced captions</a> if you're deciding which output you need.
 
 </section>
 

@@ -48,6 +48,8 @@
 </table>
 </div>
 
+<p>The limits above explain how small the file needs to be. For resolution, aspect ratio and quality guidance after you choose a platform, see our guide to <a href="/blog/best-video-settings-social-media">the best video settings for Instagram, TikTok, YouTube and Discord</a>.</p>
+
 </section>
 
 <section>
