@@ -164,7 +164,7 @@ console.log('\n=== MODE: count ===');
 	// interval clamps into its own bounds.
 	const s = src(60);
 	const t = planFrameTimestamps(s, baseOptions({ mode: 'count', count: 9999 }));
-	check('an absurd count clamps down to MAX_FRAME_COUNT', t.length === 60, `(${t.length})`);
+	check('an absurd count clamps down to MAX_FRAME_COUNT', t.length === 300, `(${t.length})`);
 }
 {
 	const s = src(60);

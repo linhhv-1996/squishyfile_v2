@@ -41,7 +41,7 @@ export const DEFAULT_INTERVAL_SEC = 1;
 
 /** "N frames evenly spaced across the whole clip" -- thumbnail-sheet mode. */
 export const MIN_FRAME_COUNT = 1;
-export const MAX_FRAME_COUNT = 60;
+export const MAX_FRAME_COUNT = 300;
 export const DEFAULT_FRAME_COUNT = 10;
 
 export type FrameExtractOptions = {
