@@ -50,6 +50,10 @@
           {
             "label": "Video to Text",
             "href": "/video-to-text"
+          },
+          {
+            "label": "Frame Extractor",
+            "href": "/frame-extractor"
           }
         ]
       },
@@ -137,6 +141,10 @@
           {
             "label": "Video to Text",
             "href": "/video-to-text"
+          },
+          {
+            "label": "Frame Extractor",
+            "href": "/frame-extractor"
           }
         ]
       },
@@ -584,6 +592,21 @@
           "No watermark"
         ]
       }
+    },
+    "frameExtractor": {
+      "meta": {
+        "title": "Video Frame Extractor: Save PNG or JPEG Images Online",
+        "description": "Free online video frame extractor to extract frames from video, get frames from video, or save images from MP4, MOV, MKV, AVI, or WebM. Download a ZIP."
+      },
+      "hero": {
+        "title": "Pull Still Frames Out of Any Video, Free",
+        "subtitle": "Grab the exact frame you're on, sample the whole clip at a fixed interval, pull frames from just a section, or generate an evenly spaced set for a thumbnail sheet. It runs in your browser, nothing is ever uploaded.",
+        "tags": [
+          "Free forever",
+          "No upload",
+          "PNG or JPEG"
+        ]
+      }
     }
   },
   "support": {
@@ -681,6 +704,89 @@
       "generic": "Something went wrong while converting. Try a different file or reload the page.",
       "noVideo": "This file doesn't seem to contain a video track.",
       "unsupported": "This file's format isn't supported yet — try an MP4, MOV or WebM file."
+    }
+  },
+  "toolFrameExtractor": {
+    "dropzone": {
+      "titlePrefix": "Drag & drop a video, or",
+      "browse": "browse",
+      "subtitle": "MP4, MOV, MKV, AVI, WebM supported",
+      "loadSample": "or try a sample video"
+    },
+    "fileInfo": {
+      "remove": "Remove file"
+    },
+    "trim": {
+      "time": "Time",
+      "start": "Start",
+      "end": "End",
+      "playheadHint": "Currently at {time} — the mode you picked below decides which frame(s) actually get extracted.",
+      "play": "Play preview",
+      "pause": "Pause preview",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out",
+      "zoomReset": "Reset zoom"
+    },
+    "mode": {
+      "label": "What to extract",
+      "options": {
+        "current": "Current frame",
+        "interval": "Every N seconds",
+        "range": "Time range",
+        "count": "N frames (evenly spaced)"
+      }
+    },
+    "interval": {
+      "label": "Interval (seconds)",
+      "hint": "Grabs one frame every {seconds}s across the whole video."
+    },
+    "rangeInterval": {
+      "label": "Interval within range (seconds)",
+      "hint": "Grabs one frame every {seconds}s, only between the start and end times above."
+    },
+    "count": {
+      "label": "Number of frames",
+      "hint": "Spreads {count} frames evenly across the whole video — handy for a thumbnail sheet."
+    },
+    "format": {
+      "label": "Format",
+      "png": "PNG (lossless)",
+      "jpeg": "JPEG (smaller file)"
+    },
+    "jpegQuality": {
+      "label": "JPEG quality",
+      "hint": "Quality {quality}/100 — higher looks better but makes a bigger file."
+    },
+    "estimate": {
+      "singleFrame": "This will extract 1 frame.",
+      "multiFrame": "This will extract {count} frames, bundled into a zip file."
+    },
+    "button": {
+      "idle": "Extract frames 📸",
+      "cancel": "Cancel"
+    },
+    "progress": {
+      "probing": "Reading your video...",
+      "loadingEngine": "Downloading engine (one-time)...",
+      "decoding": "Extracting frames...",
+      "encoding": "Extracting frames...",
+      "packaging": "Packaging into a zip...",
+      "done": "Done!"
+    },
+    "result": {
+      "statLabel": "Extracted frame",
+      "zipStatLabel": "{count} frames",
+      "summary": "Your still frame is ready to download.",
+      "zipSummary": "{count} frames bundled into a single zip file.",
+      "download": "Download frame",
+      "downloadZip": "Download zip",
+      "extractNew": "Extract another video"
+    },
+    "privacyNote": "Keep this tab open and active while it processes — for the fastest speed.",
+    "errors": {
+      "generic": "Something went wrong while extracting frames. Try a different file or reload the page.",
+      "noVideo": "This file doesn't seem to contain a video track.",
+      "unsupported": "This file's format isn't supported yet — try an MP4, MOV, MKV or WebM file."
     }
   }
 }

@@ -63,6 +63,12 @@
 				"submagic"
 			]
 		},
+		"/frame-extractor": {
+			"mode": "target",
+			"offers": [
+				"submagic"
+			]
+		},
 		"/video-to-text": {
 			"mode": "target",
 			"offers": [

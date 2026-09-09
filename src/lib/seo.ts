@@ -24,6 +24,7 @@ export const siteRoutes: SitemapRoute[] = [
 	{ path: '/mp4-to-gif', changefreq: 'weekly', priority: 0.85 },
 	{ path: '/mov-to-gif', changefreq: 'weekly', priority: 0.85 },
 	{ path: '/mov-to-mp3', changefreq: 'weekly', priority: 0.85 },
+	{ path: '/frame-extractor', changefreq: 'weekly', priority: 0.85 },
 	{ path: '/video-upscaler', changefreq: 'weekly', priority: 0.85 },
 	{ path: '/video-to-text', changefreq: 'weekly', priority: 0.85 },
 	{ path: '/blog', changefreq: 'weekly', priority: 0.6 },
