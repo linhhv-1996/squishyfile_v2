@@ -10,11 +10,21 @@
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import BookmarkToast from '$lib/components/layout/BookmarkToast.svelte';
 
-	let { children } = $props();
+	let { data, children } = $props();
 </script>
 
 <svelte:head>
 	<!-- <link rel="icon" href={favicon} /> -->
+	{#if data.analyticsEnabled}
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-BK3HWZ4TZN"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-BK3HWZ4TZN');
+		</script>
+	{/if}
 </svelte:head>
 
 <Header />
