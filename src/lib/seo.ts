@@ -26,6 +26,7 @@ export const siteRoutes: SitemapRoute[] = [
 	{ path: '/mov-to-mp3', changefreq: 'weekly', priority: 0.85 },
 	{ path: '/frame-extractor', changefreq: 'weekly', priority: 0.85 },
 	{ path: '/video-upscaler', changefreq: 'weekly', priority: 0.85 },
+	{ path: '/video-filters', changefreq: 'weekly', priority: 0.85 },
 	{ path: '/video-to-text', changefreq: 'weekly', priority: 0.85 },
 	{ path: '/blog', changefreq: 'weekly', priority: 0.6 },
 	{ path: '/about', changefreq: 'yearly', priority: 0.4 },

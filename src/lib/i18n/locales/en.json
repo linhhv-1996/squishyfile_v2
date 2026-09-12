@@ -1,792 +1,887 @@
 {
-  "site": {
-    "name": "Squishy",
-    "nameAccent": "File",
-    "emoji": "🫧",
-    "tagline": "Free browser-based file tools — starting with video compression, more to come."
-  },
-  "nav": {
-    "toolGroups": [
-      {
-        "label": "Compress",
-        "items": [
-          {
-            "label": "Video Compressor",
-            "href": "/"
-          },
-          {
-            "label": "Compress to Size",
-            "href": "/compress-video-to-size"
-          },
-          {
-            "label": "Compress for iPhone",
-            "href": "/compress-video-on-iphone"
-          }
-        ]
-      },
-      {
-        "label": "Convert",
-        "items": [
-          {
-            "label": "Video to MP3",
-            "href": "/video-to-mp3"
-          },
-          {
-            "label": "MP4 to MP3",
-            "href": "/mp4-to-mp3"
-          },
-          {
-            "label": "MOV to MP3",
-            "href": "/mov-to-mp3"
-          },
-          {
-            "label": "MP4 to GIF",
-            "href": "/mp4-to-gif"
-          },
-          {
-            "label": "MOV to GIF",
-            "href": "/mov-to-gif"
-          },
-          {
-            "label": "Video to Text",
-            "href": "/video-to-text"
-          },
-          {
-            "label": "Frame Extractor",
-            "href": "/frame-extractor"
-          }
-        ]
-      },
-      {
-        "label": "Enhance",
-        "items": [
-          {
-            "label": "Video Upscaler",
-            "href": "/video-upscaler"
-          }
-        ]
-      }
-    ],
-    "tools": "Tools",
-    "home": "Home",
-    "blog": "Blog",
-    "howItWorks": "How it works",
-    "faq": "FAQ"
-  },
-  "footer": {
-    "links": [
-      {
-        "label": "About",
-        "href": "/about"
-      },
-      {
-        "label": "Blog",
-        "href": "/blog"
-      },
-      {
-        "label": "Privacy",
-        "href": "/privacy"
-      },
-      {
-        "label": "Terms",
-        "href": "/terms"
-      },
-      {
-        "label": "Contact",
-        "href": "/contact"
-      }
-    ],
-    "toolsHeading": "All tools",
-    "toolGroups": [
-      {
-        "label": "Compress",
-        "items": [
-          {
-            "label": "Video Compressor",
-            "href": "/"
-          },
-          {
-            "label": "Compress Video to Size",
-            "href": "/compress-video-to-size"
-          },
-          {
-            "label": "Compress Video on iPhone",
-            "href": "/compress-video-on-iphone"
-          }
-        ]
-      },
-      {
-        "label": "Convert",
-        "items": [
-          {
-            "label": "Video to MP3",
-            "href": "/video-to-mp3"
-          },
-          {
-            "label": "MP4 to MP3",
-            "href": "/mp4-to-mp3"
-          },
-          {
-            "label": "MOV to MP3",
-            "href": "/mov-to-mp3"
-          },
-          {
-            "label": "MP4 to GIF",
-            "href": "/mp4-to-gif"
-          },
-          {
-            "label": "MOV to GIF",
-            "href": "/mov-to-gif"
-          },
-          {
-            "label": "Video to Text",
-            "href": "/video-to-text"
-          },
-          {
-            "label": "Frame Extractor",
-            "href": "/frame-extractor"
-          }
-        ]
-      },
-      {
-        "label": "Enhance",
-        "items": [
-          {
-            "label": "Video Upscaler",
-            "href": "/video-upscaler"
-          }
-        ]
-      }
-    ],
-    "copyright": "© {year} {siteName}. All rights reserved."
-  },
-  "ads": {
-    "placeholder": "Ad · 300×250",
-    "nordVpn": {
-      "label": "Sponsor",
-      "headline": "Browse & stream privately",
-      "subtitle": "Encrypt your connection with NordVPN.",
-      "cta": "Try NordVPN"
-    },
-    "creatifyLab": {
-      "label": "Sponsor",
-      "headline": "Turn text into video ads",
-      "subtitle": "AI-generated ads with Creatify.",
-      "cta": "Try Creatify"
-    }
-  },
-  "share": {
-    "label": "Found this useful? Share it",
-    "facebook": "Share on Facebook",
-    "twitter": "Share on X",
-    "telegram": "Share on Telegram",
-    "copyLink": "Copy link",
-    "copied": "Copied!"
-  },
-  "tool": {
-    "dropzone": {
-      "titlePrefix": "Drag & drop a video, or",
-      "browse": "browse",
-      "subtitle": "MP4, MOV, MKV, AVI supported",
-      "loadSample": "or try a sample video"
-    },
-    "fileInfo": {
-      "remove": "Remove file"
-    },
-    "quality": {
-      "label": "Compression level",
-      "light": "Light",
-      "max": "Max squish",
-      "levels": [
-        "Light — keep it sharp",
-        "Balanced — sweet spot for sharing",
-        "Max squish — max 720p"
-      ],
-      "disabledByTarget": "Disabled — a target size is set below, so it controls compression instead."
-    },
-    "targetSize": {
-      "label": "Target size (optional)",
-      "placeholder": "e.g. 50",
-      "unit": "MB",
-      "hint": "If set, this overrides the compression level above.",
-      "labelRequired": "Target size",
-      "hintSizeMode": "Pre-filled at 50% of your file size — tap a platform below or type your own.",
-      "platforms": [
-        {
-          "label": "WhatsApp",
-          "mb": 16
-        },
-        {
-          "label": "Discord Free",
-          "mb": 20
-        },
-        {
-          "label": "Messenger/Gmail",
-          "mb": 25
-        },
-        {
-          "label": "Discord Nitro Basic",
-          "mb": 50
-        },
-        {
-          "label": "LinkedIn",
-          "mb": 200
-        },
-        {
-          "label": "Discord Nitro",
-          "mb": 500
-        },
-        {
-          "label": "TikTok",
-          "mb": 500
-        }
-      ]
-    },
-    "button": {
-      "idle": "Squish it",
-      "cancel": "Cancel"
-    },
-    "progress": {
-      "label": "Squishing...",
-      "probing": "Reading your video...",
-      "loadingEngine": "Downloading compressor (one-time)...",
-      "pass": "Fine-tuning to hit your target size (pass {n})...",
-      "done": "Done!"
-    },
-    "result": {
-      "statLabel": "smaller than the original",
-      "viewResult": "View before/after",
-      "download": "Download compressed video",
-      "summary": "{from} → {to} · {width}×{height}",
-      "targetMet": "Under your {target} MB target.",
-      "targetMissed": "Couldn't get under {target} MB — this is as small as it goes without destroying the video.",
-      "compressNew": "Compress another video"
-    },
-    "privacyNote": "Keep this tab open and active while it processes — for the fastest speed.",
-    "warnings": {
-      "target_above_source": "Your video is already smaller than that target, so there's nothing to squish.",
-      "quality_will_be_poor": "That target is very tight for a video this long — expect a blurry result.",
-      "resolution_reduced": "Resolution lowered to {width}×{height} so the picture stays clean at this size.",
-      "framerate_reduced": "Frame rate lowered to {fps} fps to keep more detail in each frame.",
-      "audio_removed": "Audio removed — there wasn't enough room in the target size for a sound track."
-    },
-    "errors": {
-      "generic": "Something went wrong while compressing. Try a different file or reload the page.",
-      "noVideo": "That file doesn't seem to contain a video track."
-    },
-    "targetPreview": "Your video is {size} — that target is larger, so nothing will be compressed."
-  },
-  "toolMp3": {
-    "dropzone": {
-      "titlePrefix": "Drag & drop a video, or",
-      "browse": "browse",
-      "subtitle": "MP4, MOV, MKV, AVI, WebM supported",
-      "loadSample": "or try a sample video"
-    },
-    "fileInfo": {
-      "remove": "Remove file"
-    },
-    "quality": {
-      "label": "MP3 quality",
-      "hint": "Higher kbps means better audio quality and a larger file.",
-      "options": {
-        "128": "Standard — 128 kbps",
-        "192": "High — 192 kbps",
-        "320": "Best — 320 kbps"
-      }
-    },
-    "button": {
-      "idle": "Convert to MP3 🎧",
-      "cancel": "Cancel"
-    },
-    "progress": {
-      "label": "Converting...",
-      "probing": "Reading your video...",
-      "loadingEngine": "Downloading converter (one-time)...",
-      "done": "Done!"
-    },
-    "result": {
-      "statLabel": "{quality} kbps MP3",
-      "download": "Download MP3",
-      "summary": "{duration} · extracted from a {from} video",
-      "convertNew": "Convert another video",
-      "play": "Play",
-      "pause": "Pause",
-      "seek": "Seek"
-    },
-    "privacyNote": "Keep this tab open and active while it processes — for the fastest speed.",
-    "errors": {
-      "generic": "Something went wrong while converting. Try a different file or reload the page.",
-      "noAudio": "This video doesn't seem to have an audio track to extract."
-    }
-  },
-  "toolUpscale": {
-    "dropzone": {
-      "titlePrefix": "Drag & drop a video, or",
-      "browse": "browse",
-      "subtitle": "MP4, MOV, MKV, AVI, WebM supported",
-      "loadSample": "or try a sample video"
-    },
-    "fileInfo": {
-      "remove": "Remove file"
-    },
-    "scale": {
-      "label": "Upscale factor",
-      "hint": "2x is faster and enough for most clips; 4x pushes further but takes longer to process.",
-      "options": {
-        "2": "2x",
-        "4": "4x"
-      }
-    },
-    "button": {
-      "idle": "Upscale it",
-      "cancel": "Cancel"
-    },
-    "progress": {
-      "probing": "Reading your video...",
-      "loadingEngine": "Downloading upscaler (one-time)...",
-      "initializingEngine": "Initializing engine...",
-      "encodingAi": "Upscaling with AI model...",
-      "encodingFsr": "Upscaling with FSR...",
-      "done": "Done!"
-    },
-    "result": {
-      "statLabel": "upscaled {scale}x",
-      "summary": "{fromWidth}×{fromHeight} → {toWidth}×{toHeight} · {engine}",
-      "engineAi": "AI model",
-      "engineFsr": "FSR",
-      "viewResult": "View before/after",
-      "download": "Download upscaled video",
-      "upscaleNew": "Upscale another video"
-    },
-    "privacyNote": "Keep this tab open and active while it processes — for the fastest speed.",
-    "errors": {
-      "generic": "Something went wrong while upscaling. Try a different file or reload the page."
-    }
-  },
-  "toolVideoToText": {
-    "dropzone": {
-      "titlePrefix": "Drag & drop a video, or",
-      "browse": "browse",
-      "subtitle": "MP4, MOV, MKV, AVI, WebM supported",
-      "loadSample": "or try a sample video"
-    },
-    "languages": {
-      "label": "Supported languages:"
-    },
-    "fileInfo": {
-      "remove": "Remove file"
-    },
-    "button": {
-      "idle": "Transcribe it",
-      "cancel": "Cancel"
-    },
-    "progress": {
-      "probing": "Reading your video...",
-      "loadingModel": "Downloading speech model (one-time)...",
-      "decodingAudio": "Extracting audio...",
-      "transcribing": "Transcribing...",
-      "done": "Done!"
-    },
-    "result": {
-      "summary": "Transcript ({duration})",
-      "showTimestamps": "Show timestamps",
-      "copy": "Copy text",
-      "copied": "Copied!",
-      "download": "Download .txt",
-      "transcribeNew": "Transcribe another video",
-      "play": "Play",
-      "pause": "Pause",
-      "seek": "Seek",
-      "listenOriginal": "Listen to the original audio and compare it with the transcript below."
-    },
-    "privacyNote": "Keep this tab open and active while it processes — for the fastest speed.",
-    "errors": {
-      "generic": "Something went wrong while transcribing. Try a different file or reload the page.",
-      "noAudio": "This file doesn't seem to have an audio track."
-    }
-  },
-  "pages": {
-    "home": {
-      "meta": {
-        "title": "Video Compressor Online – Reduce Video Size | SquishyFile",
-        "description": "Free online video compressor — reduce video size for MP4, MOV, MKV, AVI and WebM in your browser. No uploads, no file-size limit, no watermark, no sign-up."
-      },
-      "hero": {
-        "title": "Squish your videos, keep the quality",
-        "subtitle": "100% free video compression with no file-size limit and no watermark. Runs entirely in your browser, no uploads needed — supports MP4, MOV, MKV, AVI and WebM, and output is always a clean H.264 MP4.",
-        "tags": [
-          "Free forever",
-          "No file limit",
-          "No watermark"
-        ]
-      }
-    },
-    "compressToSize": {
-      "meta": {
-        "title": "Compress Video to 10MB, 25MB or 50MB — SquishyFile",
-        "description": "Shrink your video to an exact size — 10MB, 25MB or any target — for email, Discord, WhatsApp and Instagram limits. 100% free, no watermark, no sign up."
-      },
-      "hero": {
-        "title": "Compress your video to an exact file size",
-        "subtitle": "Type in a target size in MB and SquishyFile does the math — perfect for email, Discord uploads, or any platform with a strict size limit. Works with MP4, MOV, MKV, AVI and WebM, exports as MP4.",
-        "tags": [
-          "Free forever",
-          "Any size target",
-          "No watermark"
-        ]
-      }
-    },
-    "compressOnIphone": {
-      "meta": {
-        "title": "Compress Video on iPhone in Safari — No App Needed",
-        "description": "Compress video on your iPhone right in Safari — no app to install. Pick a video from Photos and shrink it down for free; nothing ever leaves your phone."
-      },
-      "hero": {
-        "title": "Compress video on iPhone, right in Safari",
-        "subtitle": "No app to install — just open this page in Safari, pick a video from your Photos library, and squish it down to size. Everything runs on your iPhone, right in the browser, nothing is uploaded.",
-        "tags": [
-          "Works in Safari",
-          "No app needed",
-          "No watermark"
-        ]
-      }
-    },
-    "about": {
-      "meta": {
-        "title": "About SquishyFile — Free Browser-Based Compression Tools",
-        "description": "SquishyFile is a free, browser-based toolset built by J.Julian out of a passion for technology and a belief that useful tools should be free and accessible to everyone."
-      }
-    },
-    "contact": {
-      "meta": {
-        "title": "Contact SquishyFile",
-        "description": "Get in touch with the SquishyFile team — questions, feedback, or bug reports are welcome at contact@squishyfile.com."
-      }
-    },
-    "privacy": {
-      "meta": {
-        "title": "Privacy Policy — SquishyFile",
-        "description": "Read SquishyFile's privacy policy: what data we collect, how Google Analytics and advertising cookies are used, and how your files stay on your device."
-      }
-    },
-    "terms": {
-      "meta": {
-        "title": "Terms of Service — SquishyFile",
-        "description": "The terms and conditions for using SquishyFile's free, browser-based tools."
-      }
-    },
-    "blog": {
-      "meta": {
-        "title": "Blog — SquishyFile",
-        "description": "Tips and explainers on compressing and converting your files, and how SquishyFile's browser-based tools work under the hood."
-      },
-      "hero": {
-        "title": "The SquishyFile Blog",
-        "subtitle": "Explainers on compressing and converting your files, and how SquishyFile works under the hood."
-      },
-      "readMore": "Read more",
-      "backToBlog": "Back to all posts"
-    },
-    "videoToMp3": {
-      "meta": {
-        "title": "Free Video to MP3 Converter – Extract Audio from Video",
-        "description": "Convert any video to MP3 online, free — extract audio from MP4, MOV, MKV, AVI and WebM. No file-size limit, no watermark, no sign-up required."
-      },
-      "hero": {
-        "title": "Convert video to MP3, free and private",
-        "subtitle": "Drop in a video and get a clean MP3 back at 128, 192 or 320 kbps — works with MP4, MOV, MKV, AVI and WebM, no matter where the file came from. Runs right in your browser, nothing gets uploaded.",
-        "tags": [
-          "Free forever",
-          "No upload",
-          "No watermark"
-        ]
-      }
-    },
-    "mp4ToMp3": {
-      "meta": {
-        "title": "MP4 to MP3 Converter – Extract Audio Free | SquishyFile",
-        "description": "Convert MP4 to MP3 free — extract high-quality audio from any MP4 video, right in your browser. No file-size limit, no watermark, no sign-up needed."
-      },
-      "hero": {
-        "title": "Convert MP4 to MP3 in seconds",
-        "subtitle": "Turn a screen recording, downloaded clip or phone video into a standalone MP3 — pick 128, 192 or 320 kbps and it's ready to download in seconds. Runs in your browser, nothing is ever uploaded.",
-        "tags": [
-          "Free forever",
-          "No upload",
-          "Up to 320 kbps"
-        ]
-      }
-    },
-    "movToMp3": {
-      "meta": {
-        "title": "MOV to MP3 Converter – Extract Audio from MOV | SquishyFile",
-        "description": "Convert MOV to MP3 free — extract audio from iPhone and QuickTime MOV videos, right in your browser. No file-size limit, no watermark, no sign-up needed."
-      },
-      "hero": {
-        "title": "Convert MOV to MP3, no app needed",
-        "subtitle": "Perfect for iPhone recordings and QuickTime exports — pick 128, 192 or 320 kbps and get the audio out without opening a single app. Runs entirely in your browser, and nothing is ever uploaded.",
-        "tags": [
-          "Free forever",
-          "No upload",
-          "Works with iPhone MOV"
-        ]
-      }
-    },
-    "videoUpscaler": {
-      "meta": {
-        "title": "Video Upscaler Online – Free AI Upscaling to 1080p & 4K",
-        "description": "Free video upscaler that runs entirely in your browser — upscale 480p or 720p video to 1080p or 4K with 2x or 4x scale, no upload, no watermark, no sign up."
-      },
-      "hero": {
-        "title": "Upscale your videos, keep it sharp",
-        "subtitle": "Turn 480p or 720p video into sharp 1080p or 4K, right in your browser — pick 2x or 4x, compare before and after, and download the result. No upload, no watermark, free forever and fully private.",
-        "tags": [
-          "Free forever",
-          "No upload",
-          "No watermark"
-        ]
-      }
-    },
-    "videoToText": {
-      "meta": {
-        "title": "Video to Text Converter – Free Video Transcription",
-        "description": "Transcribe video to text for free, right in your browser. No uploads, no size limit, no sign-up — works with MP4, MOV, MKV, AVI, WebM and multiple languages."
-      },
-      "hero": {
-        "title": "Convert Any Video Into Text For Free",
-        "subtitle": "Upload any video and get an accurate transcript right in your browser. Supports 10+ languages, runs on your own device for full privacy, and works with MP4, MOV, WebM, AVI, MKV files and more.",
-        "tags": [
-          "Free forever",
-          "No upload",
-          "Multiple languages"
-        ]
-      }
-    },
-    "mp4ToGif": {
-      "meta": {
-        "title": "MP4 to GIF Converter: Free, High Quality, No Watermark",
-        "description": "Convert MP4 to GIF online for free. Trim, resize and adjust frame rate for a high-quality animated GIF — no watermark, no file-size limit, no sign-up required."
-      },
-      "hero": {
-        "title": "Turn MP4 Into a GIF in Seconds, Free",
-        "subtitle": "Trim the part you want, pick a frame rate, size and color quality, and get a looping GIF back — ready to drop into a chat, a doc or a post. It runs in your browser, nothing is ever uploaded.",
-        "tags": [
-          "Free forever",
-          "No upload",
-          "No watermark"
-        ]
-      }
-    },
-    "movToGif": {
-      "meta": {
-        "title": "Convert MOV to GIF Online – Free Animated GIF Converter",
-        "description": "Convert MOV to GIF free in your browser. Trim, resize and set frame rate to turn iPhone or QuickTime MOV clips into a high-quality animated GIF instantly."
-      },
-      "hero": {
-        "title": "Turn a MOV Video Into a GIF in Seconds, Free",
-        "subtitle": "Trim the part you want, pick a frame rate, size and color quality, and get a looping GIF back — ready to drop into a chat, a doc or a post. It runs in your browser, nothing is ever uploaded.",
-        "tags": [
-          "Free forever",
-          "No upload",
-          "No watermark"
-        ]
-      }
-    },
-    "frameExtractor": {
-      "meta": {
-        "title": "Video Frame Extractor: Save PNG or JPEG Images Online",
-        "description": "Free online video frame extractor to extract frames from video, get frames from video, or save images from MP4, MOV, MKV, AVI, or WebM. Download a ZIP."
-      },
-      "hero": {
-        "title": "Pull Still Frames Out of Any Video, Free",
-        "subtitle": "Grab the exact frame you're on, sample the whole clip at a fixed interval, pull frames from just a section, or generate an evenly spaced set for a thumbnail sheet. It runs in your browser, nothing is ever uploaded.",
-        "tags": [
-          "Free forever",
-          "No upload",
-          "PNG or JPEG"
-        ]
-      }
-    }
-  },
-  "support": {
-    "text": "Found this tool useful? ",
-    "linkLabel": "Buy me a coffee",
-    "href": "https://ko-fi.com/jjjulian"
-  },
-  "bookmarkToast": {
-    "message": "Found this useful? Bookmark it for next time.",
-    "dismiss": "Dismiss"
-  },
-  "toolGif": {
-    "dropzone": {
-      "titlePrefix": "Drag & drop an MP4, or",
-      "browse": "browse",
-      "subtitle": "MP4, MOV and WebM supported",
-      "loadSample": "or try a sample video"
-    },
-    "fileInfo": {
-      "remove": "Remove file"
-    },
-    "trim": {
-      "label": "Trim",
-      "start": "Start",
-      "end": "End",
-      "hint": "{start} → {end} · {duration} selected",
-      "play": "Play preview",
-      "pause": "Pause preview",
-      "zoomIn": "Zoom in",
-      "zoomOut": "Zoom out",
-      "zoomToSelection": "Zoom to selection",
-      "zoomReset": "Reset zoom"
-    },
-    "fps": {
-      "label": "Frame rate",
-      "hint": "10-15 fps is usually the sweet spot — higher looks smoother but makes a bigger file."
-    },
-    "resolution": {
-      "label": "Max width",
-      "hint": "GIF doesn't compress like video, so a smaller size keeps the file from ballooning.",
-      "optionOriginal": "Original"
-    },
-    "crop": {
-      "label": "Crop",
-      "hint": "Crop to a fixed aspect ratio before resizing — handy for square or vertical social crops.",
-      "options": {
-        "free": "No crop (keep full frame)",
-        "1:1": "Square (1:1)",
-        "16:9": "Widescreen (16:9)",
-        "9:16": "Vertical (9:16)",
-        "4:3": "Classic (4:3)"
-      }
-    },
-    "quality": {
-      "label": "Colors",
-      "colorsLabel": "Colors",
-      "ditheringLabel": "Dithering",
-      "hint": "GIF frames use a limited palette (max 256 colors) — dithering smooths out banding at the cost of a slightly noisier look."
-    },
-    "advanced": {
-      "toggle": "Advanced settings (colors, loop, speed, crop, reverse)"
-    },
-    "loop": {
-      "label": "Loop",
-      "infinite": "Loop forever",
-      "once": "Play once"
-    },
-    "speed": {
-      "label": "Speed"
-    },
-    "reverse": {
-      "label": "Reverse (play backwards)"
-    },
-    "estimate": {
-      "label": "Estimated size: ~{size}"
-    },
-    "button": {
-      "idle": "Convert to GIF 🎬",
-      "cancel": "Cancel"
-    },
-    "progress": {
-      "decoding": "Reading frames...",
-      "quantizing": "Building color palette...",
-      "encoding": "Encoding GIF...",
-      "done": "Done!"
-    },
-    "result": {
-      "statLabel": "{width}×{height} GIF",
-      "summary": "{frames} frames · converted from a {from} video",
-      "download": "Download GIF",
-      "convertNew": "Convert another video"
-    },
-    "privacyNote": "Keep this tab open and active while it processes — for the fastest speed.",
-    "errors": {
-      "generic": "Something went wrong while converting. Try a different file or reload the page.",
-      "noVideo": "This file doesn't seem to contain a video track.",
-      "unsupported": "This file's format isn't supported yet — try an MP4, MOV or WebM file."
-    }
-  },
-  "toolFrameExtractor": {
-    "dropzone": {
-      "titlePrefix": "Drag & drop a video, or",
-      "browse": "browse",
-      "subtitle": "MP4, MOV, MKV, AVI, WebM supported",
-      "loadSample": "or try a sample video"
-    },
-    "fileInfo": {
-      "remove": "Remove file"
-    },
-    "trim": {
-      "time": "Time",
-      "start": "Start",
-      "end": "End",
-      "playheadHint": "Currently at {time} — the mode you picked below decides which frame(s) actually get extracted.",
-      "play": "Play preview",
-      "pause": "Pause preview",
-      "zoomIn": "Zoom in",
-      "zoomOut": "Zoom out",
-      "zoomReset": "Reset zoom"
-    },
-    "mode": {
-      "label": "What to extract",
-      "options": {
-        "current": "Current frame",
-        "interval": "Every N seconds",
-        "range": "Time range",
-        "count": "N frames (evenly spaced)"
-      }
-    },
-    "interval": {
-      "label": "Interval (seconds)",
-      "hint": "Grabs one frame every {seconds}s across the whole video."
-    },
-    "rangeInterval": {
-      "label": "Interval within range (seconds)",
-      "hint": "Grabs one frame every {seconds}s, only between the start and end times above."
-    },
-    "count": {
-      "label": "Number of frames",
-      "hint": "Spreads {count} frames evenly across the whole video — handy for a thumbnail sheet."
-    },
-    "format": {
-      "label": "Format",
-      "png": "PNG (lossless)",
-      "jpeg": "JPEG (smaller file)"
-    },
-    "jpegQuality": {
-      "label": "JPEG quality",
-      "hint": "Quality {quality}/100 — higher looks better but makes a bigger file."
-    },
-    "estimate": {
-      "singleFrame": "This will extract 1 frame.",
-      "multiFrame": "This will extract {count} frames, bundled into a zip file."
-    },
-    "button": {
-      "idle": "Extract frames 📸",
-      "cancel": "Cancel"
-    },
-    "progress": {
-      "probing": "Reading your video...",
-      "loadingEngine": "Downloading engine (one-time)...",
-      "decoding": "Extracting frames...",
-      "encoding": "Extracting frames...",
-      "packaging": "Packaging into a zip...",
-      "done": "Done!"
-    },
-    "result": {
-      "statLabel": "Extracted frame",
-      "zipStatLabel": "{count} frames",
-      "summary": "Your still frame is ready to download.",
-      "zipSummary": "{count} frames bundled into a single zip file.",
-      "download": "Download frame",
-      "downloadZip": "Download zip",
-      "extractNew": "Extract another video"
-    },
-    "privacyNote": "Keep this tab open and active while it processes — for the fastest speed.",
-    "errors": {
-      "generic": "Something went wrong while extracting frames. Try a different file or reload the page.",
-      "noVideo": "This file doesn't seem to contain a video track.",
-      "unsupported": "This file's format isn't supported yet — try an MP4, MOV, MKV or WebM file."
-    }
-  }
+	"site": {
+		"name": "Squishy",
+		"nameAccent": "File",
+		"emoji": "🫧",
+		"tagline": "Free browser-based file tools — starting with video compression, more to come."
+	},
+	"nav": {
+		"toolGroups": [
+			{
+				"label": "Compress",
+				"items": [
+					{
+						"label": "Video Compressor",
+						"href": "/"
+					},
+					{
+						"label": "Compress to Size",
+						"href": "/compress-video-to-size"
+					},
+					{
+						"label": "Compress for iPhone",
+						"href": "/compress-video-on-iphone"
+					}
+				]
+			},
+			{
+				"label": "Convert",
+				"items": [
+					{
+						"label": "Video to MP3",
+						"href": "/video-to-mp3"
+					},
+					{
+						"label": "MP4 to MP3",
+						"href": "/mp4-to-mp3"
+					},
+					{
+						"label": "MOV to MP3",
+						"href": "/mov-to-mp3"
+					},
+					{
+						"label": "MP4 to GIF",
+						"href": "/mp4-to-gif"
+					},
+					{
+						"label": "MOV to GIF",
+						"href": "/mov-to-gif"
+					},
+					{
+						"label": "Video to Text",
+						"href": "/video-to-text"
+					},
+					{
+						"label": "Frame Extractor",
+						"href": "/frame-extractor"
+					}
+				]
+			},
+			{
+				"label": "Enhance",
+				"items": [
+					{
+						"label": "Video Upscaler",
+						"href": "/video-upscaler"
+					}
+				]
+			},
+			{
+				"label": "Filter",
+				"items": [
+					{
+						"label": "Video Filter",
+						"href": "/video-filters"
+					}
+				]
+			}
+		],
+		"tools": "Tools",
+		"home": "Home",
+		"blog": "Blog",
+		"howItWorks": "How it works",
+		"faq": "FAQ"
+	},
+	"footer": {
+		"links": [
+			{
+				"label": "About",
+				"href": "/about"
+			},
+			{
+				"label": "Blog",
+				"href": "/blog"
+			},
+			{
+				"label": "Privacy",
+				"href": "/privacy"
+			},
+			{
+				"label": "Terms",
+				"href": "/terms"
+			},
+			{
+				"label": "Contact",
+				"href": "/contact"
+			}
+		],
+		"toolsHeading": "All tools",
+		"toolGroups": [
+			{
+				"label": "Compress",
+				"items": [
+					{
+						"label": "Video Compressor",
+						"href": "/"
+					},
+					{
+						"label": "Compress Video to Size",
+						"href": "/compress-video-to-size"
+					},
+					{
+						"label": "Compress Video on iPhone",
+						"href": "/compress-video-on-iphone"
+					}
+				]
+			},
+			{
+				"label": "Convert",
+				"items": [
+					{
+						"label": "Video to MP3",
+						"href": "/video-to-mp3"
+					},
+					{
+						"label": "MP4 to MP3",
+						"href": "/mp4-to-mp3"
+					},
+					{
+						"label": "MOV to MP3",
+						"href": "/mov-to-mp3"
+					},
+					{
+						"label": "MP4 to GIF",
+						"href": "/mp4-to-gif"
+					},
+					{
+						"label": "MOV to GIF",
+						"href": "/mov-to-gif"
+					},
+					{
+						"label": "Video to Text",
+						"href": "/video-to-text"
+					},
+					{
+						"label": "Frame Extractor",
+						"href": "/frame-extractor"
+					}
+				]
+			},
+			{
+				"label": "Enhance",
+				"items": [
+					{
+						"label": "Video Upscaler",
+						"href": "/video-upscaler"
+					}
+				]
+			},
+			{
+				"label": "Filter",
+				"items": [
+					{
+						"label": "Video Filter",
+						"href": "/video-filters"
+					}
+				]
+			}
+		],
+		"copyright": "© {year} {siteName}. All rights reserved."
+	},
+	"ads": {
+		"placeholder": "Ad · 300×250",
+		"nordVpn": {
+			"label": "Sponsor",
+			"headline": "Browse & stream privately",
+			"subtitle": "Encrypt your connection with NordVPN.",
+			"cta": "Try NordVPN"
+		},
+		"creatifyLab": {
+			"label": "Sponsor",
+			"headline": "Turn text into video ads",
+			"subtitle": "AI-generated ads with Creatify.",
+			"cta": "Try Creatify"
+		}
+	},
+	"share": {
+		"label": "Found this useful? Share it",
+		"facebook": "Share on Facebook",
+		"twitter": "Share on X",
+		"telegram": "Share on Telegram",
+		"copyLink": "Copy link",
+		"copied": "Copied!"
+	},
+	"tool": {
+		"dropzone": {
+			"titlePrefix": "Drag & drop a video, or",
+			"browse": "browse",
+			"subtitle": "MP4, MOV, MKV, AVI supported",
+			"loadSample": "or try a sample video"
+		},
+		"fileInfo": {
+			"remove": "Remove file"
+		},
+		"quality": {
+			"label": "Compression level",
+			"light": "Light",
+			"max": "Max squish",
+			"levels": [
+				"Light — keep it sharp",
+				"Balanced — sweet spot for sharing",
+				"Max squish — max 720p"
+			],
+			"disabledByTarget": "Disabled — a target size is set below, so it controls compression instead."
+		},
+		"targetSize": {
+			"label": "Target size (optional)",
+			"placeholder": "e.g. 50",
+			"unit": "MB",
+			"hint": "If set, this overrides the compression level above.",
+			"labelRequired": "Target size",
+			"hintSizeMode": "Pre-filled at 50% of your file size — tap a platform below or type your own.",
+			"platforms": [
+				{
+					"label": "WhatsApp",
+					"mb": 16
+				},
+				{
+					"label": "Discord Free",
+					"mb": 20
+				},
+				{
+					"label": "Messenger/Gmail",
+					"mb": 25
+				},
+				{
+					"label": "Discord Nitro Basic",
+					"mb": 50
+				},
+				{
+					"label": "LinkedIn",
+					"mb": 200
+				},
+				{
+					"label": "Discord Nitro",
+					"mb": 500
+				},
+				{
+					"label": "TikTok",
+					"mb": 500
+				}
+			]
+		},
+		"button": {
+			"idle": "Squish it",
+			"cancel": "Cancel"
+		},
+		"progress": {
+			"label": "Squishing...",
+			"probing": "Reading your video...",
+			"loadingEngine": "Downloading compressor (one-time)...",
+			"pass": "Fine-tuning to hit your target size (pass {n})...",
+			"done": "Done!"
+		},
+		"result": {
+			"statLabel": "smaller than the original",
+			"viewResult": "View before/after",
+			"download": "Download compressed video",
+			"summary": "{from} → {to} · {width}×{height}",
+			"targetMet": "Under your {target} MB target.",
+			"targetMissed": "Couldn't get under {target} MB — this is as small as it goes without destroying the video.",
+			"compressNew": "Compress another video"
+		},
+		"privacyNote": "Keep this tab open and active while it processes — for the fastest speed.",
+		"warnings": {
+			"target_above_source": "Your video is already smaller than that target, so there's nothing to squish.",
+			"quality_will_be_poor": "That target is very tight for a video this long — expect a blurry result.",
+			"resolution_reduced": "Resolution lowered to {width}×{height} so the picture stays clean at this size.",
+			"framerate_reduced": "Frame rate lowered to {fps} fps to keep more detail in each frame.",
+			"audio_removed": "Audio removed — there wasn't enough room in the target size for a sound track."
+		},
+		"errors": {
+			"generic": "Something went wrong while compressing. Try a different file or reload the page.",
+			"noVideo": "That file doesn't seem to contain a video track."
+		},
+		"targetPreview": "Your video is {size} — that target is larger, so nothing will be compressed."
+	},
+	"toolMp3": {
+		"dropzone": {
+			"titlePrefix": "Drag & drop a video, or",
+			"browse": "browse",
+			"subtitle": "MP4, MOV, MKV, AVI, WebM supported",
+			"loadSample": "or try a sample video"
+		},
+		"fileInfo": {
+			"remove": "Remove file"
+		},
+		"quality": {
+			"label": "MP3 quality",
+			"hint": "Higher kbps means better audio quality and a larger file.",
+			"options": {
+				"128": "Standard — 128 kbps",
+				"192": "High — 192 kbps",
+				"320": "Best — 320 kbps"
+			}
+		},
+		"button": {
+			"idle": "Convert to MP3 🎧",
+			"cancel": "Cancel"
+		},
+		"progress": {
+			"label": "Converting...",
+			"probing": "Reading your video...",
+			"loadingEngine": "Downloading converter (one-time)...",
+			"done": "Done!"
+		},
+		"result": {
+			"statLabel": "{quality} kbps MP3",
+			"download": "Download MP3",
+			"summary": "{duration} · extracted from a {from} video",
+			"convertNew": "Convert another video",
+			"play": "Play",
+			"pause": "Pause",
+			"seek": "Seek"
+		},
+		"privacyNote": "Keep this tab open and active while it processes — for the fastest speed.",
+		"errors": {
+			"generic": "Something went wrong while converting. Try a different file or reload the page.",
+			"noAudio": "This video doesn't seem to have an audio track to extract."
+		}
+	},
+	"toolUpscale": {
+		"dropzone": {
+			"titlePrefix": "Drag & drop a video, or",
+			"browse": "browse",
+			"subtitle": "MP4, MOV, MKV, AVI, WebM supported",
+			"loadSample": "or try a sample video"
+		},
+		"fileInfo": {
+			"remove": "Remove file"
+		},
+		"scale": {
+			"label": "Upscale factor",
+			"hint": "2x is faster and enough for most clips; 4x pushes further but takes longer to process.",
+			"options": {
+				"2": "2x",
+				"4": "4x"
+			}
+		},
+		"button": {
+			"idle": "Upscale it",
+			"cancel": "Cancel"
+		},
+		"progress": {
+			"probing": "Reading your video...",
+			"loadingEngine": "Downloading upscaler (one-time)...",
+			"initializingEngine": "Initializing engine...",
+			"encodingAi": "Upscaling with AI model...",
+			"encodingFsr": "Upscaling with FSR...",
+			"done": "Done!"
+		},
+		"result": {
+			"statLabel": "upscaled {scale}x",
+			"summary": "{fromWidth}×{fromHeight} → {toWidth}×{toHeight} · {engine}",
+			"engineAi": "AI model",
+			"engineFsr": "FSR",
+			"viewResult": "View before/after",
+			"download": "Download upscaled video",
+			"upscaleNew": "Upscale another video"
+		},
+		"privacyNote": "Keep this tab open and active while it processes — for the fastest speed.",
+		"errors": {
+			"generic": "Something went wrong while upscaling. Try a different file or reload the page."
+		}
+	},
+	"toolVhs": {
+		"dropzone": {
+			"titlePrefix": "Drag & drop a video, or",
+			"browse": "browse",
+			"subtitle": "MP4, MOV, MKV, AVI, WebM supported",
+			"loadSample": "or try a sample video"
+		},
+		"style": {
+			"label": "Effect style",
+			"options": {
+				"classic": "Classic VHS",
+				"camcorder80s": "80s Camcorder",
+				"camcorder90s": "90s Camcorder",
+				"damaged": "Damaged Tape",
+				"security": "Security Cam",
+				"broadcast": "Analog Broadcast",
+				"pencil": "Pencil Sketch",
+				"crosshatch": "Cross-Hatch",
+				"thermal": "Thermal Vision",
+				"neon": "Neon Cyberpunk"
+			},
+			"descriptions": {
+				"classic": "A balanced, generic old-tape look — scanlines, color bleed and light tracking noise.",
+				"camcorder80s": "Warm and washed out, with the amber REC timecode an early-80s handheld camcorder burned into the corner.",
+				"camcorder90s": "A cleaner, slightly less degraded camcorder look from the 90s, with a white/green timecode.",
+				"damaged": "A heavily worn tape — loud tracking glitches, big jitter and frequent dropouts.",
+				"security": "A desaturated, high-contrast CCTV monitor feed with a plain corner timecode.",
+				"broadcast": "Analog cable/broadcast interference — heavy color bleed and a slow signal roll.",
+				"pencil": "Hand-drawn pencil sketch — edge-detected outlines with diagonal hatch shading on a paper background.",
+				"crosshatch": "Classic engraving/woodcut look — up to four overlaid diagonal hatch directions shade the image by brightness.",
+				"thermal": "False-color thermal/FLIR-style heatmap, remapped from brightness into a black-purple-orange-yellow ramp.",
+				"neon": "Cyberpunk neon — glowing cyan/magenta edges over a near-black duotone base, with chromatic edge splitting."
+			}
+		},
+		"button": {
+			"idle": "Render & download",
+			"cancel": "Cancel"
+		},
+		"progress": {
+			"probing": "Reading your video...",
+			"encoding": "Rendering VHS effect...",
+			"done": "Done!"
+		},
+		"result": {
+			"summary": "{width}×{height} · {size}",
+			"download": "Download video",
+			"processNew": "Try another video"
+		},
+		"privacyNote": "Keep this tab open and active while it processes — for the fastest speed.",
+		"errors": {
+			"generic": "Something went wrong while applying the VHS effect. Try a different file or reload the page."
+		},
+		"preview": {
+			"badge": "Live preview",
+			"note": "Live preview (silent) — pick a style above, then render to get the full video with audio.",
+			"playLabel": "Play preview",
+			"pauseLabel": "Pause preview",
+			"seekLabel": "Seek preview",
+			"unmuteLabel": "Unmute preview",
+			"muteLabel": "Mute preview"
+		}
+	},
+	"toolVideoToText": {
+		"dropzone": {
+			"titlePrefix": "Drag & drop a video, or",
+			"browse": "browse",
+			"subtitle": "MP4, MOV, MKV, AVI, WebM supported",
+			"loadSample": "or try a sample video"
+		},
+		"languages": {
+			"label": "Supported languages:"
+		},
+		"fileInfo": {
+			"remove": "Remove file"
+		},
+		"button": {
+			"idle": "Transcribe it",
+			"cancel": "Cancel"
+		},
+		"progress": {
+			"probing": "Reading your video...",
+			"loadingModel": "Downloading speech model (one-time)...",
+			"decodingAudio": "Extracting audio...",
+			"transcribing": "Transcribing...",
+			"done": "Done!"
+		},
+		"result": {
+			"summary": "Transcript ({duration})",
+			"showTimestamps": "Show timestamps",
+			"copy": "Copy text",
+			"copied": "Copied!",
+			"download": "Download .txt",
+			"transcribeNew": "Transcribe another video",
+			"play": "Play",
+			"pause": "Pause",
+			"seek": "Seek",
+			"listenOriginal": "Listen to the original audio and compare it with the transcript below."
+		},
+		"privacyNote": "Keep this tab open and active while it processes — for the fastest speed.",
+		"errors": {
+			"generic": "Something went wrong while transcribing. Try a different file or reload the page.",
+			"noAudio": "This file doesn't seem to have an audio track."
+		}
+	},
+	"pages": {
+		"home": {
+			"meta": {
+				"title": "Video Compressor Online – Reduce Video Size | SquishyFile",
+				"description": "Free online video compressor — reduce video size for MP4, MOV, MKV, AVI and WebM in your browser. No uploads, no file-size limit, no watermark, no sign-up."
+			},
+			"hero": {
+				"title": "Squish your videos, keep the quality",
+				"subtitle": "100% free video compression with no file-size limit and no watermark. Runs entirely in your browser, no uploads needed — supports MP4, MOV, MKV, AVI and WebM, and output is always a clean H.264 MP4.",
+				"tags": [
+					"Free forever",
+					"No file limit",
+					"No watermark"
+				]
+			}
+		},
+		"compressToSize": {
+			"meta": {
+				"title": "Compress Video to 10MB, 25MB or 50MB — SquishyFile",
+				"description": "Shrink your video to an exact size — 10MB, 25MB or any target — for email, Discord, WhatsApp and Instagram limits. 100% free, no watermark, no sign up."
+			},
+			"hero": {
+				"title": "Compress your video to an exact file size",
+				"subtitle": "Type in a target size in MB and SquishyFile does the math — perfect for email, Discord uploads, or any platform with a strict size limit. Works with MP4, MOV, MKV, AVI and WebM, exports as MP4.",
+				"tags": [
+					"Free forever",
+					"Any size target",
+					"No watermark"
+				]
+			}
+		},
+		"compressOnIphone": {
+			"meta": {
+				"title": "Compress Video on iPhone in Safari — No App Needed",
+				"description": "Compress video on your iPhone right in Safari — no app to install. Pick a video from Photos and shrink it down for free; nothing ever leaves your phone."
+			},
+			"hero": {
+				"title": "Compress video on iPhone, right in Safari",
+				"subtitle": "No app to install — just open this page in Safari, pick a video from your Photos library, and squish it down to size. Everything runs on your iPhone, right in the browser, nothing is uploaded.",
+				"tags": [
+					"Works in Safari",
+					"No app needed",
+					"No watermark"
+				]
+			}
+		},
+		"about": {
+			"meta": {
+				"title": "About SquishyFile — Free Browser-Based Compression Tools",
+				"description": "SquishyFile is a free, browser-based toolset built by J.Julian out of a passion for technology and a belief that useful tools should be free and accessible to everyone."
+			}
+		},
+		"contact": {
+			"meta": {
+				"title": "Contact SquishyFile",
+				"description": "Get in touch with the SquishyFile team — questions, feedback, or bug reports are welcome at contact@squishyfile.com."
+			}
+		},
+		"privacy": {
+			"meta": {
+				"title": "Privacy Policy — SquishyFile",
+				"description": "Read SquishyFile's privacy policy: what data we collect, how Google Analytics and advertising cookies are used, and how your files stay on your device."
+			}
+		},
+		"terms": {
+			"meta": {
+				"title": "Terms of Service — SquishyFile",
+				"description": "The terms and conditions for using SquishyFile's free, browser-based tools."
+			}
+		},
+		"blog": {
+			"meta": {
+				"title": "Blog — SquishyFile",
+				"description": "Tips and explainers on compressing and converting your files, and how SquishyFile's browser-based tools work under the hood."
+			},
+			"hero": {
+				"title": "The SquishyFile Blog",
+				"subtitle": "Explainers on compressing and converting your files, and how SquishyFile works under the hood."
+			},
+			"readMore": "Read more",
+			"backToBlog": "Back to all posts"
+		},
+		"videoToMp3": {
+			"meta": {
+				"title": "Free Video to MP3 Converter – Extract Audio from Video",
+				"description": "Convert any video to MP3 online, free — extract audio from MP4, MOV, MKV, AVI and WebM. No file-size limit, no watermark, no sign-up required."
+			},
+			"hero": {
+				"title": "Convert video to MP3, free and private",
+				"subtitle": "Drop in a video and get a clean MP3 back at 128, 192 or 320 kbps — works with MP4, MOV, MKV, AVI and WebM, no matter where the file came from. Runs right in your browser, nothing gets uploaded.",
+				"tags": [
+					"Free forever",
+					"No upload",
+					"No watermark"
+				]
+			}
+		},
+		"mp4ToMp3": {
+			"meta": {
+				"title": "MP4 to MP3 Converter – Extract Audio Free | SquishyFile",
+				"description": "Convert MP4 to MP3 free — extract high-quality audio from any MP4 video, right in your browser. No file-size limit, no watermark, no sign-up needed."
+			},
+			"hero": {
+				"title": "Convert MP4 to MP3 in seconds",
+				"subtitle": "Turn a screen recording, downloaded clip or phone video into a standalone MP3 — pick 128, 192 or 320 kbps and it's ready to download in seconds. Runs in your browser, nothing is ever uploaded.",
+				"tags": [
+					"Free forever",
+					"No upload",
+					"Up to 320 kbps"
+				]
+			}
+		},
+		"movToMp3": {
+			"meta": {
+				"title": "MOV to MP3 Converter – Extract Audio from MOV | SquishyFile",
+				"description": "Convert MOV to MP3 free — extract audio from iPhone and QuickTime MOV videos, right in your browser. No file-size limit, no watermark, no sign-up needed."
+			},
+			"hero": {
+				"title": "Convert MOV to MP3, no app needed",
+				"subtitle": "Perfect for iPhone recordings and QuickTime exports — pick 128, 192 or 320 kbps and get the audio out without opening a single app. Runs entirely in your browser, and nothing is ever uploaded.",
+				"tags": [
+					"Free forever",
+					"No upload",
+					"Works with iPhone MOV"
+				]
+			}
+		},
+		"videoUpscaler": {
+			"meta": {
+				"title": "Video Upscaler Online – Free AI Upscaling to 1080p & 4K",
+				"description": "Free video upscaler that runs entirely in your browser — upscale 480p or 720p video to 1080p or 4K with 2x or 4x scale, no upload, no watermark, no sign up."
+			},
+			"hero": {
+				"title": "Upscale your videos, keep it sharp",
+				"subtitle": "Turn 480p or 720p video into sharp 1080p or 4K, right in your browser — pick 2x or 4x, compare before and after, and download the result. No upload, no watermark, free forever and fully private.",
+				"tags": [
+					"Free forever",
+					"No upload",
+					"No watermark"
+				]
+			}
+		},
+		"videoToText": {
+			"meta": {
+				"title": "Video to Text Converter – Free Video Transcription",
+				"description": "Transcribe video to text for free, right in your browser. No uploads, no size limit, no sign-up — works with MP4, MOV, MKV, AVI, WebM and multiple languages."
+			},
+			"hero": {
+				"title": "Convert Any Video Into Text For Free",
+				"subtitle": "Upload any video and get an accurate transcript right in your browser. Supports 10+ languages, runs on your own device for full privacy, and works with MP4, MOV, WebM, AVI, MKV files and more.",
+				"tags": [
+					"Free forever",
+					"No upload",
+					"Multiple languages"
+				]
+			}
+		},
+		"mp4ToGif": {
+			"meta": {
+				"title": "MP4 to GIF Converter: Free, High Quality, No Watermark",
+				"description": "Convert MP4 to GIF online for free. Trim, resize and adjust frame rate for a high-quality animated GIF — no watermark, no file-size limit, no sign-up required."
+			},
+			"hero": {
+				"title": "Turn MP4 Into a GIF in Seconds, Free",
+				"subtitle": "Trim the part you want, pick a frame rate, size and color quality, and get a looping GIF back — ready to drop into a chat, a doc or a post. It runs in your browser, nothing is ever uploaded.",
+				"tags": [
+					"Free forever",
+					"No upload",
+					"No watermark"
+				]
+			}
+		},
+		"movToGif": {
+			"meta": {
+				"title": "Convert MOV to GIF Online – Free Animated GIF Converter",
+				"description": "Convert MOV to GIF free in your browser. Trim, resize and set frame rate to turn iPhone or QuickTime MOV clips into a high-quality animated GIF instantly."
+			},
+			"hero": {
+				"title": "Turn a MOV Video Into a GIF in Seconds, Free",
+				"subtitle": "Trim the part you want, pick a frame rate, size and color quality, and get a looping GIF back — ready to drop into a chat, a doc or a post. It runs in your browser, nothing is ever uploaded.",
+				"tags": [
+					"Free forever",
+					"No upload",
+					"No watermark"
+				]
+			}
+		},
+		"frameExtractor": {
+			"meta": {
+				"title": "Video Frame Extractor: Save PNG or JPEG Images Online",
+				"description": "Free online video frame extractor to extract frames from video, get frames from video, or save images from MP4, MOV, MKV, AVI, or WebM. Download a ZIP."
+			},
+			"hero": {
+				"title": "Pull Still Frames Out of Any Video, Free",
+				"subtitle": "Grab the exact frame you're on, sample the whole clip at a fixed interval, pull frames from just a section, or generate an evenly spaced set for a thumbnail sheet. It runs in your browser, nothing is ever uploaded.",
+				"tags": [
+					"Free forever",
+					"No upload",
+					"PNG or JPEG"
+				]
+			}
+		},
+		"videoFilter": {
+			"meta": {
+				"title": "VHS Filter Online – Free Video Filter Tool, 10 Styles",
+				"description": "Apply a VHS filter or any of 10 video filter styles – pencil sketch, thermal, neon – free online. 100% in your browser, no upload, no watermark. Try it now."
+			},
+			"hero": {
+				"title": "One filter click, ten looks, zero uploads",
+				"subtitle": "Choose from 10 styles — retro VHS tape, pencil sketch, thermal vision, neon cyberpunk and more — and preview instantly. Everything renders locally: no upload, no watermark, totally free.",
+				"tags": [
+					"Free forever",
+					"No upload",
+					"No watermark"
+				]
+			}
+		}
+	},
+	"support": {
+		"text": "Found this tool useful? ",
+		"linkLabel": "Buy me a coffee",
+		"href": "https://ko-fi.com/jjjulian"
+	},
+	"bookmarkToast": {
+		"message": "Found this useful? Bookmark it for next time.",
+		"dismiss": "Dismiss"
+	},
+	"toolGif": {
+		"dropzone": {
+			"titlePrefix": "Drag & drop an MP4, or",
+			"browse": "browse",
+			"subtitle": "MP4, MOV and WebM supported",
+			"loadSample": "or try a sample video"
+		},
+		"fileInfo": {
+			"remove": "Remove file"
+		},
+		"trim": {
+			"label": "Trim",
+			"start": "Start",
+			"end": "End",
+			"hint": "{start} → {end} · {duration} selected",
+			"play": "Play preview",
+			"pause": "Pause preview",
+			"zoomIn": "Zoom in",
+			"zoomOut": "Zoom out",
+			"zoomToSelection": "Zoom to selection",
+			"zoomReset": "Reset zoom"
+		},
+		"fps": {
+			"label": "Frame rate",
+			"hint": "10-15 fps is usually the sweet spot — higher looks smoother but makes a bigger file."
+		},
+		"resolution": {
+			"label": "Max width",
+			"hint": "GIF doesn't compress like video, so a smaller size keeps the file from ballooning.",
+			"optionOriginal": "Original"
+		},
+		"crop": {
+			"label": "Crop",
+			"hint": "Crop to a fixed aspect ratio before resizing — handy for square or vertical social crops.",
+			"options": {
+				"free": "No crop (keep full frame)",
+				"1:1": "Square (1:1)",
+				"16:9": "Widescreen (16:9)",
+				"9:16": "Vertical (9:16)",
+				"4:3": "Classic (4:3)"
+			}
+		},
+		"quality": {
+			"label": "Colors",
+			"colorsLabel": "Colors",
+			"ditheringLabel": "Dithering",
+			"hint": "GIF frames use a limited palette (max 256 colors) — dithering smooths out banding at the cost of a slightly noisier look."
+		},
+		"advanced": {
+			"toggle": "Advanced settings (colors, loop, speed, crop, reverse)"
+		},
+		"loop": {
+			"label": "Loop",
+			"infinite": "Loop forever",
+			"once": "Play once"
+		},
+		"speed": {
+			"label": "Speed"
+		},
+		"reverse": {
+			"label": "Reverse (play backwards)"
+		},
+		"estimate": {
+			"label": "Estimated size: ~{size}"
+		},
+		"button": {
+			"idle": "Convert to GIF 🎬",
+			"cancel": "Cancel"
+		},
+		"progress": {
+			"decoding": "Reading frames...",
+			"quantizing": "Building color palette...",
+			"encoding": "Encoding GIF...",
+			"done": "Done!"
+		},
+		"result": {
+			"statLabel": "{width}×{height} GIF",
+			"summary": "{frames} frames · converted from a {from} video",
+			"download": "Download GIF",
+			"convertNew": "Convert another video"
+		},
+		"privacyNote": "Keep this tab open and active while it processes — for the fastest speed.",
+		"errors": {
+			"generic": "Something went wrong while converting. Try a different file or reload the page.",
+			"noVideo": "This file doesn't seem to contain a video track.",
+			"unsupported": "This file's format isn't supported yet — try an MP4, MOV or WebM file."
+		}
+	},
+	"toolFrameExtractor": {
+		"dropzone": {
+			"titlePrefix": "Drag & drop a video, or",
+			"browse": "browse",
+			"subtitle": "MP4, MOV, MKV, AVI, WebM supported",
+			"loadSample": "or try a sample video"
+		},
+		"fileInfo": {
+			"remove": "Remove file"
+		},
+		"trim": {
+			"time": "Time",
+			"start": "Start",
+			"end": "End",
+			"playheadHint": "Currently at {time} — the mode you picked below decides which frame(s) actually get extracted.",
+			"play": "Play preview",
+			"pause": "Pause preview",
+			"zoomIn": "Zoom in",
+			"zoomOut": "Zoom out",
+			"zoomReset": "Reset zoom"
+		},
+		"mode": {
+			"label": "What to extract",
+			"options": {
+				"current": "Current frame",
+				"interval": "Every N seconds",
+				"range": "Time range",
+				"count": "N frames (evenly spaced)"
+			}
+		},
+		"interval": {
+			"label": "Interval (seconds)",
+			"hint": "Grabs one frame every {seconds}s across the whole video."
+		},
+		"rangeInterval": {
+			"label": "Interval within range (seconds)",
+			"hint": "Grabs one frame every {seconds}s, only between the start and end times above."
+		},
+		"count": {
+			"label": "Number of frames",
+			"hint": "Spreads {count} frames evenly across the whole video — handy for a thumbnail sheet."
+		},
+		"format": {
+			"label": "Format",
+			"png": "PNG (lossless)",
+			"jpeg": "JPEG (smaller file)"
+		},
+		"jpegQuality": {
+			"label": "JPEG quality",
+			"hint": "Quality {quality}/100 — higher looks better but makes a bigger file."
+		},
+		"estimate": {
+			"singleFrame": "This will extract 1 frame.",
+			"multiFrame": "This will extract {count} frames, bundled into a zip file."
+		},
+		"button": {
+			"idle": "Extract frames 📸",
+			"cancel": "Cancel"
+		},
+		"progress": {
+			"probing": "Reading your video...",
+			"loadingEngine": "Downloading engine (one-time)...",
+			"decoding": "Extracting frames...",
+			"encoding": "Extracting frames...",
+			"packaging": "Packaging into a zip...",
+			"done": "Done!"
+		},
+		"result": {
+			"statLabel": "Extracted frame",
+			"zipStatLabel": "{count} frames",
+			"summary": "Your still frame is ready to download.",
+			"zipSummary": "{count} frames bundled into a single zip file.",
+			"download": "Download frame",
+			"downloadZip": "Download zip",
+			"extractNew": "Extract another video"
+		},
+		"privacyNote": "Keep this tab open and active while it processes — for the fastest speed.",
+		"errors": {
+			"generic": "Something went wrong while extracting frames. Try a different file or reload the page.",
+			"noVideo": "This file doesn't seem to contain a video track.",
+			"unsupported": "This file's format isn't supported yet — try an MP4, MOV, MKV or WebM file."
+		}
+	}
 }

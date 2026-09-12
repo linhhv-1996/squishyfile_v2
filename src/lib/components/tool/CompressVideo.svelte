@@ -342,6 +342,7 @@
 		class="dropzone"
 		class:is-drag={isDragging}
 		class:is-locked={isBusy}
+		class:has-file={file !== null}
 		role="button"
 		aria-disabled={isBusy}
 		tabindex={isBusy ? -1 : 0}

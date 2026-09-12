@@ -165,7 +165,7 @@ nav.main-nav > a.active{ color:var(--coral-dark); }
 		z-index:30;
 	}
 	nav.main-nav.open{ display:flex; }
-	nav.main-nav a{ padding:10px 0; font-size:20px; }
+	nav.main-nav a{ padding:5px 0; font-size:18px; }
 
 	/* The 3 grouped desktop dropdowns have no role in the fullscreen mobile
 	   menu -- it's already a deliberate "see everything at once" view, so
@@ -300,6 +300,7 @@ nav.main-nav > a.active{ color:var(--coral-dark); }
   .dropzone{ flex-direction:column; text-align:center; padding:24px 16px; }
   .dropzone .icon{ margin-bottom:4px; }
   .dz-text{ min-width:0; width:100%; }
+  .dropzone.has-file .icon{ display:none; }
 }
 .dz-text{ min-width:0; }
 .dz-title{ font-weight:700; font-size:14.5px; margin:0 0 2px; }
@@ -450,6 +451,9 @@ input[type="range"]::-moz-focus-outer{ border:0; }
 
 /* ---------- Footer: simple, basic, centered ---------- */
 .site-footer{ border-top:1px solid var(--line); padding:16px 0; text-align:center; }
+.site-footer .inner {
+  max-width: 100%;
+}
 .footer-logo{ display:inline-flex; align-items:center; gap:7px; font-family:'Baloo 2', sans-serif; font-weight:800; font-size:16px; }
 .footer-logo .mark{ width:22px; height:22px; border-radius:50%; background:var(--coral); display:flex; align-items:center; justify-content:center; font-size:11px; }
 .footer-logo .accent{ color:var(--coral-dark); }
