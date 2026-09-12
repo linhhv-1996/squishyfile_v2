@@ -28,9 +28,9 @@
 
 ## Pencil Sketch Filter
 
-<p>The <strong>pencil sketch filter</strong> runs a completely different rendering path from the VHS family: real-time edge detection turns your footage into hand-drawn-looking line art, with diagonal hatch shading filling in darker areas on a paper-toned background. It's built for turning ordinary footage into something that reads as an illustration rather than a video — a portrait clip, a product shot, or B-roll that needs an artistic, non-photographic look for an intro, a music video or a creative reel.</p>
+<p>The <strong>pencil sketch filter</strong> runs a completely different rendering path from the VHS family: soft graphite tones model the light and shadow of your footage while hand-drawn-style contours trace its shapes, all on a warm paper-toned background. It's built for turning ordinary footage into something that reads as an illustration rather than a video — a portrait clip, a product shot, or B-roll that needs an artistic, non-photographic look for an intro, a music video or a creative reel.</p>
 
-<p>Because it's edge-based rather than a color filter, it responds best to footage with clear shapes and reasonable contrast — a face, a hand, an object against a plain background — and less well to busy, low-contrast scenes where there isn't much of an edge to trace. Pick it from the style list, watch the live preview to judge how the hatching reads on your specific clip, and render once it looks right.</p>
+<p>Because it's shape- and tone-based rather than a color filter, it responds best to footage with clear shapes and reasonable contrast — a face, a hand, an object against a plain background — and less well to busy, low-contrast scenes where there isn't much of a form to model. Pick it from the style list, watch the live preview to judge how the graphite reads on your specific clip, and render once it looks right.</p>
 
 </section>
 

@@ -88,6 +88,16 @@ export type VhsParams = {
 	overlayPos: [number, number];
 	/** 0-1, edge-detection sensitivity for the artistic filters (higher = more, fainter lines). */
 	edgeThreshold: number;
+	/** 0-1, warm-tinted glow bleeding around bright highlights (film halation). VHS family only. */
+	halationStrength: number;
+	/** 0-1, filmic split-tone grade strength -- cool shadows, warm highlights. VHS family only. */
+	splitToneStrength: number;
+	/** 0-1, radial lens-style chromatic aberration that grows toward the frame edges. VHS family only. */
+	lensAberration: number;
+	/** 0-1, soft warm light-leak streak drifting across the frame over time. VHS family only. */
+	lightLeakStrength: number;
+	/** 0-1, horizontal luma softness (worn-tape bandwidth loss). VHS family only. */
+	softness: number;
 };
 
 const NEUTRAL_ANALOG_FIELDS = {
@@ -105,14 +115,19 @@ const NEUTRAL_ANALOG_FIELDS = {
 	overlayColor: [1, 1, 1] as [number, number, number],
 	overlayPos: [0.12, 0.06] as [number, number],
 	colorBleed: 0,
-	noiseIntensity: 0
-};
+	noiseIntensity: 0,
+		halationStrength: 0,
+		splitToneStrength: 0,
+		lensAberration: 0,
+		lightLeakStrength: 0,
+		softness: 0
+	};
 
 const PRESETS: Record<VhsStyle, VhsParams> = {
 	// Balanced, "generic old VHS tape" look -- the safe default.
 	classic: {
 		filterFamily: 0,
-		scanlineIntensity: 0.35,
+		scanlineIntensity: 0.18,
 		noiseIntensity: 0.14,
 		chromaShift: 1.6,
 		colorBleed: 0.55,
@@ -132,7 +147,12 @@ const PRESETS: Record<VhsStyle, VhsParams> = {
 		showTimestamp: false,
 		overlayColor: [1, 1, 1],
 		overlayPos: [0.12, 0.06],
-		edgeThreshold: 0.5
+		edgeThreshold: 0.5,
+		halationStrength: 0.35,
+		splitToneStrength: 0.4,
+		lensAberration: 0.3,
+		lightLeakStrength: 0.15,
+		softness: 0.3
 	},
 	// Warm, soft, heavily washed out -- an early-80s handheld camcorder tape,
 	// complete with the amber burned-in timecode those decks stamped in.
@@ -158,7 +178,12 @@ const PRESETS: Record<VhsStyle, VhsParams> = {
 		showTimestamp: true,
 		overlayColor: [1.0, 0.72, 0.18],
 		overlayPos: [0.13, 0.07],
-		edgeThreshold: 0.5
+		edgeThreshold: 0.5,
+		halationStrength: 0.5,
+		splitToneStrength: 0.5,
+		lensAberration: 0.35,
+		lightLeakStrength: 0.3,
+		softness: 0.35
 	},
 	// A cleaner, slightly less degraded camcorder -- later 90s consumer
 	// decks, white/green timecode instead of amber.
@@ -184,7 +209,12 @@ const PRESETS: Record<VhsStyle, VhsParams> = {
 		showTimestamp: true,
 		overlayColor: [0.75, 1.0, 0.78],
 		overlayPos: [0.13, 0.92],
-		edgeThreshold: 0.5
+		edgeThreshold: 0.5,
+		halationStrength: 0.3,
+		splitToneStrength: 0.3,
+		lensAberration: 0.25,
+		lightLeakStrength: 0.1,
+		softness: 0.25
 	},
 	// Heavily worn tape -- loud tracking glitches, big jitter, crushed color,
 	// frequent dropouts. No timestamp: the point here is chaos, not nostalgia.
@@ -210,7 +240,12 @@ const PRESETS: Record<VhsStyle, VhsParams> = {
 		showTimestamp: false,
 		overlayColor: [1, 1, 1],
 		overlayPos: [0.12, 0.06],
-		edgeThreshold: 0.5
+		edgeThreshold: 0.5,
+		halationStrength: 0.2,
+		splitToneStrength: 0.25,
+		lensAberration: 0.45,
+		lightLeakStrength: 0.35,
+		softness: 0.4
 	},
 	// Desaturated, cold, heavy scanlines -- a CCTV/security monitor feed,
 	// with the plain white corner timecode those systems burn in.
@@ -236,7 +271,12 @@ const PRESETS: Record<VhsStyle, VhsParams> = {
 		showTimestamp: true,
 		overlayColor: [0.92, 0.95, 0.92],
 		overlayPos: [0.11, 0.92],
-		edgeThreshold: 0.5
+		edgeThreshold: 0.5,
+		halationStrength: 0.1,
+		splitToneStrength: 0.15,
+		lensAberration: 0.15,
+		lightLeakStrength: 0.0,
+		softness: 0.15
 	},
 	// Analog broadcast / cable interference -- big color bleed and a slow
 	// signal roll, but none of the tape-only artifacts (no dropouts).
@@ -262,15 +302,22 @@ const PRESETS: Record<VhsStyle, VhsParams> = {
 		showTimestamp: false,
 		overlayColor: [1, 1, 1],
 		overlayPos: [0.12, 0.06],
-		edgeThreshold: 0.5
+		edgeThreshold: 0.5,
+		halationStrength: 0.4,
+		splitToneStrength: 0.35,
+		lensAberration: 0.3,
+		lightLeakStrength: 0.2,
+		softness: 0.3
 	},
-	// Hand-drawn pencil sketch: edge-detected strokes on paper, with
-	// diagonal hatch shading in the shadows and paper grain.
+	// Hand-drawn pencil sketch: one-sided DoG contours + a light graphite
+	// wash over bright paper (see renderPencil in shader.ts). Grain is
+	// static inside the shader (paper must not flicker), so grainIntensity
+	// is 0 -- the paper fiber/grain lives in renderPencil itself.
 	pencil: {
 		...NEUTRAL_ANALOG_FIELDS,
 		filterFamily: 1,
 		scanlineIntensity: 0,
-		grainIntensity: 0.16,
+		grainIntensity: 0,
 		vignetteStrength: 0.2,
 		bloomStrength: 0,
 		chromaShift: 0,

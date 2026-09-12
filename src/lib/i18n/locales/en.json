@@ -410,7 +410,7 @@
 				"damaged": "A heavily worn tape — loud tracking glitches, big jitter and frequent dropouts.",
 				"security": "A desaturated, high-contrast CCTV monitor feed with a plain corner timecode.",
 				"broadcast": "Analog cable/broadcast interference — heavy color bleed and a slow signal roll.",
-				"pencil": "Hand-drawn pencil sketch — edge-detected outlines with diagonal hatch shading on a paper background.",
+				"pencil": "Hand-drawn pencil sketch — soft graphite tones with broken chalk contours on warm paper.",
 				"crosshatch": "Classic engraving/woodcut look — up to four overlaid diagonal hatch directions shade the image by brightness.",
 				"thermal": "False-color thermal/FLIR-style heatmap, remapped from brightness into a black-purple-orange-yellow ramp.",
 				"neon": "Cyberpunk neon — glowing cyan/magenta edges over a near-black duotone base, with chromatic edge splitting."

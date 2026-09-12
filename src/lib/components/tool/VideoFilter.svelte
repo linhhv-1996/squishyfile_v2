@@ -329,10 +329,10 @@
 		if (isBusy) return;
 		isSampleLoading = true;
 		try {
-			const response = await fetch('/bun33s.mp4');
+			const response = await fetch('/7687598-hd_1280_720_30fps.mp4');
 			if (!response.ok) throw new Error('sample fetch failed');
 			const blob = await response.blob();
-			handleFile(new File([blob], 'bun33s.mp4', { type: 'video/mp4' }), 'sample');
+			handleFile(new File([blob], '7687598-hd_1280_720_30fps.mp4', { type: 'video/mp4' }), 'sample');
 		} catch {
 			status = 'error';
 			errorMessage = t.toolVhs.errors.generic;

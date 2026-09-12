@@ -56,7 +56,12 @@ const UNIFORM_NAMES = [
 	'uOverlayColor',
 	'uOverlayPos',
 	'uFilterFamily',
-	'uEdgeThreshold'
+	'uEdgeThreshold',
+	'uSoftness',
+	'uHalationStrength',
+	'uSplitToneStrength',
+	'uLensAberration',
+	'uLightLeakStrength'
 ] as const;
 
 // Golden-ratio increments give a per-frame seed sequence that never repeats
@@ -163,6 +168,11 @@ export class VhsRenderer {
 		gl.uniform2f(this.uniforms.uOverlayPos, ...preset.overlayPos);
 		gl.uniform1i(this.uniforms.uFilterFamily, preset.filterFamily);
 		gl.uniform1f(this.uniforms.uEdgeThreshold, preset.edgeThreshold);
+		gl.uniform1f(this.uniforms.uSoftness, preset.softness);
+		gl.uniform1f(this.uniforms.uHalationStrength, preset.halationStrength);
+		gl.uniform1f(this.uniforms.uSplitToneStrength, preset.splitToneStrength);
+		gl.uniform1f(this.uniforms.uLensAberration, preset.lensAberration);
+		gl.uniform1f(this.uniforms.uLightLeakStrength, preset.lightLeakStrength);
 
 		gl.drawArrays(gl.TRIANGLES, 0, 3);
 		return this.canvas;
